@@ -1,0 +1,363 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Abbey in Cradle Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Abbey">
+    
+    <meta name="description" content="学习生活 思考感悟 FSD之路">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Abbey in Cradle Studio" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Abbey in Cradle Studio" title="Abbey in Cradle Studio"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Abbey in Cradle Studio">Abbey in Cradle Studio</a></h1>
+				<h2 class="blog-motto">年少轻狂 | 立志成为一名游戏开发极客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:www.abbeychenxi.net">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+  <section class="Python网络爬虫[七]" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/07/Python网络爬虫[七]/" title="Python网络爬虫[七]" itemprop="url">
+  
+    <h1 itemprop="name">Python网络爬虫[七]</h1>
+    
+     
+           <p itemprop="description" >正则表达式基础
+
+概念
+正则表达式的大致匹配过程是：
+
+依次拿出表达式和文本中的字符比较。
+如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。
+如果表达式中有量词或边界，这个过程会稍微有一些不同。
+
+python支持的正则表达式元字符和语法:
+数量词的贪婪模式</p>
+        
+    
+    <time datetime="2014-09-07T04:50:49.000Z" itemprop="datePublished">2014-09-07</time>
+  </a>
+</section>
+
+  <section class="Python网络爬虫[五]" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/07/Python网络爬虫[五]/" title="Python网络爬虫[五]" itemprop="url">
+  
+    <h1 itemprop="name">Python网络爬虫[五]</h1>
+    
+     
+           <p itemprop="description" >Proxy设置
+在程序中明确Proxy不受环境变量的影响
+123456789import urllib2enable_proxy = Trueproxy_handler = urllib2.ProxyHandler({&quot;http&quot;: &#39;http://some-proxy.com:</p>
+        
+    
+    <time datetime="2014-09-06T16:00:11.000Z" itemprop="datePublished">2014-09-07</time>
+  </a>
+</section>
+
+  <section class="Python网络爬虫[四]" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/06/Python网络爬虫[四]/" title="Python网络爬虫[四]" itemprop="url">
+  
+    <h1 itemprop="name">Python网络爬虫[四]</h1>
+    
+     
+           <p itemprop="description" >Openers
+当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。
+正常情况下， 我们使用默认opener: 通过urlopen。
+Handles
+Openers使用处理器handlers，每个handlers知道如何通过特定协议</p>
+        
+    
+    <time datetime="2014-09-06T15:49:25.000Z" itemprop="datePublished">2014-09-06</time>
+  </a>
+</section>
+
+  <section class="Python网络爬虫[三]" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/06/Python网络爬虫[三]/" title="Python网络爬虫[三]" itemprop="url">
+  
+    <h1 itemprop="name">Python网络爬虫[三]</h1>
+    
+     
+           <p itemprop="description" >HTTP异常处理
+urlopen不能处理一个response时，产生urlError。
+不过通常的Python APIs异常也会同时产生。
+HTTPError是urlError的子类，通常在特定HTTP URLs中产生。
+URLError
+12345678import urlli</p>
+        
+    
+    <time datetime="2014-09-06T09:51:23.000Z" itemprop="datePublished">2014-09-06</time>
+  </a>
+</section>
+
+  <section class="Python网络爬虫[二]" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/06/Python网络爬虫[二]/" title="Python网络爬虫[二]" itemprop="url">
+  
+    <h1 itemprop="name">Python网络爬虫[二]</h1>
+    
+     
+           <p itemprop="description" >urllib2
+urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。它以urlopen函数的形式提供了一个简单的接口。
+1234import urllib2response = urllib2.urlopen(&#39;http://www.baidu.c</p>
+        
+    
+    <time datetime="2014-09-06T05:40:00.000Z" itemprop="datePublished">2014-09-06</time>
+  </a>
+</section>
+
+  <section class="Python网络爬虫[一]" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/04/Python网络爬虫[一]/" title="Python网络爬虫[一]" itemprop="url">
+  
+    <h1 itemprop="name">Python网络爬虫[一]</h1>
+    
+     
+           <p itemprop="description" >URI
+URI通常由三部分组成：
+
+访问资源的命名机制；
+存放资源的主机名
+资源自身的名称，由路径表示
+
+URI定义:统一资源标识符URL定义:统一资源定位符
+爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。</p>
+        
+    
+    <time datetime="2014-09-04T15:39:08.000Z" itemprop="datePublished">2014-09-04</time>
+  </a>
+</section>
+
+  <section class="firstday" itemscope itemprop="blogPost">
+  
+    <a href="/2014/09/04/today/" title="today" itemprop="url">
+  
+    <h1 itemprop="name">today</h1>
+    
+     
+           <p itemprop="description" >今天入学教育，正式成为了NJU的一名学生。晚上成功搭建了自己的个人博客！I’m so happy!Thanks everyone!</p>
+        
+    
+    <time datetime="2014-09-03T20:09:48.000Z" itemprop="datePublished">2014-09-04</time>
+  </a>
+</section>
+
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/爬虫/" title="爬虫">爬虫<sup>6</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>6</sup></a></li>
+		
+			<li><a href="/tags/NJU/" title="NJU">NJU<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09">September 2014</a><span class="archive-list-count">7</span></li></ul>
+  </div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/NJU/" style="font-size: 10.00px;">NJU</a><a href="/tags/python/" style="font-size: 20.00px;">python</a><a href="/tags/爬虫/" style="font-size: 20.00px;">爬虫</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://blog.gongshw.com/">Gongshw's Blog</a></li>
+      <li><a href="http://andrewliu.tk">Andrewliu</a></li>
+      <li><a href="http://jas923.tk">Jas's Blog</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Chen Xi in NJU. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3008331403" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/Abbeychenxi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		<a href="http://stackoverflow.com/users/4008337" target="_blank" class="icon-stack-overflow" title="stackoverflow"></a>
+		
+		
+		
+		
+		<a href="https://www.douban.com/people/54888789" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		<a href="mailto:abbeychenx@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2014 
+		
+		<a href="http://www.abbeychenxi.net/about" target="_blank" title="Abbey">Abbey</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+ </html>

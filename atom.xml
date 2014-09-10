@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Abbey in Cradle Studio]]></title>
+  <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.abbeychenxi.net/"/>
+  <updated>2014-09-10T09:37:46.094Z</updated>
+  <id>http://www.abbeychenxi.net/</id>
+  
+  <author>
+    <name><![CDATA[Abbey]]></name>
+    <email><![CDATA[Abbeychenx@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[七]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%83%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[七]/</id>
+    <published>2014-09-07T04:50:49.000Z</published>
+    <updated>2014-09-07T05:19:02.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="正则表达式基础">正则表达式基础</h1>
+<hr>
+<h2 id="概念">概念</h2>
+<p>正则表达式的大致匹配过程是：</p>
+<ol>
+<li>依次拿出表达式和文本中的字符比较。</li>
+<li>如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。</li>
+<li>如果表达式中有量词或边界，这个过程会稍微有一些不同。</li>
+</ol>
+<p>python支持的正则表达式元字符和语法:<br><img src="http://img.blog.csdn.net/20130515113723855" alt="image"></p>
+<h2 id="数量词的贪婪模式与非贪婪模式">数量词的贪婪模式与非贪婪模式</h2>
+<p>正则表达式通常用于在文本中查找匹配的字符串。<br>贪婪模式，总是尝试匹配尽可能多的字符；<br>非贪婪模式则相反，总是尝试匹配尽可能少的字符。</p>
+<h2 id="反斜杠问题">反斜杠问题</h2>
+<p>Python原生字符串可以使用r”\“表示”\”。</p>
+<h1 id="re模块">re模块</h1>
+<hr>
+<h2 id="Compile">Compile</h2>
+<p>使用re步骤：</p>
+<ol>
+<li>先将正则表达式的字符串形式编译为Pattern实例。</li>
+<li>然后使用Pattern实例处理文本并获得匹配结果。</li>
+<li>最后使用Match实例获得信息，进行其他操作。</li>
+</ol>
+<h2 id="Match">Match</h2>
+<p>Match对象是一次匹配的结果，包含了很多关于此次匹配的信息，可以使用Match提供的可读属性或方法来获取这些信息。</p>
+<h2 id="Pattern">Pattern</h2>
+<p>Pattern对象是一个编译好的正则表达式，通过Pattern提供的一系列方法可以对文本进行匹配查找。<br>Pattern不能直接实例化，必须使用re.compile()进行构造，也就是re.compile()返回的对象。<br>Pattern提供了几个可读属性用于获取表达式的相关信息：</p>
+<ol>
+<li>pattern：编译时用的表达式字符串</li>
+<li>flags： 编译时用的匹配模式。数字形式。</li>
+<li>groups：表达式中分组的数量。</li>
+<li>groupindex：以表达式中有别名的组的别名为键、以该组对应的编号为值的字典，没有别名的组不包含在内。 </li>
+</ol>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[五]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%94%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[五]/</id>
+    <published>2014-09-06T16:00:11.000Z</published>
+    <updated>2014-09-06T16:29:49.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Proxy设置">Proxy设置</h2>
+<p>在程序中明确Proxy不受环境变量的影响</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">enable_proxy =</span> True</div><div class="line"><span class="variable">proxy_handler =</span> urllib2.ProxyHandler({<span class="string">"http"</span>: 'http://some-proxy.com:<span class="number">8080</span>'})</div><div class="line"><span class="variable">null_proxy_handler =</span> urllib2.ProxyHandler({})</div><div class="line"><span class="keyword">if</span> enable_proxy:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(proxy_handler)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(null_proxy_handler)</div><div class="line">urllib2.install_opener(opener)</div></pre></td></tr></table></figure>
+
+<h2 id="Timeout设置">Timeout设置</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com', <span class="variable">timeout =</span> <span class="number">10</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="在HTTP_Request中加入特定的Header">在HTTP Request中加入特定的Header</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">request = urllib2.Request(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">request.add_handler(<span class="string">'User-Agent'</span>, <span class="string">'fake-client'</span>)</div><div class="line">response = urllib2.urlopen(request)</div><div class="line"><span class="keyword">print</span> response.<span class="keyword">read</span>()</div></pre></td></tr></table></figure>
+
+<h2 id="Redirect">Redirect</h2>
+<p>urllib2 默认情况下会针对HTTP 3XX返回码自动进行redirect动作，无需人工配置。要检测是否发送了Redirect动作，只要检查Response的URL和Request的URL是否一致。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">my_url =</span> 'http://www.google.cn'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div><div class="line"></div><div class="line"><span class="variable">my_url =</span> 'http://rrurl.cn/blUZup'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div></pre></td></tr></table></figure>
+
+<h2 id="Cookie">Cookie</h2>
+<p>urllib2对Cookie的处理也是自动的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import urllib2</div><div class="line">import cookielib</div><div class="line">cookie = cookielib.CookieJar()</div><div class="line">opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))</div><div class="line">response = opener.<span class="built_in">open</span>(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"><span class="keyword">for</span> <span class="keyword">item</span> <span class="operator">in</span> cookie:</div><div class="line">	print <span class="string">'Name = '</span>+<span class="keyword">item</span>.name</div><div class="line">	print <span class="string">'Value = '</span>+<span class="keyword">item</span>.<span class="built_in">value</span></div></pre></td></tr></table></figure>
+
+<h2 id="使用HTTP的PUT和DELETE方法">使用HTTP的PUT和DELETE方法</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">request =</span> urllib2.Request(uri, <span class="variable">data =</span> data)</div><div class="line">request.<span class="variable">get_method =</span> lambda: 'PUT'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(request)</div></pre></td></tr></table></figure>
+
+<h2 id="得到HTTP的返回码">得到HTTP的返回码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urllib2.urlopen(<span class="string">'http://bbs.csdn.net/why'</span>)</div><div class="line"><span class="keyword">except</span> urllib2.HTTPError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+
+<h2 id="Debug_Log">Debug Log</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">httpHandler =</span> urllib2.HTTPHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">httpsHandler =</span> urllib2.HTTPSHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(httpHandler, httpsHandler)</div><div class="line">urllib2.install_opener(opener)</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com')</div></pre></td></tr></table></figure>
+
+<h2 id="表单处理">表单处理</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">postdata = urllib.urlencode({</div><div class="line">	'username': 'chenxi',</div><div class="line">	'password': 'why888',</div><div class="line">	'fk': '',</div><div class="line">	'login_submit': '登录'</div><div class="line">})</div><div class="line">req = urllib2.<span class="type">Request</span> (</div><div class="line">	url = 'http://secure.verycd.com/signin',</div><div class="line">	data = postdata</div><div class="line">)</div><div class="line"><span class="literal">result</span> = urllib2.urlopen(req)</div><div class="line">print <span class="literal">result</span>.read()</div></pre></td></tr></table></figure>
+
+<h2 id="伪装成浏览器访问">伪装成浏览器访问</h2>
+<p>修改http包中的header来实现</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="constant">headers</span> = {</div><div class="line">	'User-Agent': 'Mozilla/5.0 (windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) gecko/20091201 Firefox/3.5.6'</div><div class="line">}</div><div class="line"><span class="constant">req</span> = urllib2.Request (</div><div class="line">	url = 'http://secure.verycd.com/signin/*/http://www.verycd.com/',</div><div class="line">	data = postdata,</div><div class="line">	headers = headers</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<h2 id="对付“反盗链”">对付“反盗链”</h2>
+<p>把headers的referer改成该网站即可</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">headers = {</div><div class="line">	'Referer': 'http:<span class="comment">//www.cnbeta.com/articles'</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[四]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E5%9B%9B%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[四]/</id>
+    <published>2014-09-06T15:49:25.000Z</published>
+    <updated>2014-09-06T15:59:51.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Openers">Openers</h2>
+<p>当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。</p>
+<p>正常情况下， 我们使用默认opener: 通过urlopen。</p>
+<h2 id="Handles">Handles</h2>
+<p>Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如何处理URL打开时的各个方面。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"></div><div class="line"><span class="variable">password_mgr =</span> urllib2.HTTPPasswordMgrWithDefaultRealm()</div><div class="line"></div><div class="line"><span class="variable">top_level_url =</span> <span class="string">"http://example.com/foo/"</span></div><div class="line"></div><div class="line">password_mgr.add_password(None, top_level_url, 'why', '<span class="number">123</span>')</div><div class="line"></div><div class="line"><span class="variable">handler =</span> urllib2.HTTPBasicAuthHandler(password_mgr)</div><div class="line"></div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(handler)</div><div class="line"></div><div class="line"><span class="variable">a_url =</span> 'http://www.baidu.com/'</div><div class="line"></div><div class="line">opener.open(a_url)</div><div class="line"></div><div class="line">urllib2.install_opener(open)</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[三]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%89%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/</id>
+    <published>2014-09-06T09:51:23.000Z</published>
+    <updated>2014-09-06T15:46:02.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="HTTP异常处理">HTTP异常处理</h2>
+<p>urlopen不能处理一个response时，产生urlError。</p>
+<p>不过通常的Python APIs异常也会同时产生。</p>
+<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
+<h1 id="URLError">URLError</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
+
+<h1 id="HTTPError">HTTPError</h1>
+<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
+<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+
+<h1 id="Wrapping">Wrapping</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[二]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%8C%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[二]/</id>
+    <published>2014-09-06T05:40:00.000Z</published>
+    <updated>2014-09-06T08:24:35.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="urllib2">urllib2</h2>
+<p>urllib2组件来抓取网页。<br>urllib2是python的一个获取URLs的组件。<br>它以urlopen函数的形式提供了一个简单的接口。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">response = urllib2.urlopen(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">html = response.<span class="keyword">read</span>()</div><div class="line"><span class="keyword">print</span> html</div></pre></td></tr></table></figure>
+
+<p>urllib2用一个response对象来映射你提出的http请求。</p>
+<p>在HTTP请求时：</p>
+<h1 id="发送data表单数据">发送data表单数据</h1>
+<p>发送一些数据到URL，在HTTP中，这个经常使用POST请求发送。<br>这个通常在你提交一个HTML表单时由你的浏览器来做。<br>并不是所有的POSTs都来源于表单，能够使用POST提交任意的数据到自己的程序。<br>一般的HTML表单，data需要编码成标准形式。然后做为data参数传到Request对象。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">url <span class="subst">=</span> <span class="string">'http://www.someserver.com/register.cgi'</span></div><div class="line"></div><div class="line">values <span class="subst">=</span> {<span class="string">'name'</span>: <span class="string">'WHY'</span>,</div><div class="line">		  <span class="string">'location'</span>: <span class="string">'SDU'</span>,</div><div class="line">		  <span class="string">'language'</span>: <span class="string">'Python'</span> }</div><div class="line"></div><div class="line"><span class="built_in">data</span> <span class="subst">=</span> urllib<span class="built_in">.</span>urlencode(values) <span class="comment">//编码工作</span></div><div class="line">req <span class="subst">=</span> urllib2<span class="built_in">.</span>Request(url, <span class="built_in">data</span>) <span class="comment">// 发送请求同时传data表单</span></div><div class="line">response <span class="subst">=</span> urllib2<span class="built_in">.</span>urlopen(req) <span class="comment">//接受反馈的信息</span></div><div class="line">the_page <span class="subst">=</span> response<span class="built_in">.</span>read() <span class="comment">//读取反馈的内容</span></div></pre></td></tr></table></figure>
+
+<p>如果没有传送data参数，urllib2使用GET方式的请求。<br>GET和POST请求的不同之处是POST请求通常有“副作用”，<br>它们会由于某种途径改变系统状态。<br>Data同样可以通过在Get请求的URL本身上面编码来传送。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="import"><span class="keyword">import</span> urllib2</span></div><div class="line"><span class="import"><span class="keyword">import</span> urllib</span></div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span> = <span class="container">{}</span></span></div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span>['name'] = '<span class="type">WHY'</span></span></div><div class="line"><span class="typedef"><span class="keyword">data</span>['location'] = '<span class="type">SDU'</span></span></div><div class="line"><span class="typedef"><span class="keyword">data</span>['language'] = '<span class="type">Python'</span></span></div><div class="line"></div><div class="line"><span class="title">url_values</span> = urllib.urlencode(<span class="typedef"><span class="keyword">data</span>)</span></div><div class="line"><span class="title">print</span> url_value</div><div class="line"></div><div class="line"><span class="title">name</span> = <span class="type">Somebody</span>+<span class="type">Here</span>&language=<span class="type">Python</span>&location=<span class="type">Northampton</span></div><div class="line"><span class="title">url</span> = 'http://www.example.com/example.cgi'</div><div class="line"><span class="title">full_url</span> = url + '?' + url_values</div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span> = urllib2.open<span class="container">(<span class="title">full_url</span>)</span></span></div></pre></td></tr></table></figure>
+
+<p>这就实现了Data数据的Get传送。</p>
+<h1 id="设置Headers到http请求">设置Headers到http请求</h1>
+<p>有一些站点不喜欢被程序访问，或者发送不同版本的内容到不同的浏览器。<br>浏览器确认自己身份是通过User-Agent头，当你创建了一个请求对象，你可以给他一个包含头数据的字典。</p>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[一]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/04/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%80%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/04/Python网络爬虫[一]/</id>
+    <published>2014-09-04T15:39:08.000Z</published>
+    <updated>2014-09-04T16:01:12.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="URI">URI</h2>
+<p>URI通常由三部分组成：</p>
+<ol>
+<li>访问资源的命名机制；</li>
+<li>存放资源的主机名</li>
+<li>资源自身的名称，由路径表示</li>
+</ol>
+<p>URI定义:统一资源标识符<br>URL定义:统一资源定位符</p>
+<p>爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。</p>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[today]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/04/today/"/>
+    <id>http://www.abbeychenxi.net/2014/09/04/today/</id>
+    <published>2014-09-03T20:09:48.000Z</published>
+    <updated>2014-09-03T20:42:11.000Z</updated>
+    <content type="html"><![CDATA[<p>今天入学教育，正式成为了NJU的一名学生。<br>晚上成功搭建了自己的个人博客！<br>I’m so happy!<br>Thanks everyone!</p>
+]]></content>
+    
+    
+      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
+    
+  </entry>
+  
+</feed>
