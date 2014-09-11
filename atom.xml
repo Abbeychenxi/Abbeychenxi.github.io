@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-10T09:37:46.094Z</updated>
+  <updated>2014-09-11T11:29:31.335Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,27 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[MEAN.js]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/11/MEANjs/"/>
+    <id>http://www.abbeychenxi.net/2014/09/11/MEANjs/</id>
+    <published>2014-09-11T11:23:46.000Z</published>
+    <updated>2014-09-11T11:28:43.000Z</updated>
+    <content type="html"><![CDATA[<ul>
+<li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
+<li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
+<li>AngularJS - Angular’s Official Website is a great starting point. You can also use Thinkster Popular Guide, and the Egghead Videos.</li>
+<li>Node.js - Start by going through Node.js Official Website and this StackOverflow Thread, which should get you going with the Node.js platform in no time.</li>
+</ul>
+]]></content>
+    
+    
+      <category term="MEAN.js" scheme="http://www.abbeychenxi.net/tags/MEANjs/"/>
+    
+      <category term="Full-Stack" scheme="http://www.abbeychenxi.net/tags/Full-Stack/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python网络爬虫[七]]]></title>
