@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-18T06:25:20.479Z</updated>
+  <updated>2014-09-18T07:50:57.019Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,52 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[大教堂与市集-开放源代码软件]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/18/%E5%A4%A7%E6%95%99%E5%A0%82%E4%B8%8E%E5%B8%82%E9%9B%86-%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BD%AF%E4%BB%B6/"/>
+    <id>http://www.abbeychenxi.net/2014/09/18/大教堂与市集-开放源代码软件/</id>
+    <published>2014-09-18T06:25:54.000Z</published>
+    <updated>2014-09-18T07:50:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="《大教堂与市集》-开放源代码运动的《圣经》">《大教堂与市集》-开放源代码运动的《圣经》</h2>
+<ul>
+<li>并行的、点对点的、动态的开发模式（开源）</li>
+<li>封闭的、垂直的、集中式的开发模式（大教堂）</li>
+</ul>
+<h2 id="Linux">Linux</h2>
+<h2 id="problem">problem</h2>
+<ol>
+<li>opensource软件是不是免费的？</li>
+<li>买的软件到底是什么？-使用权</li>
+</ol>
+<h2 id="Fetchmail">Fetchmail</h2>
+<h2 id="拥有用户的重要性">拥有用户的重要性</h2>
+<ol>
+<li>每个好的软件工作都开始于搔到了开发者本人的痒处</li>
+<li>好程序员知道该写什么，伟大的程序员知道该重写什么</li>
+<li>“计划好抛弃，无论如何，你会的”</li>
+<li>如果你有正确的态度，有趣的问题会找上你的</li>
+<li>pass</li>
+<li>把用户当做协作开发者是快速改进代码和高效调试的无可争辩的方式</li>
+</ol>
+<h2 id="早发布、常发布">早发布、常发布</h2>
+<h2 id="Linus定律">Linus定律</h2>
+<ul>
+<li>如果有一个足够大的beta测试人员和协作开发人员的基础，几乎所有的问题都可以被快速的找出并被一些人纠正</li>
+</ul>
+<h2 id="Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠">Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠</h2>
+<ul>
+<li>Delphi效应甚至可以战胜操作系统内核一级的复杂度</li>
+<li>Delphi估算法</li>
+</ul>
+]]></content>
+    
+    
+      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
+    
+      <category term="软件工程管理" scheme="http://www.abbeychenxi.net/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[No Silver Bullet]]></title>
