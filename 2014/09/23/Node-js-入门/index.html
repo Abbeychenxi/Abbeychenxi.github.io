@@ -1,26 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[Abbey in Cradle Studio]]></title>
-  <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
-  <link href="/atom.xml" rel="self"/>
-  <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-23T16:17:07.595Z</updated>
-  <id>http://www.abbeychenxi.net/</id>
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
   
-  <author>
-    <name><![CDATA[Abbey]]></name>
-    <email><![CDATA[Abbeychenx@gmail.com]]></email>
-  </author>
-  
-  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[Node.js 入门]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/23/Node-js-%E5%85%A5%E9%97%A8/"/>
-    <id>http://www.abbeychenxi.net/2014/09/23/Node-js-入门/</id>
-    <published>2014-09-23T11:43:54.000Z</published>
-    <updated>2014-09-23T16:12:02.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="一个完整的基于Node-js的web应用">一个完整的基于Node.js的web应用</h2>
+    <title>Node.js 入门 | Abbey in Cradle Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Abbey">
+    
+    <meta name="description" content="一个完整的基于Node.js的web应用
+用例
+
+用户通过浏览器使用我们的应用。
+当用户请求http://domain/start时， 可以看到一个欢迎页面，页面上有一个文件上传的表单。
+用户可以选择一个图片并提交表单，随后文件将被上传到http://domain/upload,该页面完成上传后会把">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Abbey in Cradle Studio" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Abbey in Cradle Studio" title="Abbey in Cradle Studio"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Abbey in Cradle Studio">Abbey in Cradle Studio</a></h1>
+				<h2 class="blog-motto">年少轻狂 | 立志成为一名游戏开发极客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:www.abbeychenxi.net">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="Node.js 入门" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/09/23/Node-js-入门/" title="Node.js 入门" itemprop="url">Node.js 入门</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
+		
+  <p class="article-time">
+    <time datetime="2014-09-23T11:43:54.000Z" itemprop="datePublished"> 发表于 2014-09-23</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一个完整的基于Node-js的web应用"><span class="toc-number">1.</span> <span class="toc-text">一个完整的基于Node.js的web应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用例"><span class="toc-number"></span> <span class="toc-text">用例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用不同模块分析"><span class="toc-number"></span> <span class="toc-text">应用不同模块分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一个基础的HTTP服务器"><span class="toc-number"></span> <span class="toc-text">一个基础的HTTP服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分析HTTP服务器"><span class="toc-number"></span> <span class="toc-text">分析HTTP服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数传递"><span class="toc-number"></span> <span class="toc-text">函数传递</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#函数传递是如何让HTTP服务器工作的"><span class="toc-number"></span> <span class="toc-text">函数传递是如何让HTTP服务器工作的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基于事件的驱动回调"><span class="toc-number"></span> <span class="toc-text">基于事件的驱动回调</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#服务器是如何处理请求的"><span class="toc-number"></span> <span class="toc-text">服务器是如何处理请求的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何来进行请求的“路由”"><span class="toc-number"></span> <span class="toc-text">如何来进行请求的“路由”</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#行为驱动执行"><span class="toc-number"></span> <span class="toc-text">行为驱动执行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#路由给真正的请求处理程序"><span class="toc-number"></span> <span class="toc-text">路由给真正的请求处理程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#阻塞与非阻塞"><span class="toc-number"></span> <span class="toc-text">阻塞与非阻塞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#以非阻塞操作进行请求响应"><span class="toc-number">1.</span> <span class="toc-text">以非阻塞操作进行请求响应</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更有用的场景"><span class="toc-number"></span> <span class="toc-text">更有用的场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#处理POST请求"><span class="toc-number"></span> <span class="toc-text">处理POST请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#处理文件上传"><span class="toc-number">1.</span> <span class="toc-text">处理文件上传</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结与展望"><span class="toc-number">2.</span> <span class="toc-text">总结与展望</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="一个完整的基于Node-js的web应用">一个完整的基于Node.js的web应用</h2>
 <h1 id="用例">用例</h1>
 <ul>
 <li>用户通过浏览器使用我们的应用。</li>
@@ -161,402 +237,265 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
 <p>采用fs.renameSync(path1, path2)实现将文件保存到本地目录下</p>
 <h2 id="总结与展望">总结与展望</h2>
 <p>本书没有涉及到的：如何操作数据库，如何进行单元测试、如何开发Node.js的外部模块以及一些简单的诸如如何获取GET请求之类的方法。</p>
-]]></content>
-    
-    
-      <category term="Node.js" scheme="http://www.abbeychenxi.net/tags/Node-js/"/>
-    
-  </entry>
   
-  <entry>
-    <title><![CDATA[大教堂与市集-开放源代码软件]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/18/%E5%A4%A7%E6%95%99%E5%A0%82%E4%B8%8E%E5%B8%82%E9%9B%86-%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BD%AF%E4%BB%B6/"/>
-    <id>http://www.abbeychenxi.net/2014/09/18/大教堂与市集-开放源代码软件/</id>
-    <published>2014-09-18T06:25:54.000Z</published>
-    <updated>2014-09-18T07:50:40.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="《大教堂与市集》-开放源代码运动的《圣经》">《大教堂与市集》-开放源代码运动的《圣经》</h2>
-<ul>
-<li>并行的、点对点的、动态的开发模式（开源）</li>
-<li>封闭的、垂直的、集中式的开发模式（大教堂）</li>
-</ul>
-<h2 id="Linux">Linux</h2>
-<h2 id="problem">problem</h2>
-<ol>
-<li>opensource软件是不是免费的？</li>
-<li>买的软件到底是什么？-使用权</li>
-</ol>
-<h2 id="Fetchmail">Fetchmail</h2>
-<h2 id="拥有用户的重要性">拥有用户的重要性</h2>
-<ol>
-<li>每个好的软件工作都开始于搔到了开发者本人的痒处</li>
-<li>好程序员知道该写什么，伟大的程序员知道该重写什么</li>
-<li>“计划好抛弃，无论如何，你会的”</li>
-<li>如果你有正确的态度，有趣的问题会找上你的</li>
-<li>pass</li>
-<li>把用户当做协作开发者是快速改进代码和高效调试的无可争辩的方式</li>
-</ol>
-<h2 id="早发布、常发布">早发布、常发布</h2>
-<h2 id="Linus定律">Linus定律</h2>
-<ul>
-<li>如果有一个足够大的beta测试人员和协作开发人员的基础，几乎所有的问题都可以被快速的找出并被一些人纠正</li>
-</ul>
-<h2 id="Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠">Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠</h2>
-<ul>
-<li>Delphi效应甚至可以战胜操作系统内核一级的复杂度</li>
-<li>Delphi估算法</li>
-</ul>
-]]></content>
-    
-    
-      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
-    
-      <category term="软件工程管理" scheme="http://www.abbeychenxi.net/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
   
-  <entry>
-    <title><![CDATA[No Silver Bullet]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/15/No-Silver-Bullet/"/>
-    <id>http://www.abbeychenxi.net/2014/09/15/No-Silver-Bullet/</id>
-    <published>2014-09-15T06:20:40.000Z</published>
-    <updated>2014-09-18T06:25:11.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="复杂度">复杂度</h2>
-<h2 id="一致性">一致性</h2>
-<ul>
-<li>物理学家面对异常复杂的事物，他们坚信必定存在着某种通用原理。物理学是研究上帝创造的东西</li>
-<li>软件开发面对的复杂度往往是随心所欲、毫无规则可言的，来自若干必须遵循的人为惯例和系统。软件开发面对的是人，不是上帝。</li>
-<li>很多复杂性来自保持与其它接口的一致</li>
-</ul>
-<h2 id="可变性">可变性</h2>
-<ul>
-<li>软件实体经常会遭受到持续的变更压力。<ul>
-<li>汽车、建筑可以修改，但是很少有人修改，大家都知道成本很高</li>
-<li>软件包含了很多功能</li>
-<li>软件可以很容易地进行修改—-它是纯粹思维活动的产物，可以无限扩展</li>
-</ul>
-</li>
-<li>软件变更<ul>
-<li>人们要求扩展，更改功能</li>
-<li>硬件的变化</li>
-</ul>
-</li>
-<li>软件与整个社会联成一体，后者在不断变动，它强迫软件也跟着变动</li>
-</ul>
-<h2 id="不可见性">不可见性</h2>
-<ul>
-<li>软件是不可见的和无法可视化的<ul>
-<li>抽象的功能：几何抽象、机械制图、化学分子模型</li>
-<li>pass</li>
-<li>这限制了个人的设计过程，也严重的阻碍了相互之间的交流</li>
-<li>UML</li>
-</ul>
-</li>
-</ul>
-<h2 id="没有银弹">没有银弹</h2>
-<ul>
-<li>相对必要任务而言，软件工程师在次要任务上花费了多少时间和精力？除非它占了所有工作的9/10，否则即使全部次要任务的时间缩减到0，也不会给生成率带来数量级上的提高</li>
-</ul>
-<h2 id="“自动”编程">“自动”编程</h2>
-<h2 id="图形化编程">图形化编程</h2>
-<ul>
-<li>流程图是一直非常差劲软件结构表达方法。</li>
-<li>现在的屏幕非常小，像素级别，无法同时表现软件图形的所有正式、详细的范围和细节。</li>
-<li>软件非常难以可视化。</li>
-</ul>
-<h2 id="程序验证">程序验证</h2>
-<ul>
-<li>是否有可能出现银弹，能够在系统设计级别、源代码级别消除bug呢？是否可以在大量工作被投入到实现和测试之前，通过采用证实设计正确性的“深奥”策略，彻底提高软件的生产率。</li>
-<li>不能保证节约劳动力</li>
-<li>程序验证不意味着0缺陷的程序</li>
-<li>完美的程序验证只能建立满足技术说明的程序，而这时，软件工作过程中最困难的部分已经接近完成，形成了完整的和一致的说明。</li>
-</ul>
-<h2 id="环境和工具">环境和工具</h2>
-<ul>
-<li>IDE</li>
-<li>这样的工作是非常有价值的，它能够带来软件生产率和可靠性上的一些提高。但是，由于它自身的特性，目前它的回报很有限。</li>
-</ul>
-<h2 id="工作站">工作站</h2>
-<ul>
-<li>硬件速度的加速</li>
-<li>编译速度，开发速度</li>
-<li>1986！</li>
-</ul>
-<h2 id="购买和自行开发">购买和自行开发</h2>
-<ul>
-<li>构建软件最可能的彻底解决方案是不开发任何软件</li>
-<li>通用软件</li>
-<li>1986！</li>
-</ul>
-<h2 id="需求精炼和快速原型">需求精炼和快速原型</h2>
-<ul>
-<li>概念性工作中。。。。</li>
-</ul>
-<h2 id="增量开发">增量开发</h2>
-<ul>
-<li>Grow not building</li>
-<li>客户</li>
-<li>士气</li>
-<li>迭代式开发</li>
-</ul>
-<h2 id="卓越的设计人员">卓越的设计人员</h2>
-<ul>
-<li>软件开发是一个创造性的过程</li>
-</ul>
-<h2 id="没有银弹的影响">没有银弹的影响</h2>
-<ul>
-<li>软件开发本质的认识</li>
-<li>软件过程</li>
-</ul>
-]]></content>
-    
-    
-      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
-    
-      <category term="软件工程管理" scheme="http://www.abbeychenxi.net/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
+  <span></span> <a href="/tags/Node-js/">Node.js</a>
+  </div>
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.abbeychenxi.net/2014/09/23/Node-js-入门/" data-title="Node.js 入门 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/09/18/大教堂与市集-开放源代码软件/"  title="大教堂与市集-开放源代码软件">
+ <strong>下一篇：</strong><br/> 
+ <span>大教堂与市集-开放源代码软件
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2014/09/23/Node-js-入门/" data-title="Node.js 入门" data-url=""></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"abbeychenxi"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
   
-  <entry>
-    <title><![CDATA[MEAN.js]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/11/MEANjs/"/>
-    <id>http://www.abbeychenxi.net/2014/09/11/MEANjs/</id>
-    <published>2014-09-11T11:23:46.000Z</published>
-    <updated>2014-09-11T11:28:43.000Z</updated>
-    <content type="html"><![CDATA[<ul>
-<li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
-<li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
-<li>AngularJS - Angular’s Official Website is a great starting point. You can also use Thinkster Popular Guide, and the Egghead Videos.</li>
-<li>Node.js - Start by going through Node.js Official Website and this StackOverflow Thread, which should get you going with the Node.js platform in no time.</li>
-</ul>
-]]></content>
-    
-    
-      <category term="MEAN.js" scheme="http://www.abbeychenxi.net/tags/MEAN-js/"/>
-    
-      <category term="Full-Stack" scheme="http://www.abbeychenxi.net/tags/Full-Stack/"/>
-    
-  </entry>
+
   
-  <entry>
-    <title><![CDATA[Python网络爬虫[七]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%83%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[七]/</id>
-    <published>2014-09-07T04:50:49.000Z</published>
-    <updated>2014-09-07T05:19:02.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="正则表达式基础">正则表达式基础</h1>
-<hr>
-<h2 id="概念">概念</h2>
-<p>正则表达式的大致匹配过程是：</p>
-<ol>
-<li>依次拿出表达式和文本中的字符比较。</li>
-<li>如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。</li>
-<li>如果表达式中有量词或边界，这个过程会稍微有一些不同。</li>
-</ol>
-<p>python支持的正则表达式元字符和语法:<br><img src="http://img.blog.csdn.net/20130515113723855" alt="image"></p>
-<h2 id="数量词的贪婪模式与非贪婪模式">数量词的贪婪模式与非贪婪模式</h2>
-<p>正则表达式通常用于在文本中查找匹配的字符串。<br>贪婪模式，总是尝试匹配尽可能多的字符；<br>非贪婪模式则相反，总是尝试匹配尽可能少的字符。</p>
-<h2 id="反斜杠问题">反斜杠问题</h2>
-<p>Python原生字符串可以使用r”\“表示”\”。</p>
-<h1 id="re模块">re模块</h1>
-<hr>
-<h2 id="Compile">Compile</h2>
-<p>使用re步骤：</p>
-<ol>
-<li>先将正则表达式的字符串形式编译为Pattern实例。</li>
-<li>然后使用Pattern实例处理文本并获得匹配结果。</li>
-<li>最后使用Match实例获得信息，进行其他操作。</li>
-</ol>
-<h2 id="Match">Match</h2>
-<p>Match对象是一次匹配的结果，包含了很多关于此次匹配的信息，可以使用Match提供的可读属性或方法来获取这些信息。</p>
-<h2 id="Pattern">Pattern</h2>
-<p>Pattern对象是一个编译好的正则表达式，通过Pattern提供的一系列方法可以对文本进行匹配查找。<br>Pattern不能直接实例化，必须使用re.compile()进行构造，也就是re.compile()返回的对象。<br>Pattern提供了几个可读属性用于获取表达式的相关信息：</p>
-<ol>
-<li>pattern：编译时用的表达式字符串</li>
-<li>flags： 编译时用的匹配模式。数字形式。</li>
-<li>groups：表达式中分组的数量。</li>
-<li>groupindex：以表达式中有别名的组的别名为键、以该组对应的编号为值的字典，没有别名的组不包含在内。 </li>
-</ol>
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/爬虫/" title="爬虫">爬虫<sup>6</sup></a></li>
+		
+			<li><a href="/tags/python/" title="python">python<sup>6</sup></a></li>
+		
+			<li><a href="/tags/NJU/" title="NJU">NJU<sup>3</sup></a></li>
+		
+			<li><a href="/tags/软件工程管理/" title="软件工程管理">软件工程管理<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Node-js/" title="Node.js">Node.js<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Full-Stack/" title="Full-Stack">Full-Stack<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MEAN-js/" title="MEAN.js">MEAN.js<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
   
-  <entry>
-    <title><![CDATA[Python网络爬虫[五]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%94%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[五]/</id>
-    <published>2014-09-06T16:00:11.000Z</published>
-    <updated>2014-09-06T16:29:49.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="Proxy设置">Proxy设置</h2>
-<p>在程序中明确Proxy不受环境变量的影响</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">enable_proxy =</span> True</div><div class="line"><span class="variable">proxy_handler =</span> urllib2.ProxyHandler({<span class="string">"http"</span>: 'http://some-proxy.com:<span class="number">8080</span>'})</div><div class="line"><span class="variable">null_proxy_handler =</span> urllib2.ProxyHandler({})</div><div class="line"><span class="keyword">if</span> enable_proxy:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(proxy_handler)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(null_proxy_handler)</div><div class="line">urllib2.install_opener(opener)</div></pre></td></tr></table></figure>
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">11</span></li></ul>
+  </div>
 
-<h2 id="Timeout设置">Timeout设置</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com', <span class="variable">timeout =</span> <span class="number">10</span>)</div></pre></td></tr></table></figure>
 
-<h2 id="在HTTP_Request中加入特定的Header">在HTTP Request中加入特定的Header</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">request = urllib2.Request(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">request.add_handler(<span class="string">'User-Agent'</span>, <span class="string">'fake-client'</span>)</div><div class="line">response = urllib2.urlopen(request)</div><div class="line"><span class="keyword">print</span> response.<span class="keyword">read</span>()</div></pre></td></tr></table></figure>
-
-<h2 id="Redirect">Redirect</h2>
-<p>urllib2 默认情况下会针对HTTP 3XX返回码自动进行redirect动作，无需人工配置。要检测是否发送了Redirect动作，只要检查Response的URL和Request的URL是否一致。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">my_url =</span> 'http://www.google.cn'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div><div class="line"></div><div class="line"><span class="variable">my_url =</span> 'http://rrurl.cn/blUZup'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div></pre></td></tr></table></figure>
-
-<h2 id="Cookie">Cookie</h2>
-<p>urllib2对Cookie的处理也是自动的</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import urllib2</div><div class="line">import cookielib</div><div class="line">cookie = cookielib.CookieJar()</div><div class="line">opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))</div><div class="line">response = opener.<span class="built_in">open</span>(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"><span class="keyword">for</span> <span class="keyword">item</span> <span class="operator">in</span> cookie:</div><div class="line">	print <span class="string">'Name = '</span>+<span class="keyword">item</span>.name</div><div class="line">	print <span class="string">'Value = '</span>+<span class="keyword">item</span>.<span class="built_in">value</span></div></pre></td></tr></table></figure>
-
-<h2 id="使用HTTP的PUT和DELETE方法">使用HTTP的PUT和DELETE方法</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">request =</span> urllib2.Request(uri, <span class="variable">data =</span> data)</div><div class="line">request.<span class="variable">get_method =</span> lambda: 'PUT'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(request)</div></pre></td></tr></table></figure>
-
-<h2 id="得到HTTP的返回码">得到HTTP的返回码</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urllib2.urlopen(<span class="string">'http://bbs.csdn.net/why'</span>)</div><div class="line"><span class="keyword">except</span> urllib2.HTTPError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
-
-<h2 id="Debug_Log">Debug Log</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">httpHandler =</span> urllib2.HTTPHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">httpsHandler =</span> urllib2.HTTPSHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(httpHandler, httpsHandler)</div><div class="line">urllib2.install_opener(opener)</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com')</div></pre></td></tr></table></figure>
-
-<h2 id="表单处理">表单处理</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">postdata = urllib.urlencode({</div><div class="line">	'username': 'chenxi',</div><div class="line">	'password': 'why888',</div><div class="line">	'fk': '',</div><div class="line">	'login_submit': '登录'</div><div class="line">})</div><div class="line">req = urllib2.<span class="type">Request</span> (</div><div class="line">	url = 'http://secure.verycd.com/signin',</div><div class="line">	data = postdata</div><div class="line">)</div><div class="line"><span class="literal">result</span> = urllib2.urlopen(req)</div><div class="line">print <span class="literal">result</span>.read()</div></pre></td></tr></table></figure>
-
-<h2 id="伪装成浏览器访问">伪装成浏览器访问</h2>
-<p>修改http包中的header来实现</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="constant">headers</span> = {</div><div class="line">	'User-Agent': 'Mozilla/5.0 (windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) gecko/20091201 Firefox/3.5.6'</div><div class="line">}</div><div class="line"><span class="constant">req</span> = urllib2.Request (</div><div class="line">	url = 'http://secure.verycd.com/signin/*/http://www.verycd.com/',</div><div class="line">	data = postdata,</div><div class="line">	headers = headers</div><div class="line">)</div></pre></td></tr></table></figure>
-
-<h2 id="对付“反盗链”">对付“反盗链”</h2>
-<p>把headers的referer改成该网站即可</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">headers = {</div><div class="line">	'Referer': 'http:<span class="comment">//www.cnbeta.com/articles'</span></div><div class="line">}</div></pre></td></tr></table></figure>
-
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
   
-  <entry>
-    <title><![CDATA[Python网络爬虫[四]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E5%9B%9B%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[四]/</id>
-    <published>2014-09-06T15:49:25.000Z</published>
-    <updated>2014-09-06T15:59:51.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="Openers">Openers</h2>
-<p>当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。</p>
-<p>正常情况下， 我们使用默认opener: 通过urlopen。</p>
-<h2 id="Handles">Handles</h2>
-<p>Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如何处理URL打开时的各个方面。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"></div><div class="line"><span class="variable">password_mgr =</span> urllib2.HTTPPasswordMgrWithDefaultRealm()</div><div class="line"></div><div class="line"><span class="variable">top_level_url =</span> <span class="string">"http://example.com/foo/"</span></div><div class="line"></div><div class="line">password_mgr.add_password(None, top_level_url, 'why', '<span class="number">123</span>')</div><div class="line"></div><div class="line"><span class="variable">handler =</span> urllib2.HTTPBasicAuthHandler(password_mgr)</div><div class="line"></div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(handler)</div><div class="line"></div><div class="line"><span class="variable">a_url =</span> 'http://www.baidu.com/'</div><div class="line"></div><div class="line">opener.open(a_url)</div><div class="line"></div><div class="line">urllib2.install_opener(open)</div></pre></td></tr></table></figure>
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Full-Stack/" style="font-size: 10.00px;">Full-Stack</a><a href="/tags/MEAN-js/" style="font-size: 10.00px;">MEAN.js</a><a href="/tags/NJU/" style="font-size: 16.67px;">NJU</a><a href="/tags/Node-js/" style="font-size: 10.00px;">Node.js</a><a href="/tags/python/" style="font-size: 20.00px;">python</a><a href="/tags/爬虫/" style="font-size: 20.00px;">爬虫</a><a href="/tags/软件工程管理/" style="font-size: 13.33px;">软件工程管理</a>
+    </div>
+  </div>
 
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[三]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%89%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/</id>
-    <published>2014-09-06T09:51:23.000Z</published>
-    <updated>2014-09-06T15:46:02.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="HTTP异常处理">HTTP异常处理</h2>
-<p>urlopen不能处理一个response时，产生urlError。</p>
-<p>不过通常的Python APIs异常也会同时产生。</p>
-<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
-<h1 id="URLError">URLError</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
 
-<h1 id="HTTPError">HTTPError</h1>
-<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
-<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://blog.gongshw.com/">Gongshw's Blog</a></li>
+      <li><a href="http://andrewliu.tk">Andrewliu</a></li>
+      <li><a href="http://jas923.tk">Jas's Blog</a></li>
+      <li><a href="http://sqing.tk">Suqing's Blog</a></li>
+    </ul>
+</div>
 
-<h1 id="Wrapping">Wrapping</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
 
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[二]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%8C%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[二]/</id>
-    <published>2014-09-06T05:40:00.000Z</published>
-    <updated>2014-09-06T08:24:35.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="urllib2">urllib2</h2>
-<p>urllib2组件来抓取网页。<br>urllib2是python的一个获取URLs的组件。<br>它以urlopen函数的形式提供了一个简单的接口。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">response = urllib2.urlopen(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">html = response.<span class="keyword">read</span>()</div><div class="line"><span class="keyword">print</span> html</div></pre></td></tr></table></figure>
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
 
-<p>urllib2用一个response对象来映射你提出的http请求。</p>
-<p>在HTTP请求时：</p>
-<h1 id="发送data表单数据">发送data表单数据</h1>
-<p>发送一些数据到URL，在HTTP中，这个经常使用POST请求发送。<br>这个通常在你提交一个HTML表单时由你的浏览器来做。<br>并不是所有的POSTs都来源于表单，能够使用POST提交任意的数据到自己的程序。<br>一般的HTML表单，data需要编码成标准形式。然后做为data参数传到Request对象。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">url <span class="subst">=</span> <span class="string">'http://www.someserver.com/register.cgi'</span></div><div class="line"></div><div class="line">values <span class="subst">=</span> {<span class="string">'name'</span>: <span class="string">'WHY'</span>,</div><div class="line">		  <span class="string">'location'</span>: <span class="string">'SDU'</span>,</div><div class="line">		  <span class="string">'language'</span>: <span class="string">'Python'</span> }</div><div class="line"></div><div class="line"><span class="built_in">data</span> <span class="subst">=</span> urllib<span class="built_in">.</span>urlencode(values) <span class="comment">//编码工作</span></div><div class="line">req <span class="subst">=</span> urllib2<span class="built_in">.</span>Request(url, <span class="built_in">data</span>) <span class="comment">// 发送请求同时传data表单</span></div><div class="line">response <span class="subst">=</span> urllib2<span class="built_in">.</span>urlopen(req) <span class="comment">//接受反馈的信息</span></div><div class="line">the_page <span class="subst">=</span> response<span class="built_in">.</span>read() <span class="comment">//读取反馈的内容</span></div></pre></td></tr></table></figure>
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Chen Xi in NJU. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3008331403" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/Abbeychenxi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		<a href="http://stackoverflow.com/users/4008337" target="_blank" class="icon-stack-overflow" title="stackoverflow"></a>
+		
+		
+		
+		
+		<a href="https://www.douban.com/people/54888789" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		<a href="mailto:abbeychenx@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2014 
+		
+		<a href="http://www.abbeychenxi.net/about" target="_blank" title="Abbey">Abbey</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
 
-<p>如果没有传送data参数，urllib2使用GET方式的请求。<br>GET和POST请求的不同之处是POST请求通常有“副作用”，<br>它们会由于某种途径改变系统状态。<br>Data同样可以通过在Get请求的URL本身上面编码来传送。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="import"><span class="keyword">import</span> urllib2</span></div><div class="line"><span class="import"><span class="keyword">import</span> urllib</span></div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span> = <span class="container">{}</span></span></div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span>['name'] = '<span class="type">WHY'</span></span></div><div class="line"><span class="typedef"><span class="keyword">data</span>['location'] = '<span class="type">SDU'</span></span></div><div class="line"><span class="typedef"><span class="keyword">data</span>['language'] = '<span class="type">Python'</span></span></div><div class="line"></div><div class="line"><span class="title">url_values</span> = urllib.urlencode(<span class="typedef"><span class="keyword">data</span>)</span></div><div class="line"><span class="title">print</span> url_value</div><div class="line"></div><div class="line"><span class="title">name</span> = <span class="type">Somebody</span>+<span class="type">Here</span>&language=<span class="type">Python</span>&location=<span class="type">Northampton</span></div><div class="line"><span class="title">url</span> = 'http://www.example.com/example.cgi'</div><div class="line"><span class="title">full_url</span> = url + '?' + url_values</div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span> = urllib2.open<span class="container">(<span class="title">full_url</span>)</span></span></div></pre></td></tr></table></figure>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
 
-<p>这就实现了Data数据的Get传送。</p>
-<h1 id="设置Headers到http请求">设置Headers到http请求</h1>
-<p>有一些站点不喜欢被程序访问，或者发送不同版本的内容到不同的浏览器。<br>浏览器确认自己身份是通过User-Agent头，当你创建了一个请求对象，你可以给他一个包含头数据的字典。</p>
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[一]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/04/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%80%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/04/Python网络爬虫[一]/</id>
-    <published>2014-09-04T15:39:08.000Z</published>
-    <updated>2014-09-04T16:01:12.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="URI">URI</h2>
-<p>URI通常由三部分组成：</p>
-<ol>
-<li>访问资源的命名机制；</li>
-<li>存放资源的主机名</li>
-<li>资源自身的名称，由路径表示</li>
-</ol>
-<p>URI定义:统一资源标识符<br>URL定义:统一资源定位符</p>
-<p>爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。</p>
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[today]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/04/today/"/>
-    <id>http://www.abbeychenxi.net/2014/09/04/today/</id>
-    <published>2014-09-03T20:09:48.000Z</published>
-    <updated>2014-09-03T20:42:11.000Z</updated>
-    <content type="html"><![CDATA[<p>今天入学教育，正式成为了NJU的一名学生。<br>晚上成功搭建了自己的个人博客！<br>I’m so happy!<br>Thanks everyone!</p>
-]]></content>
-    
-    
-      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
-    
-  </entry>
-  
-</feed>
+
+
+
+
+
+
+
+
+
+
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+ </html>
