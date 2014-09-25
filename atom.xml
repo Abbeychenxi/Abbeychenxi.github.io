@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-23T16:17:07.595Z</updated>
+  <updated>2014-09-25T05:34:07.170Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.abbeychenxi.net/2014/09/23/Node-js-%E5%85%A5%E9%97%A8/"/>
     <id>http://www.abbeychenxi.net/2014/09/23/Node-js-入门/</id>
     <published>2014-09-23T11:43:54.000Z</published>
-    <updated>2014-09-23T16:12:02.000Z</updated>
+    <updated>2014-09-23T16:19:06.000Z</updated>
     <content type="html"><![CDATA[<h2 id="一个完整的基于Node-js的web应用">一个完整的基于Node.js的web应用</h2>
 <h1 id="用例">用例</h1>
 <ul>
