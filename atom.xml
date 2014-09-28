@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-25T05:34:07.170Z</updated>
+  <updated>2014-09-28T05:29:41.816Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -173,7 +173,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/18/%E5%A4%A7%E6%95%99%E5%A0%82%E4%B8%8E%E5%B8%82%E9%9B%86-%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BD%AF%E4%BB%B6/"/>
     <id>http://www.abbeychenxi.net/2014/09/18/大教堂与市集-开放源代码软件/</id>
     <published>2014-09-18T06:25:54.000Z</published>
-    <updated>2014-09-18T07:50:40.000Z</updated>
+    <updated>2014-09-25T07:52:33.000Z</updated>
     <content type="html"><![CDATA[<h2 id="《大教堂与市集》-开放源代码运动的《圣经》">《大教堂与市集》-开放源代码运动的《圣经》</h2>
 <ul>
 <li>并行的、点对点的、动态的开发模式（开源）</li>
@@ -204,6 +204,23 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
 <ul>
 <li>Delphi效应甚至可以战胜操作系统内核一级的复杂度</li>
 <li>Delphi估算法</li>
+</ul>
+<h2 id="现象">现象</h2>
+<ul>
+<li>现在高科技公司投入巨额资金发展开源软件，而通常开源软件本身免费。<ul>
+<li>google:Android, Chrome</li>
+<li>IMB:Eclipse</li>
+<li>Intel:Linux</li>
+</ul>
+</li>
+<li>这些公司并不是放弃资本主义，而是认为这是个好的商业策略</li>
+</ul>
+<h2 id="替代物品和互补物品">替代物品和互补物品</h2>
+<ul>
+<li>市场上所有的产品都有替代物品和互补物品<ul>
+<li>替代物品是首选商品太贵时会</li>
+</ul>
+</li>
 </ul>
 ]]></content>
     
