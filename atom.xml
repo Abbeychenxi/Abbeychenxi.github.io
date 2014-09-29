@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-29T12:24:36.227Z</updated>
+  <updated>2014-09-29T12:52:27.053Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python 储存器]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E5%82%A8%E5%AD%98%E5%99%A8/"/>
+    <id>http://www.abbeychenxi.net/2014/09/29/Python-储存器/</id>
+    <published>2014-09-29T12:37:41.000Z</published>
+    <updated>2014-09-29T12:52:20.000Z</updated>
+    <content type="html"><![CDATA[<p>Python提供一个标准的模块，称为pickle。使用它可以在一个文件中储存任何Python对象，之后你又可以把它完整无缺地取出来。被称为持久地储存对象。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import cPickle <span class="keyword">as</span> <span class="keyword">p</span></div><div class="line"></div><div class="line">shoplistfile = <span class="string">'shoplist.data'</span></div><div class="line"></div><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>]</div><div class="line"></div><div class="line"><span class="keyword">f</span> = <span class="keyword">file</span>(shoplistfile, <span class="string">'w'</span>)</div><div class="line"><span class="keyword">p</span>.dump(shoplist, <span class="keyword">f</span>)</div><div class="line"><span class="keyword">f</span>.<span class="keyword">close</span>()</div></pre></td></tr></table></figure>
+
+<h2 id="异常处理">异常处理</h2>
+<h1 id="使用try…except_语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。">使用try…except 语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	s = raw_input(<span class="string">'Enter something --&gt; '</span>)</div><div class="line"><span class="keyword">except</span> EOFError:</div><div class="line">	<span class="keyword">print</span> <span class="string">''</span></div><div class="line">	sys.exit()</div><div class="line"><span class="keyword">except</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">''</span></div><div class="line">	</div><div class="line"><span class="keyword">print</span> <span class="string">'Done'</span></div></pre></td></tr></table></figure>
+
+<h1 id="try…finally">try…finally</h1>
+<p>读一个文件时，希望无论异常发送与否的情况下都关闭文件。使用finally块来实现。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import <span class="built_in">time</span></div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	f = <span class="built_in">file</span>(<span class="string">'poem.txt'</span>)</div><div class="line">	<span class="keyword">while</span> True:</div><div class="line">		<span class="built_in">line</span> = f.readline()</div><div class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">line</span>) == <span class="number">0</span>:</div><div class="line">			break</div><div class="line">		<span class="built_in">time</span>.sleep(<span class="number">2</span>)</div><div class="line">		print <span class="built_in">line</span></div><div class="line"><span class="keyword">finally</span>:</div><div class="line">	f.<span class="built_in">close</span>()</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="Python" scheme="http://www.abbeychenxi.net/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python 数据结构]]></title>

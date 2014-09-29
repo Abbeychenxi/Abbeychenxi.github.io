@@ -4,23 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[七] | Abbey in Cradle Studio</title>
+    <title>Python 储存器 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="正则表达式基础
-
-概念
-正则表达式的大致匹配过程是：
-
-依次拿出表达式和文本中的字符比较。
-如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。
-如果表达式中有量词或边界，这个过程会稍微有一些不同。
-
-python支持的正则表达式元字符和语法:
-数量词的贪婪模式与非贪婪模式
-正则表">
+    <meta name="description" content="Python提供一个标准的模块，称为pickle。使用它可以在一个文件中储存任何Python对象，之后你又可以把它完整无缺地取出来。被称为持久地储存对象。
+123456789import cPickle as pshoplistfile = &#39;shoplist.data&#39;shoplist = [&#39;a">
     
     
     
@@ -76,19 +66,19 @@ python支持的正则表达式元字符和语法:
 </div>
     </header>
     <div id="container">
-      <div id="main" class="Python网络爬虫[七]" itemscope itemprop="blogPost">
+      <div id="main" class="Python 储存器" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/07/Python网络爬虫[七]/" title="Python网络爬虫[七]" itemprop="url">Python网络爬虫[七]</a>
+      <a href="/2014/09/29/Python-储存器/" title="Python 储存器" itemprop="url">Python 储存器</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-07T04:50:49.000Z" itemprop="datePublished"> 发表于 2014-09-07</time>
+    <time datetime="2014-09-29T12:37:41.000Z" itemprop="datePublished"> 发表于 2014-09-29</time>
     
   </p>
 </header>
@@ -98,43 +88,21 @@ python支持的正则表达式元字符和语法:
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式基础"><span class="toc-number">1.</span> <span class="toc-text">正则表达式基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量词的贪婪模式与非贪婪模式"><span class="toc-number">1.2.</span> <span class="toc-text">数量词的贪婪模式与非贪婪模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反斜杠问题"><span class="toc-number">1.3.</span> <span class="toc-text">反斜杠问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#re模块"><span class="toc-number">2.</span> <span class="toc-text">re模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Compile"><span class="toc-number">2.1.</span> <span class="toc-text">Compile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Match"><span class="toc-number">2.2.</span> <span class="toc-text">Match</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pattern"><span class="toc-number">2.3.</span> <span class="toc-text">Pattern</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#异常处理"><span class="toc-number">1.</span> <span class="toc-text">异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用try…except_语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。"><span class="toc-number"></span> <span class="toc-text">使用try…except 语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#try…finally"><span class="toc-number"></span> <span class="toc-text">try…finally</span></a>
 		
 		</div>
 		
-		<h1 id="正则表达式基础">正则表达式基础</h1>
-<hr>
-<h2 id="概念">概念</h2>
-<p>正则表达式的大致匹配过程是：</p>
-<ol>
-<li>依次拿出表达式和文本中的字符比较。</li>
-<li>如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。</li>
-<li>如果表达式中有量词或边界，这个过程会稍微有一些不同。</li>
-</ol>
-<p>python支持的正则表达式元字符和语法:<br><img src="http://img.blog.csdn.net/20130515113723855" alt="image"></p>
-<h2 id="数量词的贪婪模式与非贪婪模式">数量词的贪婪模式与非贪婪模式</h2>
-<p>正则表达式通常用于在文本中查找匹配的字符串。<br>贪婪模式，总是尝试匹配尽可能多的字符；<br>非贪婪模式则相反，总是尝试匹配尽可能少的字符。</p>
-<h2 id="反斜杠问题">反斜杠问题</h2>
-<p>Python原生字符串可以使用r”\“表示”\”。</p>
-<h1 id="re模块">re模块</h1>
-<hr>
-<h2 id="Compile">Compile</h2>
-<p>使用re步骤：</p>
-<ol>
-<li>先将正则表达式的字符串形式编译为Pattern实例。</li>
-<li>然后使用Pattern实例处理文本并获得匹配结果。</li>
-<li>最后使用Match实例获得信息，进行其他操作。</li>
-</ol>
-<h2 id="Match">Match</h2>
-<p>Match对象是一次匹配的结果，包含了很多关于此次匹配的信息，可以使用Match提供的可读属性或方法来获取这些信息。</p>
-<h2 id="Pattern">Pattern</h2>
-<p>Pattern对象是一个编译好的正则表达式，通过Pattern提供的一系列方法可以对文本进行匹配查找。<br>Pattern不能直接实例化，必须使用re.compile()进行构造，也就是re.compile()返回的对象。<br>Pattern提供了几个可读属性用于获取表达式的相关信息：</p>
-<ol>
-<li>pattern：编译时用的表达式字符串</li>
-<li>flags： 编译时用的匹配模式。数字形式。</li>
-<li>groups：表达式中分组的数量。</li>
-<li>groupindex：以表达式中有别名的组的别名为键、以该组对应的编号为值的字典，没有别名的组不包含在内。 </li>
-</ol>
+		<p>Python提供一个标准的模块，称为pickle。使用它可以在一个文件中储存任何Python对象，之后你又可以把它完整无缺地取出来。被称为持久地储存对象。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import cPickle <span class="keyword">as</span> <span class="keyword">p</span></div><div class="line"></div><div class="line">shoplistfile = <span class="string">'shoplist.data'</span></div><div class="line"></div><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>]</div><div class="line"></div><div class="line"><span class="keyword">f</span> = <span class="keyword">file</span>(shoplistfile, <span class="string">'w'</span>)</div><div class="line"><span class="keyword">p</span>.dump(shoplist, <span class="keyword">f</span>)</div><div class="line"><span class="keyword">f</span>.<span class="keyword">close</span>()</div></pre></td></tr></table></figure>
+
+<h2 id="异常处理">异常处理</h2>
+<h1 id="使用try…except_语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。">使用try…except 语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	s = raw_input(<span class="string">'Enter something --&gt; '</span>)</div><div class="line"><span class="keyword">except</span> EOFError:</div><div class="line">	<span class="keyword">print</span> <span class="string">''</span></div><div class="line">	sys.exit()</div><div class="line"><span class="keyword">except</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">''</span></div><div class="line">	</div><div class="line"><span class="keyword">print</span> <span class="string">'Done'</span></div></pre></td></tr></table></figure>
+
+<h1 id="try…finally">try…finally</h1>
+<p>读一个文件时，希望无论异常发送与否的情况下都关闭文件。使用finally块来实现。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import <span class="built_in">time</span></div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	f = <span class="built_in">file</span>(<span class="string">'poem.txt'</span>)</div><div class="line">	<span class="keyword">while</span> True:</div><div class="line">		<span class="built_in">line</span> = f.readline()</div><div class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">line</span>) == <span class="number">0</span>:</div><div class="line">			break</div><div class="line">		<span class="built_in">time</span>.sleep(<span class="number">2</span>)</div><div class="line">		print <span class="built_in">line</span></div><div class="line"><span class="keyword">finally</span>:</div><div class="line">	f.<span class="built_in">close</span>()</div></pre></td></tr></table></figure>
+
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -143,7 +111,7 @@ python支持的正则表达式元字符和语法:
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
+  <span></span> <a href="/tags/Python/">Python</a>
   </div>
 
 </div>
@@ -151,7 +119,7 @@ python支持的正则表达式元字符和语法:
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[七]/" data-title="Python网络爬虫[七] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/09/29/Python-储存器/" data-title="Python 储存器 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -160,19 +128,11 @@ python支持的正则表达式元字符和语法:
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/11/MEANjs/" title="MEAN.js">
-  <strong>上一篇：</strong><br/>
-  <span>
-  MEAN.js</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/07/Python网络爬虫[五]/"  title="Python网络爬虫[五]">
+<a href="/2014/09/29/Python-数据结构/"  title="Python 数据结构">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[五]
+ <span>Python 数据结构
 </span>
 </a>
 </div>
@@ -181,7 +141,7 @@ python支持的正则表达式元字符和语法:
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/07/Python网络爬虫[七]/" data-title="Python网络爬虫[七]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/09/29/Python-储存器/" data-title="Python 储存器" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
