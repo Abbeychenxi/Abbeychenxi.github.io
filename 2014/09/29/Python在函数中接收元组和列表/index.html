@@ -4,17 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[三] | Abbey in Cradle Studio</title>
+    <title>Python在函数中接收元组和列表 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="HTTP异常处理
-urlopen不能处理一个response时，产生urlError。
-不过通常的Python APIs异常也会同时产生。
-HTTPError是urlError的子类，通常在特定HTTP URLs中产生。
-URLError
-12345678import urllib2req = ur">
+    <meta name="description" content="当要使函数接收元组或字典形式的参数的时候，有一种特殊的方法，分别使用和*前缀。这种方法在函数需要获取可变数量的参数的时候特别有用。
+1234567def powersum(power, *args):	total = 0	for i in args:		total += pow(i. power)	">
     
     
     
@@ -70,19 +66,19 @@ URLError
 </div>
     </header>
     <div id="container">
-      <div id="main" class="Python网络爬虫[三]" itemscope itemprop="blogPost">
+      <div id="main" class="Python 在函数中接收元组和列表" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/06/Python网络爬虫[三]/" title="Python网络爬虫[三]" itemprop="url">Python网络爬虫[三]</a>
+      <a href="/2014/09/29/Python在函数中接收元组和列表/" title="Python在函数中接收元组和列表" itemprop="url">Python在函数中接收元组和列表</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-06T09:51:23.000Z" itemprop="datePublished"> 发表于 2014-09-06</time>
+    <time datetime="2014-09-29T13:02:11.000Z" itemprop="datePublished"> 发表于 2014-09-29</time>
     
   </p>
 </header>
@@ -92,25 +88,23 @@ URLError
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP异常处理"><span class="toc-number">1.</span> <span class="toc-text">HTTP异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URLError"><span class="toc-number"></span> <span class="toc-text">URLError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPError"><span class="toc-number"></span> <span class="toc-text">HTTPError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wrapping"><span class="toc-number"></span> <span class="toc-text">Wrapping</span></a>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#lambda形式"><span class="toc-number">1.</span> <span class="toc-text">lambda形式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#exec和eval语句"><span class="toc-number">2.</span> <span class="toc-text">exec和eval语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#repr函数"><span class="toc-number">3.</span> <span class="toc-text">repr函数</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="HTTP异常处理">HTTP异常处理</h2>
-<p>urlopen不能处理一个response时，产生urlError。</p>
-<p>不过通常的Python APIs异常也会同时产生。</p>
-<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
-<h1 id="URLError">URLError</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
+		<p>当要使函数接收元组或字典形式的参数的时候，有一种特殊的方法，分别使用<em>和*</em>前缀。这种方法在函数需要获取可变数量的参数的时候特别有用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">powersum</span><span class="params">(power, *args)</span>:</span></div><div class="line">	total = <span class="number">0</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> args:</div><div class="line">		total += pow(i. power)</div><div class="line">	<span class="keyword">return</span> total</div><div class="line"></div><div class="line">power(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</div></pre></td></tr></table></figure>
 
-<h1 id="HTTPError">HTTPError</h1>
-<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
-<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+<p>由于在args变量前有<em>前缀，所有多余的函数参数都会作为一个元组存储在args中。如果使用的是*</em>前缀，多余的参数则会被认为是一个字典的键/值对。</p>
+<h2 id="lambda形式">lambda形式</h2>
+<p>用来创建新的函数对象，并在运行时返回它们。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_repeater</span><span class="params">(n)</span>:</span></div><div class="line">	<span class="keyword">return</span> <span class="keyword">lambda</span> s: s*n</div><div class="line">	</div><div class="line">twice = make_repeater(<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> twice(<span class="string">'word'</span>)</div><div class="line"><span class="keyword">print</span> twice(<span class="number">5</span>)</div></pre></td></tr></table></figure>
 
-<h1 id="Wrapping">Wrapping</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
-
+<h2 id="exec和eval语句">exec和eval语句</h2>
+<p>exec语句用来执行储存在字符串或文件中的Python语句。<br><code>exec &#39;print &quot;Hello World&quot;&#39;</code></p>
+<p>eval语句用来计算存储在字符串中的有效Python表达式。<br><code>eval(&#39;2*3&#39;)</code></p>
+<h2 id="repr函数">repr函数</h2>
+<p>repr函数用来取得对象的规范字符串表。<br><code>eval (repr(object)) == object</code></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +113,7 @@ URLError
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
+  <span></span> <a href="/tags/Python/">Python</a>
   </div>
 
 </div>
@@ -127,7 +121,7 @@ URLError
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/" data-title="Python网络爬虫[三] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/09/29/Python在函数中接收元组和列表/" data-title="Python在函数中接收元组和列表 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -136,19 +130,11 @@ URLError
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/06/Python网络爬虫[四]/" title="Python网络爬虫[四]">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Python网络爬虫[四]</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/06/Python网络爬虫[二]/"  title="Python网络爬虫[二]">
+<a href="/2014/09/29/Python-储存器/"  title="Python 储存器">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[二]
+ <span>Python 储存器
 </span>
 </a>
 </div>
@@ -157,7 +143,7 @@ URLError
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/06/Python网络爬虫[三]/" data-title="Python网络爬虫[三]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/09/29/Python在函数中接收元组和列表/" data-title="Python在函数中接收元组和列表" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

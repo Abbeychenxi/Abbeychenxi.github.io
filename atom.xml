@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-29T12:52:27.053Z</updated>
+  <updated>2014-09-29T13:13:39.327Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,32 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python在函数中接收元组和列表]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/29/Python%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E6%8E%A5%E6%94%B6%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8/"/>
+    <id>http://www.abbeychenxi.net/2014/09/29/Python在函数中接收元组和列表/</id>
+    <published>2014-09-29T13:02:11.000Z</published>
+    <updated>2014-09-29T13:13:33.000Z</updated>
+    <content type="html"><![CDATA[<p>当要使函数接收元组或字典形式的参数的时候，有一种特殊的方法，分别使用<em>和*</em>前缀。这种方法在函数需要获取可变数量的参数的时候特别有用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">powersum</span><span class="params">(power, *args)</span>:</span></div><div class="line">	total = <span class="number">0</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> args:</div><div class="line">		total += pow(i. power)</div><div class="line">	<span class="keyword">return</span> total</div><div class="line"></div><div class="line">power(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</div></pre></td></tr></table></figure>
+
+<p>由于在args变量前有<em>前缀，所有多余的函数参数都会作为一个元组存储在args中。如果使用的是*</em>前缀，多余的参数则会被认为是一个字典的键/值对。</p>
+<h2 id="lambda形式">lambda形式</h2>
+<p>用来创建新的函数对象，并在运行时返回它们。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_repeater</span><span class="params">(n)</span>:</span></div><div class="line">	<span class="keyword">return</span> <span class="keyword">lambda</span> s: s*n</div><div class="line">	</div><div class="line">twice = make_repeater(<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> twice(<span class="string">'word'</span>)</div><div class="line"><span class="keyword">print</span> twice(<span class="number">5</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="exec和eval语句">exec和eval语句</h2>
+<p>exec语句用来执行储存在字符串或文件中的Python语句。<br><code>exec &#39;print &quot;Hello World&quot;&#39;</code></p>
+<p>eval语句用来计算存储在字符串中的有效Python表达式。<br><code>eval(&#39;2*3&#39;)</code></p>
+<h2 id="repr函数">repr函数</h2>
+<p>repr函数用来取得对象的规范字符串表。<br><code>eval (repr(object)) == object</code></p>
+]]></content>
+    
+    
+      <category term="Python" scheme="http://www.abbeychenxi.net/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python 储存器]]></title>
