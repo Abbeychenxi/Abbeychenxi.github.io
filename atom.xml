@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-28T05:40:31.745Z</updated>
+  <updated>2014-09-29T12:24:36.227Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,36 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python 数据结构]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>http://www.abbeychenxi.net/2014/09/29/Python-数据结构/</id>
+    <published>2014-09-29T04:02:43.000Z</published>
+    <updated>2014-09-29T12:24:23.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="对象与参考">对象与参考</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</div><div class="line">mylist = shoplist</div><div class="line"></div><div class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</div><div class="line"></div><div class="line">mylist = shoplist[:]</div><div class="line"></div><div class="line"><span class="keyword">del</span> mylist[<span class="number">0</span>]</div></pre></td></tr></table></figure>
+
+<p>如果要复制一个列表或者类似的序列或者其他复杂的对象，必须使用切片操作符来取得拷贝。如果只是想要使用另外一个变量名，两个变量名称都参考同一个对象，那么如果不小心，会引来各种麻烦。</p>
+<h2 id="更多字符串的内容">更多字符串的内容</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">name = <span class="string">'Swaroop'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.startwith(<span class="string">'Swa'</span>):</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="string">'a'</span> <span class="keyword">in</span> name:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.find(<span class="string">'war'</span>) != -<span class="number">1</span>:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line">delimiter = <span class="string">'_*_'</span></div><div class="line">mylist = [<span class="string">'russia'</span>, <span class="string">'india'</span>]</div><div class="line">delimter.join(mylist)</div></pre></td></tr></table></figure>
+
+<p>str类也有以一个作为分隔符的字符串join序列的项目的整洁的方法，它返回一个生成的大字符串。</p>
+<h2 id="软件开发过程">软件开发过程</h2>
+<ol>
+<li>分析</li>
+<li>设计</li>
+<li>实施</li>
+<li>测试与调试</li>
+<li>实施或开发</li>
+<li>优化</li>
+</ol>
+]]></content>
+    
+    
+      <category term="Python" scheme="http://www.abbeychenxi.net/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Node.js 入门]]></title>

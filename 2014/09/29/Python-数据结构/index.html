@@ -4,23 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[七] | Abbey in Cradle Studio</title>
+    <title>Python 数据结构 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="正则表达式基础
+    <meta name="description" content="对象与参考
+12345678shoplist = [&#39;apple&#39;, &#39;mango&#39;, &#39;carrot&#39;, &#39;banana&#39;]mylist = shoplistdel shoplist[0]mylist = shoplist[:]del mylist[0]
 
-概念
-正则表达式的大致匹配过程是：
-
-依次拿出表达式和文本中的字符比较。
-如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。
-如果表达式中有量词或边界，这个过程会稍微有一些不同。
-
-python支持的正则表达式元字符和语法:
-数量词的贪婪模式与非贪婪模式
-正则表">
+如果要复制一个列表或者类似的序列或者其他">
     
     
     
@@ -76,19 +68,19 @@ python支持的正则表达式元字符和语法:
 </div>
     </header>
     <div id="container">
-      <div id="main" class="Python网络爬虫[七]" itemscope itemprop="blogPost">
+      <div id="main" class="Pthon 数据集认购" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/07/Python网络爬虫[七]/" title="Python网络爬虫[七]" itemprop="url">Python网络爬虫[七]</a>
+      <a href="/2014/09/29/Python-数据结构/" title="Python 数据结构" itemprop="url">Python 数据结构</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-07T04:50:49.000Z" itemprop="datePublished"> 发表于 2014-09-07</time>
+    <time datetime="2014-09-29T04:02:43.000Z" itemprop="datePublished"> 发表于 2014-09-29</time>
     
   </p>
 </header>
@@ -98,42 +90,26 @@ python支持的正则表达式元字符和语法:
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式基础"><span class="toc-number">1.</span> <span class="toc-text">正则表达式基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数量词的贪婪模式与非贪婪模式"><span class="toc-number">1.2.</span> <span class="toc-text">数量词的贪婪模式与非贪婪模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反斜杠问题"><span class="toc-number">1.3.</span> <span class="toc-text">反斜杠问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#re模块"><span class="toc-number">2.</span> <span class="toc-text">re模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Compile"><span class="toc-number">2.1.</span> <span class="toc-text">Compile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Match"><span class="toc-number">2.2.</span> <span class="toc-text">Match</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pattern"><span class="toc-number">2.3.</span> <span class="toc-text">Pattern</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与参考"><span class="toc-number">1.</span> <span class="toc-text">对象与参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多字符串的内容"><span class="toc-number">2.</span> <span class="toc-text">更多字符串的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件开发过程"><span class="toc-number">3.</span> <span class="toc-text">软件开发过程</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="正则表达式基础">正则表达式基础</h1>
-<hr>
-<h2 id="概念">概念</h2>
-<p>正则表达式的大致匹配过程是：</p>
+		<h2 id="对象与参考">对象与参考</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</div><div class="line">mylist = shoplist</div><div class="line"></div><div class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</div><div class="line"></div><div class="line">mylist = shoplist[:]</div><div class="line"></div><div class="line"><span class="keyword">del</span> mylist[<span class="number">0</span>]</div></pre></td></tr></table></figure>
+
+<p>如果要复制一个列表或者类似的序列或者其他复杂的对象，必须使用切片操作符来取得拷贝。如果只是想要使用另外一个变量名，两个变量名称都参考同一个对象，那么如果不小心，会引来各种麻烦。</p>
+<h2 id="更多字符串的内容">更多字符串的内容</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">name = <span class="string">'Swaroop'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.startwith(<span class="string">'Swa'</span>):</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="string">'a'</span> <span class="keyword">in</span> name:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.find(<span class="string">'war'</span>) != -<span class="number">1</span>:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line">delimiter = <span class="string">'_*_'</span></div><div class="line">mylist = [<span class="string">'russia'</span>, <span class="string">'india'</span>]</div><div class="line">delimter.join(mylist)</div></pre></td></tr></table></figure>
+
+<p>str类也有以一个作为分隔符的字符串join序列的项目的整洁的方法，它返回一个生成的大字符串。</p>
+<h2 id="软件开发过程">软件开发过程</h2>
 <ol>
-<li>依次拿出表达式和文本中的字符比较。</li>
-<li>如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。</li>
-<li>如果表达式中有量词或边界，这个过程会稍微有一些不同。</li>
-</ol>
-<p>python支持的正则表达式元字符和语法:<br><img src="http://img.blog.csdn.net/20130515113723855" alt="image"></p>
-<h2 id="数量词的贪婪模式与非贪婪模式">数量词的贪婪模式与非贪婪模式</h2>
-<p>正则表达式通常用于在文本中查找匹配的字符串。<br>贪婪模式，总是尝试匹配尽可能多的字符；<br>非贪婪模式则相反，总是尝试匹配尽可能少的字符。</p>
-<h2 id="反斜杠问题">反斜杠问题</h2>
-<p>Python原生字符串可以使用r”\“表示”\”。</p>
-<h1 id="re模块">re模块</h1>
-<hr>
-<h2 id="Compile">Compile</h2>
-<p>使用re步骤：</p>
-<ol>
-<li>先将正则表达式的字符串形式编译为Pattern实例。</li>
-<li>然后使用Pattern实例处理文本并获得匹配结果。</li>
-<li>最后使用Match实例获得信息，进行其他操作。</li>
-</ol>
-<h2 id="Match">Match</h2>
-<p>Match对象是一次匹配的结果，包含了很多关于此次匹配的信息，可以使用Match提供的可读属性或方法来获取这些信息。</p>
-<h2 id="Pattern">Pattern</h2>
-<p>Pattern对象是一个编译好的正则表达式，通过Pattern提供的一系列方法可以对文本进行匹配查找。<br>Pattern不能直接实例化，必须使用re.compile()进行构造，也就是re.compile()返回的对象。<br>Pattern提供了几个可读属性用于获取表达式的相关信息：</p>
-<ol>
-<li>pattern：编译时用的表达式字符串</li>
-<li>flags： 编译时用的匹配模式。数字形式。</li>
-<li>groups：表达式中分组的数量。</li>
-<li>groupindex：以表达式中有别名的组的别名为键、以该组对应的编号为值的字典，没有别名的组不包含在内。 </li>
+<li>分析</li>
+<li>设计</li>
+<li>实施</li>
+<li>测试与调试</li>
+<li>实施或开发</li>
+<li>优化</li>
 </ol>
   
 	</div>
@@ -143,7 +119,7 @@ python支持的正则表达式元字符和语法:
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
+  <span></span> <a href="/tags/Python/">Python</a>
   </div>
 
 </div>
@@ -151,7 +127,7 @@ python支持的正则表达式元字符和语法:
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[七]/" data-title="Python网络爬虫[七] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/09/29/Python-数据结构/" data-title="Python 数据结构 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -160,19 +136,11 @@ python支持的正则表达式元字符和语法:
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/11/MEANjs/" title="MEAN.js">
-  <strong>上一篇：</strong><br/>
-  <span>
-  MEAN.js</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/07/Python网络爬虫[五]/"  title="Python网络爬虫[五]">
+<a href="/2014/09/23/Node-js-入门/"  title="Node.js 入门">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[五]
+ <span>Node.js 入门
 </span>
 </a>
 </div>
@@ -181,7 +149,7 @@ python支持的正则表达式元字符和语法:
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/07/Python网络爬虫[七]/" data-title="Python网络爬虫[七]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/09/29/Python-数据结构/" data-title="Python 数据结构" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
