@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[二] | Abbey in Cradle Studio</title>
+    <title>node异步开发难题 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="urllib2
-urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。它以urlopen函数的形式提供了一个简单的接口。
-1234import urllib2response = urllib2.urlopen(&#39;http://www.baidu.com/&#39;)html ">
+    <meta name="description" content="作用域导致bug
+javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。
+12345678910">
     
     
     
@@ -67,19 +67,19 @@ urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。�
 </div>
     </header>
     <div id="container">
-      <div id="main" class="Python网络爬虫[二]" itemscope itemprop="blogPost">
+      <div id="main" class="node异步开发难题" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/06/Python网络爬虫[二]/" title="Python网络爬虫[二]" itemprop="url">Python网络爬虫[二]</a>
+      <a href="/2014/10/07/node异步开发难题/" title="node异步开发难题" itemprop="url">node异步开发难题</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-06T05:40:00.000Z" itemprop="datePublished"> 发表于 2014-09-06</time>
+    <time datetime="2014-10-07T14:36:10.000Z" itemprop="datePublished"> 发表于 2014-10-07</time>
     
   </p>
 </header>
@@ -89,26 +89,17 @@ urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#urllib2"><span class="toc-number">1.</span> <span class="toc-text">urllib2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#发送data表单数据"><span class="toc-number"></span> <span class="toc-text">发送data表单数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#设置Headers到http请求"><span class="toc-number"></span> <span class="toc-text">设置Headers到http请求</span></a>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域导致bug"><span class="toc-number">1.</span> <span class="toc-text">作用域导致bug</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nimble实现串行化控制"><span class="toc-number">2.</span> <span class="toc-text">Nimble实现串行化控制</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="urllib2">urllib2</h2>
-<p>urllib2组件来抓取网页。<br>urllib2是python的一个获取URLs的组件。<br>它以urlopen函数的形式提供了一个简单的接口。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">response = urllib2.urlopen(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">html = response.<span class="keyword">read</span>()</div><div class="line"><span class="keyword">print</span> html</div></pre></td></tr></table></figure>
+		<h2 id="作用域导致bug">作用域导致bug</h2>
+<p>javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunction</span><span class="params">(callback)</span> </span>{</div><div class="line">	setTimeout(<span class="keyword">callback</span>, <span class="number">200</span>);</div><div class="line">}</div><div class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span><span class="params">(color)</span> </span>{</div><div class="line">	asyncFunction(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">		console.log(<span class="string">'xxxx'</span>);</div><div class="line">	}) </div><div class="line">})(color);</div><div class="line"></div><div class="line">color = <span class="string">'green'</span>;</div></pre></td></tr></table></figure>
 
-<p>urllib2用一个response对象来映射你提出的http请求。</p>
-<p>在HTTP请求时：</p>
-<h1 id="发送data表单数据">发送data表单数据</h1>
-<p>发送一些数据到URL，在HTTP中，这个经常使用POST请求发送。<br>这个通常在你提交一个HTML表单时由你的浏览器来做。<br>并不是所有的POSTs都来源于表单，能够使用POST提交任意的数据到自己的程序。<br>一般的HTML表单，data需要编码成标准形式。然后做为data参数传到Request对象。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">url <span class="subst">=</span> <span class="string">'http://www.someserver.com/register.cgi'</span></div><div class="line"></div><div class="line">values <span class="subst">=</span> {<span class="string">'name'</span>: <span class="string">'WHY'</span>,</div><div class="line">		  <span class="string">'location'</span>: <span class="string">'SDU'</span>,</div><div class="line">		  <span class="string">'language'</span>: <span class="string">'Python'</span> }</div><div class="line"></div><div class="line"><span class="built_in">data</span> <span class="subst">=</span> urllib<span class="built_in">.</span>urlencode(values) <span class="comment">//编码工作</span></div><div class="line">req <span class="subst">=</span> urllib2<span class="built_in">.</span>Request(url, <span class="built_in">data</span>) <span class="comment">// 发送请求同时传data表单</span></div><div class="line">response <span class="subst">=</span> urllib2<span class="built_in">.</span>urlopen(req) <span class="comment">//接受反馈的信息</span></div><div class="line">the_page <span class="subst">=</span> response<span class="built_in">.</span>read() <span class="comment">//读取反馈的内容</span></div></pre></td></tr></table></figure>
-
-<p>如果没有传送data参数，urllib2使用GET方式的请求。<br>GET和POST请求的不同之处是POST请求通常有“副作用”，<br>它们会由于某种途径改变系统状态。<br>Data同样可以通过在Get请求的URL本身上面编码来传送。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="import"><span class="keyword">import</span> urllib2</span></div><div class="line"><span class="import"><span class="keyword">import</span> urllib</span></div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span> = <span class="container">{}</span></span></div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span>['name'] = '<span class="type">WHY'</span></span></div><div class="line"><span class="typedef"><span class="keyword">data</span>['location'] = '<span class="type">SDU'</span></span></div><div class="line"><span class="typedef"><span class="keyword">data</span>['language'] = '<span class="type">Python'</span></span></div><div class="line"></div><div class="line"><span class="title">url_values</span> = urllib.urlencode(<span class="typedef"><span class="keyword">data</span>)</span></div><div class="line"><span class="title">print</span> url_value</div><div class="line"></div><div class="line"><span class="title">name</span> = <span class="type">Somebody</span>+<span class="type">Here</span>&language=<span class="type">Python</span>&location=<span class="type">Northampton</span></div><div class="line"><span class="title">url</span> = 'http://www.example.com/example.cgi'</div><div class="line"><span class="title">full_url</span> = url + '?' + url_values</div><div class="line"></div><div class="line"><span class="typedef"><span class="keyword">data</span> = urllib2.open<span class="container">(<span class="title">full_url</span>)</span></span></div></pre></td></tr></table></figure>
-
-<p>这就实现了Data数据的Get传送。</p>
-<h1 id="设置Headers到http请求">设置Headers到http请求</h1>
-<p>有一些站点不喜欢被程序访问，或者发送不同版本的内容到不同的浏览器。<br>浏览器确认自己身份是通过User-Agent头，当你创建了一个请求对象，你可以给他一个包含头数据的字典。</p>
+<h2 id="Nimble实现串行化控制">Nimble实现串行化控制</h2>
+<p>```<br>var flow = require(‘nimble’);</p>
+<p>flow.series([<br>    function(callback) {<br>        setTimeout(function() {<br>            console.log(‘’);<br>            callback();<br>        }, 1000)<br>    },<br>    function(callback) {<br>        setTimeout(function() {<br>            console.log(‘’);<br>            callback();<br>        }, 500)<br>    }<br>]);</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -117,7 +108,7 @@ urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
+  <span></span> <a href="/tags/node-js/">node.js</a>
   </div>
 
 </div>
@@ -125,7 +116,7 @@ urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。�
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[二]/" data-title="Python网络爬虫[二] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/10/07/node异步开发难题/" data-title="node异步开发难题 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -134,19 +125,11 @@ urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/06/Python网络爬虫[三]/" title="Python网络爬虫[三]">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Python网络爬虫[三]</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/04/Python网络爬虫[一]/"  title="Python网络爬虫[一]">
+<a href="/2014/09/29/Python在函数中接收元组和列表/"  title="Python在函数中接收元组和列表">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[一]
+ <span>Python在函数中接收元组和列表
 </span>
 </a>
 </div>
@@ -155,7 +138,7 @@ urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。�
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/06/Python网络爬虫[二]/" data-title="Python网络爬虫[二]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/10/07/node异步开发难题/" data-title="node异步开发难题" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">

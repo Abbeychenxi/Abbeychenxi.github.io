@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-09-29T13:13:39.327Z</updated>
+  <updated>2014-10-07T14:51:36.539Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,26 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[node异步开发难题]]></title>
+    <link href="http://www.abbeychenxi.net/2014/10/07/node%E5%BC%82%E6%AD%A5%E5%BC%80%E5%8F%91%E9%9A%BE%E9%A2%98/"/>
+    <id>http://www.abbeychenxi.net/2014/10/07/node异步开发难题/</id>
+    <published>2014-10-07T14:36:10.000Z</published>
+    <updated>2014-10-07T14:51:26.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="作用域导致bug">作用域导致bug</h2>
+<p>javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunction</span><span class="params">(callback)</span> </span>{</div><div class="line">	setTimeout(<span class="keyword">callback</span>, <span class="number">200</span>);</div><div class="line">}</div><div class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span><span class="params">(color)</span> </span>{</div><div class="line">	asyncFunction(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">		console.log(<span class="string">'xxxx'</span>);</div><div class="line">	}) </div><div class="line">})(color);</div><div class="line"></div><div class="line">color = <span class="string">'green'</span>;</div></pre></td></tr></table></figure>
+
+<h2 id="Nimble实现串行化控制">Nimble实现串行化控制</h2>
+<p>```<br>var flow = require(‘nimble’);</p>
+<p>flow.series([<br>    function(callback) {<br>        setTimeout(function() {<br>            console.log(‘’);<br>            callback();<br>        }, 1000)<br>    },<br>    function(callback) {<br>        setTimeout(function() {<br>            console.log(‘’);<br>            callback();<br>        }, 500)<br>    }<br>]);</p>
+]]></content>
+    
+    
+      <category term="node.js" scheme="http://www.abbeychenxi.net/tags/node-js/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python在函数中接收元组和列表]]></title>
