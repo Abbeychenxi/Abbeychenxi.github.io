@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-10-25T19:02:02.728Z</updated>
+  <updated>2014-10-25T19:10:11.330Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.abbeychenxi.net/2014/10/23/manzhan-com%E7%9A%84%E7%88%AC%E8%99%AB%E6%8A%93%E7%AB%99%E5%B0%8F%E7%BB%93/"/>
     <id>http://www.abbeychenxi.net/2014/10/23/manzhan-com的爬虫抓站小结/</id>
     <published>2014-10-22T17:13:55.000Z</published>
-    <updated>2014-10-25T18:30:31.000Z</updated>
+    <updated>2014-10-25T19:05:35.000Z</updated>
     <content type="html"><![CDATA[<p>目标网站: www.manzhan.com<br>使用框架: Scrapy</p>
 <h1 id="新建项目">新建项目</h1>
 <p><code>scrapy startproject manzhan</code></p>
