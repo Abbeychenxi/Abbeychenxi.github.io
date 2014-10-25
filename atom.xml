@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-10-23T06:55:44.504Z</updated>
+  <updated>2014-10-25T14:36:39.340Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.abbeychenxi.net/2014/10/23/manzhan-com%E7%9A%84%E7%88%AC%E8%99%AB%E6%8A%93%E7%AB%99%E5%B0%8F%E7%BB%93/"/>
     <id>http://www.abbeychenxi.net/2014/10/23/manzhan-com的爬虫抓站小结/</id>
     <published>2014-10-22T17:13:55.000Z</published>
-    <updated>2014-10-23T06:55:13.000Z</updated>
+    <updated>2014-10-25T14:34:13.000Z</updated>
     <content type="html"><![CDATA[<p>目标网站: www.manzhan.com<br>使用框架: Scrapy</p>
 <h1 id="新建项目">新建项目</h1>
 <p><code>scrapy startproject manzhan</code></p>
@@ -98,7 +98,7 @@
     <link href="http://www.abbeychenxi.net/2014/10/07/node%E5%BC%82%E6%AD%A5%E5%BC%80%E5%8F%91%E9%9A%BE%E9%A2%98/"/>
     <id>http://www.abbeychenxi.net/2014/10/07/node异步开发难题/</id>
     <published>2014-10-07T14:36:10.000Z</published>
-    <updated>2014-10-07T14:52:21.000Z</updated>
+    <updated>2014-10-25T14:34:49.000Z</updated>
     <content type="html"><![CDATA[<h2 id="作用域导致bug">作用域导致bug</h2>
 <p>javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunction</span><span class="params">(callback)</span> </span>{</div><div class="line">	setTimeout(<span class="keyword">callback</span>, <span class="number">200</span>);</div><div class="line">}</div><div class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span><span class="params">(color)</span> </span>{</div><div class="line">	asyncFunction(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">		console.log(<span class="string">'xxxx'</span>);</div><div class="line">	}) </div><div class="line">})(color);</div><div class="line"></div><div class="line">color = <span class="string">'green'</span>;</div></pre></td></tr></table></figure>
@@ -118,7 +118,7 @@
     <link href="http://www.abbeychenxi.net/2014/09/29/Python%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E6%8E%A5%E6%94%B6%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8/"/>
     <id>http://www.abbeychenxi.net/2014/09/29/Python在函数中接收元组和列表/</id>
     <published>2014-09-29T13:02:11.000Z</published>
-    <updated>2014-09-29T13:13:33.000Z</updated>
+    <updated>2014-10-25T14:36:03.000Z</updated>
     <content type="html"><![CDATA[<p>当要使函数接收元组或字典形式的参数的时候，有一种特殊的方法，分别使用<em>和*</em>前缀。这种方法在函数需要获取可变数量的参数的时候特别有用。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">powersum</span><span class="params">(power, *args)</span>:</span></div><div class="line">	total = <span class="number">0</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> args:</div><div class="line">		total += pow(i. power)</div><div class="line">	<span class="keyword">return</span> total</div><div class="line"></div><div class="line">power(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</div></pre></td></tr></table></figure>
 
@@ -144,7 +144,7 @@
     <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E5%82%A8%E5%AD%98%E5%99%A8/"/>
     <id>http://www.abbeychenxi.net/2014/09/29/Python-储存器/</id>
     <published>2014-09-29T12:37:41.000Z</published>
-    <updated>2014-09-29T12:52:20.000Z</updated>
+    <updated>2014-10-25T14:34:57.000Z</updated>
     <content type="html"><![CDATA[<p>Python提供一个标准的模块，称为pickle。使用它可以在一个文件中储存任何Python对象，之后你又可以把它完整无缺地取出来。被称为持久地储存对象。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import cPickle <span class="keyword">as</span> <span class="keyword">p</span></div><div class="line"></div><div class="line">shoplistfile = <span class="string">'shoplist.data'</span></div><div class="line"></div><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>]</div><div class="line"></div><div class="line"><span class="keyword">f</span> = <span class="keyword">file</span>(shoplistfile, <span class="string">'w'</span>)</div><div class="line"><span class="keyword">p</span>.dump(shoplist, <span class="keyword">f</span>)</div><div class="line"><span class="keyword">f</span>.<span class="keyword">close</span>()</div></pre></td></tr></table></figure>
 
@@ -168,7 +168,7 @@
     <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     <id>http://www.abbeychenxi.net/2014/09/29/Python-数据结构/</id>
     <published>2014-09-29T04:02:43.000Z</published>
-    <updated>2014-09-29T12:24:23.000Z</updated>
+    <updated>2014-10-25T14:35:07.000Z</updated>
     <content type="html"><![CDATA[<h2 id="对象与参考">对象与参考</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</div><div class="line">mylist = shoplist</div><div class="line"></div><div class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</div><div class="line"></div><div class="line">mylist = shoplist[:]</div><div class="line"></div><div class="line"><span class="keyword">del</span> mylist[<span class="number">0</span>]</div></pre></td></tr></table></figure>
 
@@ -198,7 +198,7 @@
     <link href="http://www.abbeychenxi.net/2014/09/23/Node-js-%E5%85%A5%E9%97%A8/"/>
     <id>http://www.abbeychenxi.net/2014/09/23/Node-js-入门/</id>
     <published>2014-09-23T11:43:54.000Z</published>
-    <updated>2014-09-23T16:19:06.000Z</updated>
+    <updated>2014-10-25T14:34:40.000Z</updated>
     <content type="html"><![CDATA[<h2 id="一个完整的基于Node-js的web应用">一个完整的基于Node.js的web应用</h2>
 <h1 id="用例">用例</h1>
 <ul>
@@ -352,7 +352,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/18/%E5%A4%A7%E6%95%99%E5%A0%82%E4%B8%8E%E5%B8%82%E9%9B%86-%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BD%AF%E4%BB%B6/"/>
     <id>http://www.abbeychenxi.net/2014/09/18/大教堂与市集-开放源代码软件/</id>
     <published>2014-09-18T06:25:54.000Z</published>
-    <updated>2014-09-25T07:52:33.000Z</updated>
+    <updated>2014-10-25T14:34:00.000Z</updated>
     <content type="html"><![CDATA[<h2 id="《大教堂与市集》-开放源代码运动的《圣经》">《大教堂与市集》-开放源代码运动的《圣经》</h2>
 <ul>
 <li>并行的、点对点的、动态的开发模式（开源）</li>
@@ -415,7 +415,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/15/No-Silver-Bullet/"/>
     <id>http://www.abbeychenxi.net/2014/09/15/No-Silver-Bullet/</id>
     <published>2014-09-15T06:20:40.000Z</published>
-    <updated>2014-09-18T06:25:11.000Z</updated>
+    <updated>2014-10-25T14:34:31.000Z</updated>
     <content type="html"><![CDATA[<h2 id="复杂度">复杂度</h2>
 <h2 id="一致性">一致性</h2>
 <ul>
@@ -517,7 +517,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/11/MEANjs/"/>
     <id>http://www.abbeychenxi.net/2014/09/11/MEANjs/</id>
     <published>2014-09-11T11:23:46.000Z</published>
-    <updated>2014-09-11T11:28:43.000Z</updated>
+    <updated>2014-10-25T14:34:21.000Z</updated>
     <content type="html"><![CDATA[<ul>
 <li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
 <li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
@@ -538,7 +538,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%83%5D/"/>
     <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[七]/</id>
     <published>2014-09-07T04:50:49.000Z</published>
-    <updated>2014-09-07T05:19:02.000Z</updated>
+    <updated>2014-10-25T14:35:25.000Z</updated>
     <content type="html"><![CDATA[<h1 id="正则表达式基础">正则表达式基础</h1>
 <hr>
 <h2 id="概念">概念</h2>
@@ -586,7 +586,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%94%5D/"/>
     <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[五]/</id>
     <published>2014-09-06T16:00:11.000Z</published>
-    <updated>2014-09-06T16:29:49.000Z</updated>
+    <updated>2014-10-25T14:35:47.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Proxy设置">Proxy设置</h2>
 <p>在程序中明确Proxy不受环境变量的影响</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">enable_proxy =</span> True</div><div class="line"><span class="variable">proxy_handler =</span> urllib2.ProxyHandler({<span class="string">"http"</span>: 'http://some-proxy.com:<span class="number">8080</span>'})</div><div class="line"><span class="variable">null_proxy_handler =</span> urllib2.ProxyHandler({})</div><div class="line"><span class="keyword">if</span> enable_proxy:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(proxy_handler)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(null_proxy_handler)</div><div class="line">urllib2.install_opener(opener)</div></pre></td></tr></table></figure>
@@ -639,7 +639,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E5%9B%9B%5D/"/>
     <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[四]/</id>
     <published>2014-09-06T15:49:25.000Z</published>
-    <updated>2014-09-06T15:59:51.000Z</updated>
+    <updated>2014-10-25T14:35:40.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Openers">Openers</h2>
 <p>当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。</p>
 <p>正常情况下， 我们使用默认opener: 通过urlopen。</p>
@@ -661,7 +661,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%89%5D/"/>
     <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/</id>
     <published>2014-09-06T09:51:23.000Z</published>
-    <updated>2014-09-06T15:46:02.000Z</updated>
+    <updated>2014-10-25T14:35:33.000Z</updated>
     <content type="html"><![CDATA[<h2 id="HTTP异常处理">HTTP异常处理</h2>
 <p>urlopen不能处理一个response时，产生urlError。</p>
 <p>不过通常的Python APIs异常也会同时产生。</p>
@@ -691,7 +691,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%8C%5D/"/>
     <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[二]/</id>
     <published>2014-09-06T05:40:00.000Z</published>
-    <updated>2014-09-06T08:24:35.000Z</updated>
+    <updated>2014-10-25T14:35:16.000Z</updated>
     <content type="html"><![CDATA[<h2 id="urllib2">urllib2</h2>
 <p>urllib2组件来抓取网页。<br>urllib2是python的一个获取URLs的组件。<br>它以urlopen函数的形式提供了一个简单的接口。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">response = urllib2.urlopen(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">html = response.<span class="keyword">read</span>()</div><div class="line"><span class="keyword">print</span> html</div></pre></td></tr></table></figure>
@@ -722,7 +722,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/04/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%80%5D/"/>
     <id>http://www.abbeychenxi.net/2014/09/04/Python网络爬虫[一]/</id>
     <published>2014-09-04T15:39:08.000Z</published>
-    <updated>2014-09-04T16:01:12.000Z</updated>
+    <updated>2014-10-25T14:35:55.000Z</updated>
     <content type="html"><![CDATA[<h2 id="URI">URI</h2>
 <p>URI通常由三部分组成：</p>
 <ol>
@@ -746,7 +746,7 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
     <link href="http://www.abbeychenxi.net/2014/09/04/today/"/>
     <id>http://www.abbeychenxi.net/2014/09/04/today/</id>
     <published>2014-09-03T20:09:48.000Z</published>
-    <updated>2014-09-03T20:42:11.000Z</updated>
+    <updated>2014-10-25T14:36:11.000Z</updated>
     <content type="html"><![CDATA[<p>今天入学教育，正式成为了NJU的一名学生。<br>晚上成功搭建了自己的个人博客！<br>I’m so happy!<br>Thanks everyone!</p>
 ]]></content>
     

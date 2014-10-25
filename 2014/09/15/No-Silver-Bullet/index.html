@@ -76,7 +76,7 @@
 </div>
     </header>
     <div id="container">
-      <div id="main" class="No Silver Bullet" itemscope itemprop="blogPost">
+      <div id="main" class="post" itemscope itemprop="blogPost">
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
@@ -254,6 +254,13 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
 
 </div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#复杂度"><span class="toc-number">1.</span> <span class="toc-text">复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一致性"><span class="toc-number">2.</span> <span class="toc-text">一致性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变性"><span class="toc-number">3.</span> <span class="toc-text">可变性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不可见性"><span class="toc-number">4.</span> <span class="toc-text">不可见性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有银弹"><span class="toc-number">5.</span> <span class="toc-text">没有银弹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#“自动”编程"><span class="toc-number">6.</span> <span class="toc-text">“自动”编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#图形化编程"><span class="toc-number">7.</span> <span class="toc-text">图形化编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#程序验证"><span class="toc-number">8.</span> <span class="toc-text">程序验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境和工具"><span class="toc-number">9.</span> <span class="toc-text">环境和工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作站"><span class="toc-number">10.</span> <span class="toc-text">工作站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#购买和自行开发"><span class="toc-number">11.</span> <span class="toc-text">购买和自行开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#需求精炼和快速原型"><span class="toc-number">12.</span> <span class="toc-text">需求精炼和快速原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增量开发"><span class="toc-number">13.</span> <span class="toc-text">增量开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#卓越的设计人员"><span class="toc-number">14.</span> <span class="toc-text">卓越的设计人员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有银弹的影响"><span class="toc-number">15.</span> <span class="toc-text">没有银弹的影响</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -446,10 +453,75 @@ $(document).ready(function(){
 </script>
 
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Abbey"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
 
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 
 
@@ -465,4 +537,4 @@ $(document).ready(function(){
 
 
   </body>
- </html>
+</html>
