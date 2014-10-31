@@ -4,26 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>大教堂与市集-开放源代码软件 | Abbey in Cradle Studio</title>
+    <title>bcy抓站小结 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="《大教堂与市集》-开放源代码运动的《圣经》
+    <meta name="description" content="目标: 抓取bcy.net/party/all所有的漫展信息
+分析发现 bcy.net 通过js，ajax请求 获取下周等标签下的漫展信息
 
-并行的、点对点的、动态的开发模式（开源）
-封闭的、垂直的、集中式的开发模式（大教堂）
+解决方案
 
-Linux
-problem
-
-opensource软件是不是免费的？
-买的软件到底是什么？-使用权
-
-Fetchmail
-拥有用户的重要性
-
-每个好的软件工作都开始于">
+尝试通过Scrapyjs来模拟js交互。但是没有弄得middleware等等问题
+尝试使用webdriver；但是速度太慢，严重影响效率
+研究bc">
     
     
     
@@ -86,14 +79,14 @@ Fetchmail
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/18/大教堂与市集-开放源代码软件/" title="大教堂与市集-开放源代码软件" itemprop="url">大教堂与市集-开放源代码软件</a>
+      <a href="/2014/10/31/bcy抓站小结/" title="bcy抓站小结" itemprop="url">bcy抓站小结</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-18T06:25:54.000Z" itemprop="datePublished"> 发表于 2014-09-18</time>
+    <time datetime="2014-10-31T10:30:22.000Z" itemprop="datePublished"> 发表于 2014-10-31</time>
     
   </p>
 </header>
@@ -103,67 +96,42 @@ Fetchmail
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#《大教堂与市集》-开放源代码运动的《圣经》"><span class="toc-number">1.</span> <span class="toc-text">《大教堂与市集》-开放源代码运动的《圣经》</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux"><span class="toc-number">2.</span> <span class="toc-text">Linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problem"><span class="toc-number">3.</span> <span class="toc-text">problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fetchmail"><span class="toc-number">4.</span> <span class="toc-text">Fetchmail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拥有用户的重要性"><span class="toc-number">5.</span> <span class="toc-text">拥有用户的重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#早发布、常发布"><span class="toc-number">6.</span> <span class="toc-text">早发布、常发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linus定律"><span class="toc-number">7.</span> <span class="toc-text">Linus定律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠"><span class="toc-number">8.</span> <span class="toc-text">Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现象"><span class="toc-number">9.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替代物品和互补物品"><span class="toc-number">10.</span> <span class="toc-text">替代物品和互补物品</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终解决方法"><span class="toc-number">2.</span> <span class="toc-text">最终解决方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#大功告成！"><span class="toc-number"></span> <span class="toc-text">大功告成！</span></a>
 		
 		</div>
 		
-		<h2 id="《大教堂与市集》-开放源代码运动的《圣经》">《大教堂与市集》-开放源代码运动的《圣经》</h2>
-<ul>
-<li>并行的、点对点的、动态的开发模式（开源）</li>
-<li>封闭的、垂直的、集中式的开发模式（大教堂）</li>
-</ul>
-<h2 id="Linux">Linux</h2>
-<h2 id="problem">problem</h2>
-<ol>
-<li>opensource软件是不是免费的？</li>
-<li>买的软件到底是什么？-使用权</li>
+		<ol>
+<li>目标: 抓取bcy.net/party/all所有的漫展信息</li>
+<li>分析发现 bcy.net 通过js，ajax请求 获取下周等标签下的漫展信息</li>
 </ol>
-<h2 id="Fetchmail">Fetchmail</h2>
-<h2 id="拥有用户的重要性">拥有用户的重要性</h2>
+<h2 id="解决方案">解决方案</h2>
 <ol>
-<li>每个好的软件工作都开始于搔到了开发者本人的痒处</li>
-<li>好程序员知道该写什么，伟大的程序员知道该重写什么</li>
-<li>“计划好抛弃，无论如何，你会的”</li>
-<li>如果你有正确的态度，有趣的问题会找上你的</li>
-<li>pass</li>
-<li>把用户当做协作开发者是快速改进代码和高效调试的无可争辩的方式</li>
+<li>尝试通过Scrapyjs来模拟js交互。但是没有弄得middleware等等问题</li>
+<li>尝试使用webdriver；但是速度太慢，严重影响效率</li>
+<li>研究bcy的network标签，发现下周等标签会有一个ajax的post请求</li>
 </ol>
-<h2 id="早发布、常发布">早发布、常发布</h2>
-<h2 id="Linus定律">Linus定律</h2>
+<h2 id="最终解决方法">最终解决方法</h2>
 <ul>
-<li>如果有一个足够大的beta测试人员和协作开发人员的基础，几乎所有的问题都可以被快速的找出并被一些人纠正</li>
+<li>研究ajax的post请求，发现网页指向<a href="http://bcy.net/party/expo/almexpoindex" target="_blank" rel="external">http://bcy.net/party/expo/almexpoindex</a></li>
+<li>打开 <a href="http://bcy.net/party/expo/almexpoindex" target="_blank" rel="external">http://bcy.net/party/expo/almexpoindex</a> 查看network标签，发现有一个get请求</li>
+<li>回到之前页面，找到ajax请求下面的formdata数据，利用formdata数据构建新的url，模拟post请求</li>
+<li>查看network标签，成功收到返回的网页漫展信息的数据</li>
 </ul>
-<h2 id="Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠">Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠</h2>
-<ul>
-<li>Delphi效应甚至可以战胜操作系统内核一级的复杂度</li>
-<li>Delphi估算法</li>
-</ul>
-<h2 id="现象">现象</h2>
-<ul>
-<li>现在高科技公司投入巨额资金发展开源软件，而通常开源软件本身免费。<ul>
-<li>google:Android, Chrome</li>
-<li>IMB:Eclipse</li>
-<li>Intel:Linux</li>
-</ul>
-</li>
-<li>这些公司并不是放弃资本主义，而是认为这是个好的商业策略</li>
-</ul>
-<h2 id="替代物品和互补物品">替代物品和互补物品</h2>
-<ul>
-<li>市场上所有的产品都有替代物品和互补物品<ul>
-<li>替代物品是首选商品太贵时会</li>
-</ul>
-</li>
-</ul>
+<h1 id="大功告成！">大功告成！</h1>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/cosjy/">cosjy</a>
+</div>
+
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/NJU/">NJU</a><a href="/tags/软件工程管理/">软件工程管理</a>
+  <span></span> <a href="/tags/Scrapy/">Scrapy</a><a href="/tags/python/">python</a>
   </div>
 
 </div>
@@ -171,7 +139,7 @@ Fetchmail
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/18/大教堂与市集-开放源代码软件/" data-title="大教堂与市集-开放源代码软件 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/10/31/bcy抓站小结/" data-title="bcy抓站小结 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -180,19 +148,11 @@ Fetchmail
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/23/Node-js-入门/" title="Node.js 入门">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Node.js 入门</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/15/No-Silver-Bullet/"  title="No Silver Bullet">
+<a href="/2014/10/23/manzhan-com的爬虫抓站小结/"  title="manzhan.com的爬虫抓站小结">
  <strong>下一篇：</strong><br/> 
- <span>No Silver Bullet
+ <span>manzhan.com的爬虫抓站小结
 </span>
 </a>
 </div>
@@ -201,7 +161,7 @@ Fetchmail
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/18/大教堂与市集-开放源代码软件/" data-title="大教堂与市集-开放源代码软件" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/10/31/bcy抓站小结/" data-title="bcy抓站小结" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -224,7 +184,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#《大教堂与市集》-开放源代码运动的《圣经》"><span class="toc-number">1.</span> <span class="toc-text">《大教堂与市集》-开放源代码运动的《圣经》</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux"><span class="toc-number">2.</span> <span class="toc-text">Linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problem"><span class="toc-number">3.</span> <span class="toc-text">problem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Fetchmail"><span class="toc-number">4.</span> <span class="toc-text">Fetchmail</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拥有用户的重要性"><span class="toc-number">5.</span> <span class="toc-text">拥有用户的重要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#早发布、常发布"><span class="toc-number">6.</span> <span class="toc-text">早发布、常发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linus定律"><span class="toc-number">7.</span> <span class="toc-text">Linus定律</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠"><span class="toc-number">8.</span> <span class="toc-text">Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现象"><span class="toc-number">9.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替代物品和互补物品"><span class="toc-number">10.</span> <span class="toc-text">替代物品和互补物品</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终解决方法"><span class="toc-number">2.</span> <span class="toc-text">最终解决方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#大功告成！"><span class="toc-number"></span> <span class="toc-text">大功告成！</span></a>
  
   </div>
 
