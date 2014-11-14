@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-11-12T01:50:17.891Z</updated>
+  <updated>2014-11-14T13:05:21.286Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -53,132 +53,6 @@
 <li>关联规则聚类</li>
 </ul>
 <p>A和B相关性: $ P(A U B)\div (P(A) * P(B)) $</p>
-]]></content>
-    
-    
-      <category term="data mining" scheme="http://www.abbeychenxi.net/tags/data-mining/"/>
-    
-      <category term="NJUStudying" scheme="http://www.abbeychenxi.net/categories/NJUStudying/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[数据仓库复习-ch3数据预处理]]></title>
-    <link href="http://www.abbeychenxi.net/2014/11/10/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93%E5%A4%8D%E4%B9%A0-ch3%E6%95%B0%E6%8D%AE%E9%A2%84%E5%A4%84%E7%90%86/"/>
-    <id>http://www.abbeychenxi.net/2014/11/10/数据仓库复习-ch3数据预处理/</id>
-    <published>2014-11-10T15:01:46.000Z</published>
-    <updated>2014-11-11T11:48:09.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="数据仓库-ch3数据预处理">数据仓库-ch3数据预处理</h2>
-<h1 id="data_cleaning">data cleaning</h1>
-<h2 id="处理missingData">处理missingData</h2>
-<ul>
-<li>忽略元组</li>
-<li>人工填写</li>
-<li>用全局常量填充遗漏值</li>
-<li>用属性平均值填充遗漏值</li>
-<li>使用与给定元组属同一类的所有样本的平均值</li>
-<li><strong>使用最可能的值填充遗漏值</strong>(最常用的方法)</li>
-</ul>
-<h2 id="处理noisy_data">处理noisy data</h2>
-<ul>
-<li>Binning method 分箱：<em>按中值平滑 按边界平滑</em></li>
-<li>clustering 聚类</li>
-<li>结合计算机和人工检查</li>
-<li>回归</li>
-</ul>
-<h2 id="离散化方法：Binning">离散化方法：Binning</h2>
-<ul>
-<li>等宽划分</li>
-<li>等深划分</li>
-</ul>
-<h1 id="聚类分析">聚类分析</h1>
-<h1 id="数据整合">数据整合</h1>
-<h2 id="处理冗余数据">处理冗余数据</h2>
-<ul>
-<li>多数据库整合</li>
-<li>被相关性分析检测到</li>
-</ul>
-<h1 id="数据集成和变换">数据集成和变换</h1>
-<ul>
-<li>smoothing平滑: 去除数据噪音 分箱 聚类 回归</li>
-<li>aggregation聚集: 构造数据方</li>
-<li>泛化: 用高层次概念替换低层次概念</li>
-<li><strong>规范化</strong>: 将属性按比例缩放</li>
-<li>属性构建: 可以构造新的属性并添加到属性集中</li>
-</ul>
-<h2 id="规范化">规范化</h2>
-<ul>
-<li><em>最小-最大规范化</em> : 对原始数据进行线性变换 <code>(value - minA)/(maxA-minA)*(newmaxA-newminA)+newminA</code></li>
-<li><em>z-score 规范化</em> :属性A的值基于A的平均值和标准差规范化<code>(value - 平均值)/标准差</code></li>
-<li><em>小数定标规范化</em>: 通过移动A的小数点位置进行规范化。小数点的移动位数依赖于A的最大绝对值<code>v/(10的j次方)</code> </li>
-</ul>
-<blockquote>
-<p>ps:j是使得max(|v’|)&lt;1的最小整数</p>
-</blockquote>
-<h1 id="数据归约">数据归约</h1>
-<ul>
-<li>数据方聚集: 聚集操作用于数据方中的数据</li>
-<li>维数约: 检测并删除不相关、弱相关或冗余的属性或维</li>
-<li>数据压缩: 使用编码机制压缩数据集</li>
-<li>数值压缩: 用替代的、较小的数据表示替换或估计数据</li>
-<li>离散化和概念分层产生: 属性的原始值用区间值或较高层的概念替换</li>
-</ul>
-<h2 id="数据方聚集">数据方聚集</h2>
-<ul>
-<li>lowest level of a data cube 数据立方体的最低水平<br>感兴趣的聚合数据为一个单独的实体</li>
-<li>Multiple levels of aggregation in data cubes多层次的聚合数据立方体</li>
-<li>Reference appropriate levels引用适当的水平<br>使用足以解决的任务的最小表示</li>
-<li>查询有关聚合信息，在可能的情况下应该使用数据立方</li>
-</ul>
-<h2 id="维归约">维归约</h2>
-<ul>
-<li>逐步向前选择</li>
-<li>逐步向后删除</li>
-<li>向前选择和向后删除的结合</li>
-</ul>
-<h3 id="判定树归纳">判定树归纳</h3>
-<h2 id="数据压缩">数据压缩</h2>
-<ul>
-<li>小波变换 DWT</li>
-</ul>
-<h2 id="数值归约">数值归约</h2>
-<ul>
-<li>回归和对数线性模型</li>
-<li>直方图: 等宽 等深 v-最优 MaxDiff</li>
-</ul>
-<h1 id="numerosity_reduction_数据块消减">numerosity reduction 数据块消减</h1>
-<ul>
-<li>参数化方法<br>假设数据符合一些模型,估计模型参数,只存储参数,并丢弃数据(除了可能的异常值)<br>regression 回归<br>Log-Liner Models</li>
-<li>无参数化方法<br>不要假设模型<br>主要方法:直方图、集群、抽样</li>
-</ul>
-<h2 id="Regression_and_Log-Linear_Models">Regression and Log-Linear Models</h2>
-<ul>
-<li>线性回归 经常使用最小二乘法来配合</li>
-<li>多元回归 允许将一个响应变量Y建模为多维特征向量的线性函数</li>
-<li>Log-linear model 近似离散多维概率分布</li>
-</ul>
-<h3 id="回归分析">回归分析</h3>
-<ul>
-<li>Linear regression: Y = α + β X<br>α和β指定行和估计利用手头的数据<br>对已知值Y1,Y2,X1,X2,…使用最小二乘准则</li>
-<li>多元回归Y = b0 + b1 X1 + b2 X2 </li>
-<li>Log-linear models<br>多路表联合概率较低层次的产物来近似表。<br>概率:p(a,b,c,d)=αabβacχadδbcd</li>
-</ul>
-<h1 id="划分数据为不相交的桶">划分数据为不相交的桶</h1>
-<ul>
-<li>equi-depth</li>
-<li>equi-width</li>
-<li>v-optimal</li>
-<li>maxdiff</li>
-</ul>
-<h1 id="离散化和概念分层产生">离散化和概念分层产生</h1>
-<h2 id="数值数据的离散化和概念分层产生">数值数据的离散化和概念分层产生</h2>
-<ul>
-<li>分箱</li>
-<li>直方图分析</li>
-<li>聚类分析</li>
-<li>基于熵的离散化</li>
-<li>通过自然划分分段 3-4-5规则</li>
-</ul>
 ]]></content>
     
     
