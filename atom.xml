@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-12-01T16:49:49.140Z</updated>
+  <updated>2014-12-01T16:51:46.213Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.abbeychenxi.net/2014/12/02/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2/"/>
     <id>http://www.abbeychenxi.net/2014/12/02/最长回文字串/</id>
     <published>2014-12-01T16:46:34.000Z</published>
-    <updated>2014-12-01T16:49:39.000Z</updated>
+    <updated>2014-12-01T16:51:38.000Z</updated>
     <content type="html"><![CDATA[<p>转载自july</p>
 <h1 id="最长回文子串">最长回文子串</h1>
 <p>给定一个字符串，求它的最长回文子串的长度。</p>
@@ -65,6 +65,8 @@
 <p>//输入，并处理得到字符串s<br> p[], mx = , id = ;<br>memset(p, , sizeof(p));<br> (i = ; s[i] != ; i++)<br>{<br>    p[i] = mx &gt; i ? (p[ * id - i], mx - i) : ;<br>    while (s[i + p[i]] == s[i - p[i]])<br>        p[i]++;<br>     (i + p[i] &gt; mx)<br>    {<br>        mx = i + p[i];<br>        id = i;<br>    }<br>}<br>//找出p[i]中最大的<br>此Manacher算法使用id、mx做配合，可以在每次循环中，直接对P[i]的快速赋值，从而在计算以i为中心的回文子串的过程中，不必每次都从1开始比较，减少了比较次数，最终使得求解最长回文子串的长度达到线性O(N)的时间复杂度。</p>
 ]]></content>
     
+    
+      <category term="LeetCode" scheme="http://www.abbeychenxi.net/categories/LeetCode/"/>
     
   </entry>
   
