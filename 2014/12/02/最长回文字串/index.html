@@ -105,25 +105,10 @@
 <p>最容易想到的办法是枚举所有的子串，分别判断其是否为回文。这个思路初看起来是正确的，但却做了很多无用功，如果一个长的子串包含另一个短一些的子串，那么对子串的回文判断其实是不需要的。</p>
 <p>那么如何高效的进行判断呢？我们想想，如果一段字符串是回文，那么以某个字符为中心的前缀和后缀都是相同的，例如以一段回文串“aba”为例，以b为中心，它的前缀和后缀都是相同的，都是a。</p>
 <p>那么，我们是否可以可以枚举中心位置，然后再在该位置上用扩展法，记录并更新得到的最长的回文长度呢？答案是肯定的，参考代码如下：</p>
-<p> LongestPalindrome(const  *s,  n)<br>{<br>     i, j, max,c;<br>     (s ==  || n &lt; )<br>        return ;<br>    max = ;</p>
-<pre><code> (i = ; i &lt; n; ++i) { <span class="comment">// i is the middle point of the palindrome  </span>
-     (j = ; (i - j &gt;= ) &amp;&amp; (i + j &lt; n); ++j){ <span class="comment">// if the length of the palindrome is odd  </span>
-         (s[i - j] != s[i + j])
-            <span class="keyword">break</span>;
-        <span class="built_in">c</span> = j *  + ;
-    }
-     (<span class="built_in">c</span> &gt; <span class="built_in">max</span>)
-        <span class="built_in">max</span> = <span class="built_in">c</span>;
-     (j = ; (i - j &gt;= ) &amp;&amp; (i + j +  &lt; n); ++j){ <span class="comment">// for the even case  </span>
-         (s[i - j] != s[i + j + ])
-            <span class="keyword">break</span>;
-        <span class="built_in">c</span> = j *  + ;
-    }
-     (<span class="built_in">c</span> &gt; <span class="built_in">max</span>)
-        <span class="built_in">max</span> = <span class="built_in">c</span>;
-}
-<span class="keyword">return</span> <span class="built_in">max</span>;
-</code></pre><p>}<br>代码稍微难懂一点的地方就是内层的两个 for 循环，它们分别对于以 i 为中心的，长度为奇数和偶数的两种情况，整个代码遍历中心位置 i 并以之扩展，找出最长的回文。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">length = len(s)</div><div class="line">isPalinded = [[<span class="keyword">False</span> <span class="keyword">for</span> n <span class="keyword">in</span> range(length)]<span class="keyword">for</span> n <span class="keyword">in</span> range(length)]</div><div class="line">maxOfLength = <span class="number">1</span></div><div class="line">start = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, length):</div><div class="line">	isPalinded[i][i] = <span class="keyword">True</span></div><div class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, i):</div><div class="line">			isPalinded[j][i] = (s[j] == s[i] <span class="keyword">and</span> (i - j &lt; <span class="number">2</span> <span class="keyword">or</span> isPalinded[j+<span class="number">1</span>][i-<span class="number">1</span>]))</div><div class="line">			<span class="keyword">if</span> isPalinded[j][i] <span class="keyword">and</span> maxOfLength &lt; (i - j + <span class="number">1</span>):</div><div class="line">				maxOfLength = i - j + <span class="number">1</span></div><div class="line">				start = j</div><div class="line"><span class="keyword">return</span> s[start : maxOfLength + <span class="number">1</span>]</div><div class="line"><span class="comment">#时间复杂度O(n^2)超过限制</span></div></pre></td></tr></table></figure>
+
+
+<p> 代码稍微难懂一点的地方就是内层的两个 for 循环，它们分别对于以 i 为中心的，长度为奇数和偶数的两种情况，整个代码遍历中心位置 i 并以之扩展，找出最长的回文。</p>
 <h3 id="解法二、O(N)解法">解法二、O(N)解法</h3>
 <p>在上文的解法一：枚举中心位置中，我们需要特别考虑字符串的长度是奇数还是偶数，所以导致我们在编写代码实现的时候要把奇数和偶数的情况分开编写，是否有一种方法，可以不用管长度是奇数还是偶数，而统一处理呢？比如是否能把所有的情况全部转换为奇数处理？</p>
 <p>答案还是肯定的。这就是下面我们将要看到的Manacher算法，且这个算法求最长回文子串的时间复杂度是线性O(N)的。</p>
@@ -133,14 +118,16 @@
 <p>比如S和P的对应关系：</p>
 <p>S # 1 # 2 # 2 # 1 # 2 # 3 # 2 # 1 #<br>P 1 2 1 2 5 2 1 4 1 2 1 6 1 2 1 2 1<br>可以看出，P[i]-1正好是原字符串中最长回文串的总长度，为5。</p>
 <p>接下来怎么计算P[i]呢？Manacher算法增加两个辅助变量id和mx，其中id表示最大回文子串中心的位置，mx则为id+P[id]，也就是最大回文子串的边界。得到一个很重要的结论：</p>
-<p>如果mx &gt; i，那么P[i] &gt;= Min(P[2 * id - i], mx - i)<br>C代码如下：</p>
-<p>//mx &gt; i，那么P[i] &gt;= MIN(P[2 <em> id - i], mx - i)<br>//故谁小取谁<br> (mx - i &gt; P[</em>id - i])<br>    P[i] = P[<em>id - i];<br>  //mx-i &lt;= P[2</em>id - i]<br>    P[i] = mx - i;<br>下面，令j = 2*id - i，也就是说j是i关于id的对称点。</p>
+<p>如果mx &gt; i，那么P[i] &gt;= Min(P[2 <em> id - i], mx - i)<br>下面，令j = 2</em>id - i，也就是说j是i关于id的对称点。</p>
 <p>当 mx - i &gt; P[j] 的时候，以S[j]为中心的回文子串包含在以S[id]为中心的回文子串中，由于i和j对称，以S[i]为中心的回文子串必然包含在以S[id]为中心的回文子串中，所以必有P[i] = P[j]；<br><img src="https://camo.githubusercontent.com/6e347c94c2660435bde50fa5305135229c8d76cf/687474703a2f2f7777772e66656c69783032312e636f6d2f626c6f672f6174746163686d656e742f313331383437363238345f37393335346134372e706e67" alt=""></p>
 <p>当 P[j] &gt;= mx - i 的时候，以S[j]为中心的回文子串不一定完全包含于以S[id]为中心的回文子串中，但是基于对称性可知，下图中两个绿框所包围的部分是相同的，也就是说以S[i]为中心的回文子串，其向右至少会扩张到mx的位置，也就是说 P[i] &gt;= mx - i。至于mx之后的部分是否对称，再具体匹配。</p>
 <p><img src="https://camo.githubusercontent.com/ff7edaf62027622be69d38aa3412b542328f8386/687474703a2f2f7777772e66656c69783032312e636f6d2f626c6f672f6174746163686d656e742f313331383437383131345f34333739666235632e706e67" alt=""></p>
 <p>此外，对于 mx &lt;= i 的情况，因为无法对 P[i]做更多的假设，只能让P[i] = 1，然后再去匹配。</p>
 <p>综上，关键代码如下：</p>
-<p>//输入，并处理得到字符串s<br> p[], mx = , id = ;<br>memset(p, , sizeof(p));<br> (i = ; s[i] != ; i++)<br>{<br>    p[i] = mx &gt; i ? (p[ * id - i], mx - i) : ;<br>    while (s[i + p[i]] == s[i - p[i]])<br>        p[i]++;<br>     (i + p[i] &gt; mx)<br>    {<br>        mx = i + p[i];<br>        id = i;<br>    }<br>}<br>//找出p[i]中最大的<br>此Manacher算法使用id、mx做配合，可以在每次循环中，直接对P[i]的快速赋值，从而在计算以i为中心的回文子串的过程中，不必每次都从1开始比较，减少了比较次数，最终使得求解最长回文子串的长度达到线性O(N)的时间复杂度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">  <span class="comment"># @return a string</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">processString</span><span class="params">(self, s)</span>:</span></div><div class="line">    s = <span class="string">" "</span>.join(s)</div><div class="line">    l = s.split(<span class="string">" "</span>)</div><div class="line">    l.insert(<span class="number">0</span>, <span class="string">'$'</span>)</div><div class="line">    s = <span class="string">'#'</span>.join(l)</div><div class="line">    s += <span class="string">'#^'</span></div><div class="line">    <span class="keyword">return</span> s</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span><span class="params">(self, s)</span>:</span></div><div class="line">    s = self.processString(s)</div><div class="line">    <span class="comment"># print s</span></div><div class="line">    mx = <span class="number">0</span></div><div class="line">    id = <span class="number">0</span></div><div class="line">    p = [<span class="number">0</span> <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">0</span>, len(s))]</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(s) - <span class="number">1</span>):</div><div class="line">      <span class="comment"># print i</span></div><div class="line">      p[i] = min(p[<span class="number">2</span> * id - i], mx - i) <span class="keyword">if</span> mx &gt; i <span class="keyword">else</span> <span class="number">1</span></div><div class="line">      <span class="keyword">while</span> s[i + p[i]] == s[i - p[i]]:</div><div class="line">        p[i] += <span class="number">1</span></div><div class="line">      <span class="keyword">if</span> i + p[i] &gt; mx:</div><div class="line">        mx = i + p[i]</div><div class="line">        id = i</div><div class="line">    maxLength = max(p)</div><div class="line">    index = p.index(maxLength)</div><div class="line">    start = index - maxLength + <span class="number">1</span></div><div class="line">    end = index + maxLength - <span class="number">1</span></div><div class="line">    s = s[start : end]</div><div class="line">    l = s.split(<span class="string">'#'</span>)</div><div class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(l)</div></pre></td></tr></table></figure>
+
+
+<p>此Manacher算法使用id、mx做配合，可以在每次循环中，直接对P[i]的快速赋值，从而在计算以i为中心的回文子串的过程中，不必每次都从1开始比较，减少了比较次数，最终使得求解最长回文子串的长度达到线性O(N)的时间复杂度。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
