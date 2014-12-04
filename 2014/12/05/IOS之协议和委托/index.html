@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[四] | Abbey in Cradle Studio</title>
+    <title>IOS之协议和委托 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="Openers
-当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。
-正常情况下， 我们使用默认opener: 通过urlopen。
-Handles
-Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如">
+    <meta name="description" content="protocol
+
+一个协议不实现任何它定义的方法。它的作用是：当一个对象遵从这个协议时，这个对象必须实现协议的所有方法。
+
+1234protocol AddItemViewControllerDelegate: class {    func addItemViewControllerDidCan">
     
     
     
@@ -76,14 +76,14 @@ Openers使用处理器handlers，每个handlers知道如何通过特定协议打
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/06/Python网络爬虫[四]/" title="Python网络爬虫[四]" itemprop="url">Python网络爬虫[四]</a>
+      <a href="/2014/12/05/IOS之协议和委托/" title="IOS之协议和委托" itemprop="url">IOS之协议和委托</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-06T15:49:25.000Z" itemprop="datePublished"> 发表于 2014-09-06</time>
+    <time datetime="2014-12-04T16:06:53.000Z" itemprop="datePublished"> 发表于 2014-12-05</time>
     
   </p>
 </header>
@@ -93,34 +93,45 @@ Openers使用处理器handlers，每个handlers知道如何通过特定协议打
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Openers"><span class="toc-number">1.</span> <span class="toc-text">Openers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Handles"><span class="toc-number">2.</span> <span class="toc-text">Handles</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#protocol"><span class="toc-number">1.</span> <span class="toc-text">protocol</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单的五部实现delegate"><span class="toc-number">2.</span> <span class="toc-text">简单的五部实现delegate</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="Openers">Openers</h2>
-<p>当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。</p>
-<p>正常情况下， 我们使用默认opener: 通过urlopen。</p>
-<h2 id="Handles">Handles</h2>
-<p>Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如何处理URL打开时的各个方面。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"></div><div class="line"><span class="variable">password_mgr =</span> urllib2.HTTPPasswordMgrWithDefaultRealm()</div><div class="line"></div><div class="line"><span class="variable">top_level_url =</span> <span class="string">"http://example.com/foo/"</span></div><div class="line"></div><div class="line">password_mgr.add_password(None, top_level_url, 'why', '<span class="number">123</span>')</div><div class="line"></div><div class="line"><span class="variable">handler =</span> urllib2.HTTPBasicAuthHandler(password_mgr)</div><div class="line"></div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(handler)</div><div class="line"></div><div class="line"><span class="variable">a_url =</span> 'http://www.baidu.com/'</div><div class="line"></div><div class="line">opener.open(a_url)</div><div class="line"></div><div class="line">urllib2.install_opener(open)</div></pre></td></tr></table></figure>
+		<h1 id="protocol">protocol</h1>
+<blockquote>
+<p>一个协议不实现任何它定义的方法。它的作用是：当一个对象遵从这个协议时，这个对象必须实现协议的所有方法。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">AddItemViewControllerDelegate</span>: <span class="title">class</span> </span>{</div><div class="line">    <span class="func"><span class="keyword">func</span></span> addItemViewControllerDidCancel(controller: <span class="type">AddItemViewController</span>)</div><div class="line">    <span class="func"><span class="keyword">func</span></span> addItemViewController(controller: <span class="type">AddItemViewController</span>, didFinishAddingItem item: <span class="type">ChecklistItem</span>)</div><div class="line">}</div></pre></td></tr></table></figure>
 
+<p>为了让ChecklistViewController遵从这个协议，它必须提供这两个方法的实现。从此你可以参考ChecklistViewController仅使用协议名称。<br>protocol 类似与 java 中的 interface</p>
+<p>在AddItemViewController中，不需要再写:<br><code>var delegate: ChecklistViewController</code><br>而是写为:<br><code>var delegate: AddItemViewControllerDelegate</code></p>
+<p>delegate这个变量对实现了这个协议的对象来说只是一个参考，引用。你可以通过delegate这个变量去发送信息给对象，而不需要直到这个对象到底是什么。</p>
+<h1 id="简单的五部实现delegate">简单的五部实现delegate</h1>
+<p>A是B的delegate，B将发送消息</p>
+<ol>
+<li>为B定义一个delegate协议</li>
+<li>给B定义一个可选的delegate变量，这个变量必须是weak的</li>
+<li>当事件发生的时候，让B向这个delegate发送消息</li>
+<li>让A遵守这个协议。必须在类名后面加上协议的名字<code>class ChecklistViewController: AddItemViewControllerDelegate</code></li>
+<li>告诉B，A现在已经是它的一个delegate</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/IOS/">IOS</a>
+</div>
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
-  </div>
 
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[四]/" data-title="Python网络爬虫[四] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/12/05/IOS之协议和委托/" data-title="IOS之协议和委托 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -129,19 +140,11 @@ Openers使用处理器handlers，每个handlers知道如何通过特定协议打
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/07/Python网络爬虫[五]/" title="Python网络爬虫[五]">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Python网络爬虫[五]</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/06/Python网络爬虫[三]/"  title="Python网络爬虫[三]">
+<a href="/2014/12/02/最长回文子串/"  title="最长回文子串">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[三]
+ <span>最长回文子串
 </span>
 </a>
 </div>
@@ -150,7 +153,7 @@ Openers使用处理器handlers，每个handlers知道如何通过特定协议打
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/06/Python网络爬虫[四]/" data-title="Python网络爬虫[四]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/12/05/IOS之协议和委托/" data-title="IOS之协议和委托" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -173,7 +176,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Openers"><span class="toc-number">1.</span> <span class="toc-text">Openers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Handles"><span class="toc-number">2.</span> <span class="toc-text">Handles</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#protocol"><span class="toc-number">1.</span> <span class="toc-text">protocol</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#简单的五部实现delegate"><span class="toc-number">2.</span> <span class="toc-text">简单的五部实现delegate</span></a></li></ol>
  
   </div>
 

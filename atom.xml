@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-12-04T04:02:32.820Z</updated>
+  <updated>2014-12-04T16:30:21.733Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,37 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[IOS之协议和委托]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/05/IOS%E4%B9%8B%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%A7%94%E6%89%98/"/>
+    <id>http://www.abbeychenxi.net/2014/12/05/IOS之协议和委托/</id>
+    <published>2014-12-04T16:06:53.000Z</published>
+    <updated>2014-12-04T16:30:13.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="protocol">protocol</h1>
+<blockquote>
+<p>一个协议不实现任何它定义的方法。它的作用是：当一个对象遵从这个协议时，这个对象必须实现协议的所有方法。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">AddItemViewControllerDelegate</span>: <span class="title">class</span> </span>{</div><div class="line">    <span class="func"><span class="keyword">func</span></span> addItemViewControllerDidCancel(controller: <span class="type">AddItemViewController</span>)</div><div class="line">    <span class="func"><span class="keyword">func</span></span> addItemViewController(controller: <span class="type">AddItemViewController</span>, didFinishAddingItem item: <span class="type">ChecklistItem</span>)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>为了让ChecklistViewController遵从这个协议，它必须提供这两个方法的实现。从此你可以参考ChecklistViewController仅使用协议名称。<br>protocol 类似与 java 中的 interface</p>
+<p>在AddItemViewController中，不需要再写:<br><code>var delegate: ChecklistViewController</code><br>而是写为:<br><code>var delegate: AddItemViewControllerDelegate</code></p>
+<p>delegate这个变量对实现了这个协议的对象来说只是一个参考，引用。你可以通过delegate这个变量去发送信息给对象，而不需要直到这个对象到底是什么。</p>
+<h1 id="简单的五部实现delegate">简单的五部实现delegate</h1>
+<p>A是B的delegate，B将发送消息</p>
+<ol>
+<li>为B定义一个delegate协议</li>
+<li>给B定义一个可选的delegate变量，这个变量必须是weak的</li>
+<li>当事件发生的时候，让B向这个delegate发送消息</li>
+<li>让A遵守这个协议。必须在类名后面加上协议的名字<code>class ChecklistViewController: AddItemViewControllerDelegate</code></li>
+<li>告诉B，A现在已经是它的一个delegate</li>
+</ol>
+]]></content>
+    
+    
+      <category term="IOS" scheme="http://www.abbeychenxi.net/categories/IOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[最长回文子串]]></title>
@@ -1150,20 +1181,6 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
       <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
     
       <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[today]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/04/today/"/>
-    <id>http://www.abbeychenxi.net/2014/09/04/today/</id>
-    <published>2014-09-03T20:09:48.000Z</published>
-    <updated>2014-10-25T14:36:11.000Z</updated>
-    <content type="html"><![CDATA[<p>今天入学教育，正式成为了NJU的一名学生。<br>晚上成功搭建了自己的个人博客！<br>I’m so happy!<br>Thanks everyone!</p>
-]]></content>
-    
-    
-      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
     
   </entry>
   
