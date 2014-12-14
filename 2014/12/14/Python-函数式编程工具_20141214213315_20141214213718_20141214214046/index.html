@@ -4,17 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[三] | Abbey in Cradle Studio</title>
+    <title>Python 函数式编程工具 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="HTTP异常处理
-urlopen不能处理一个response时，产生urlError。
-不过通常的Python APIs异常也会同时产生。
-HTTPError是urlError的子类，通常在特定HTTP URLs中产生。
-URLError
-12345678import urllib2req = ur">
+    <meta name="description" content="filter
+filter(function, sequence) 返回一个 sequence（序列），包括了给定序列中所有调用 function(item) 后返回值为 true 的元素。（如果可能的话，会返回相同的类型）。如果该 序列 （sequence） 是一个 string （字符串）或者 ">
     
     
     
@@ -77,14 +73,14 @@ URLError
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/06/Python网络爬虫[三]/" title="Python网络爬虫[三]" itemprop="url">Python网络爬虫[三]</a>
+      <a href="/2014/12/14/Python-函数式编程工具_20141214213315_20141214213718_20141214214046/" title="Python 函数式编程工具" itemprop="url">Python 函数式编程工具</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-06T09:51:23.000Z" itemprop="datePublished"> 发表于 2014-09-06</time>
+    <time datetime="2014-12-14T13:30:38.000Z" itemprop="datePublished"> 发表于 2014-12-14</time>
     
   </p>
 </header>
@@ -94,24 +90,28 @@ URLError
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP异常处理"><span class="toc-number">1.</span> <span class="toc-text">HTTP异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URLError"><span class="toc-number"></span> <span class="toc-text">URLError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPError"><span class="toc-number"></span> <span class="toc-text">HTTPError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wrapping"><span class="toc-number"></span> <span class="toc-text">Wrapping</span></a>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-number">1.</span> <span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-number">2.</span> <span class="toc-text">map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduce"><span class="toc-number">3.</span> <span class="toc-text">reduce</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="HTTP异常处理">HTTP异常处理</h2>
-<p>urlopen不能处理一个response时，产生urlError。</p>
-<p>不过通常的Python APIs异常也会同时产生。</p>
-<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
-<h1 id="URLError">URLError</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
+		<h3 id="filter">filter</h3>
+<p>filter(function, sequence) 返回一个 sequence（序列），包括了给定序列中所有调用 function(item) 后返回值为 true 的元素。（如果可能的话，会返回相同的类型）。如果该 序列 （sequence） 是一个 string （字符串）或者 tuple （元组），返回值必定是同一类型，否则，它总是 list 。例如，以下程序可以计算部分素数:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span></div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]</div><div class="line"></div><div class="line">filter(<span class="keyword">lambda</span> x: x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span>, range(<span class="number">2</span>, <span class="number">25</span>))</div></pre></td></tr></table></figure>
 
-<h1 id="HTTPError">HTTPError</h1>
-<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
-<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+<h3 id="map">map</h3>
+<p>map(function, sequence) 为每一个元素依次调用 function(item) 并将返回值组成一个链表返回。例如，以下程序计算立方:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x*x*x</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>map(cube, range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line">[<span class="number">1</span>, <span class="number">8</span>, <span class="number">27</span>, <span class="number">64</span>, <span class="number">125</span>, <span class="number">216</span>, <span class="number">343</span>, <span class="number">512</span>, <span class="number">729</span>, <span class="number">1000</span>]</div><div class="line"></div><div class="line">map(<span class="keyword">lambda</span> x: x**<span class="number">3</span>, range(<span class="number">1</span>, <span class="number">11</span>))</div></pre></td></tr></table></figure>
 
-<h1 id="Wrapping">Wrapping</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
+<p>可以传入多个序列，函数也必须要有对应数量的参数，执行时会依次用各序列上对应的元素来调用函数（如果某些序列比其它的短，就用 None 来代替）。如果把 None 做为一个函数传入，则直接返回参数做为替代。例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span>seq = range(<span class="number">8</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>map(add, seq, seq)</div><div class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">14</span>]</div></pre></td></tr></table></figure>
+
+<h3 id="reduce">reduce</h3>
+<p>reduce(function, sequence) 返回一个单值，它是这样构造的：首先以序列的前两个元素调用函数 function，再以返回值和第三个参数调用，依次执行下去。例如，以下程序计算 1 到 10 的整数之和:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line"><span class="number">55</span></div></pre></td></tr></table></figure>
+
+<p>如果序列中只有一个元素，就返回它，如果序列是空的，就抛出一个异常。</p>
+<p>可以传入第三个参数作为初始值。如果序列是空的，就返回初始值，否则函数会先接收初始值和序列的第一个元素，然后是返回值和下一个元素，依此类推。例如:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(seq)</span>:</span></div><div class="line"><span class="prompt">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line"><span class="prompt">... </span>    <span class="keyword">return</span> reduce(add, seq, <span class="number">0</span>)</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sum(range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line"><span class="number">55</span></div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sum([])</div><div class="line"><span class="number">0</span></div></pre></td></tr></table></figure>
 
   
 	</div>
@@ -121,7 +121,7 @@ URLError
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
+  <span></span> <a href="/tags/Python/">Python</a>
   </div>
 
 </div>
@@ -129,7 +129,7 @@ URLError
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/" data-title="Python网络爬虫[三] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/12/14/Python-函数式编程工具_20141214213315_20141214213718_20141214214046/" data-title="Python 函数式编程工具 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -139,18 +139,18 @@ URLError
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/09/06/Python网络爬虫[四]/" title="Python网络爬虫[四]">
+ <a href="/2014/12/14/Python-函数式编程工具/" title="Python 函数式编程工具">
   <strong>上一篇：</strong><br/>
   <span>
-  Python网络爬虫[四]</span>
+  Python 函数式编程工具</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/09/06/Python网络爬虫[二]/"  title="Python网络爬虫[二]">
+<a href="/2014/12/14/Python-函数式编程工具_20141214213315_20141214213718/"  title="Python 函数式编程工具">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[二]
+ <span>Python 函数式编程工具
 </span>
 </a>
 </div>
@@ -159,7 +159,7 @@ URLError
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/06/Python网络爬虫[三]/" data-title="Python网络爬虫[三]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/12/14/Python-函数式编程工具_20141214213315_20141214213718_20141214214046/" data-title="Python 函数式编程工具" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -182,7 +182,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP异常处理"><span class="toc-number">1.</span> <span class="toc-text">HTTP异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URLError"><span class="toc-number"></span> <span class="toc-text">URLError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPError"><span class="toc-number"></span> <span class="toc-text">HTTPError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wrapping"><span class="toc-number"></span> <span class="toc-text">Wrapping</span></a>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-number">1.</span> <span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-number">2.</span> <span class="toc-text">map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reduce"><span class="toc-number">3.</span> <span class="toc-text">reduce</span></a></li></ol>
  
   </div>
 
