@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-12-14T04:05:52.421Z</updated>
+  <updated>2014-12-14T04:08:17.427Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,20 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Rust]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/14/Rust/"/>
+    <id>http://www.abbeychenxi.net/2014/12/14/Rust/</id>
+    <published>2014-12-14T04:06:08.000Z</published>
+    <updated>2014-12-14T04:08:07.000Z</updated>
+    <content type="html"><![CDATA[<p>Rust 1.0 发布了。<br>这个看上去比Go的语法优美，简洁的静态编译型语言。</p>
+<p>大致看了一下语法。和Swift很类似。</p>
+<p>决定入坑Rust。</p>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[IOS之协议和委托]]></title>
@@ -1151,30 +1165,6 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
 <p>这就实现了Data数据的Get传送。</p>
 <h1 id="设置Headers到http请求">设置Headers到http请求</h1>
 <p>有一些站点不喜欢被程序访问，或者发送不同版本的内容到不同的浏览器。<br>浏览器确认自己身份是通过User-Agent头，当你创建了一个请求对象，你可以给他一个包含头数据的字典。</p>
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[一]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/04/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%80%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/04/Python网络爬虫[一]/</id>
-    <published>2014-09-04T15:39:08.000Z</published>
-    <updated>2014-10-25T14:35:55.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="URI">URI</h2>
-<p>URI通常由三部分组成：</p>
-<ol>
-<li>访问资源的命名机制；</li>
-<li>存放资源的主机名</li>
-<li>资源自身的名称，由路径表示</li>
-</ol>
-<p>URI定义:统一资源标识符<br>URL定义:统一资源定位符</p>
-<p>爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。</p>
 ]]></content>
     
     

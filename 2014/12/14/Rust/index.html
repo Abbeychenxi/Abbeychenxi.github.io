@@ -4,20 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>manzhan.com的爬虫抓站小结 | Abbey in Cradle Studio</title>
+    <title>Rust | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="目标网站: www.manzhan.com使用框架: Scrapy
-新建项目
-scrapy startproject manzhan
-各文件的作用:
-
-scrapy.cfg: 项目的配置文件
-manzhan/: 项目的Python模块
-manzhan/items.py: 项目的items文件
-man">
+    <meta name="description" content="Rust 1.0 发布了。这个看上去比Go的语法优美，简洁的静态编译型语言。
+大致看了一下语法。和Swift很类似。
+决定入坑Rust。">
     
     
     
@@ -80,14 +74,14 @@ man">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/23/manzhan-com的爬虫抓站小结/" title="manzhan.com的爬虫抓站小结" itemprop="url">manzhan.com的爬虫抓站小结</a>
+      <a href="/2014/12/14/Rust/" title="Rust" itemprop="url">Rust</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-10-22T17:13:55.000Z" itemprop="datePublished"> 发表于 2014-10-23</time>
+    <time datetime="2014-12-14T04:06:08.000Z" itemprop="datePublished"> 发表于 2014-12-14</time>
     
   </p>
 </header>
@@ -97,96 +91,25 @@ man">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建项目"><span class="toc-number">1.</span> <span class="toc-text">新建项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#明确目标"><span class="toc-number">2.</span> <span class="toc-text">明确目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#制作爬虫"><span class="toc-number">3.</span> <span class="toc-text">制作爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#爬"><span class="toc-number">3.1.</span> <span class="toc-text">爬</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取"><span class="toc-number">3.2.</span> <span class="toc-text">取</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储内容"><span class="toc-number">4.</span> <span class="toc-text">存储内容</span></a></li></ol>
+			
 		
 		</div>
 		
-		<p>目标网站: www.manzhan.com<br>使用框架: Scrapy</p>
-<h1 id="新建项目">新建项目</h1>
-<p><code>scrapy startproject manzhan</code></p>
-<p>各文件的作用:</p>
-<ul>
-<li>scrapy.cfg: 项目的配置文件</li>
-<li>manzhan/: 项目的Python模块</li>
-<li>manzhan/items.py: 项目的items文件</li>
-<li>manzhan/pipelines.py: 项目的pipelines文件</li>
-<li>manzhan/settings.py: 项目的设置文件</li>
-<li>manzhan/spiders/: 存储爬虫的目录</li>
-</ul>
-<h1 id="明确目标">明确目标</h1>
-<p>在Scrapy中，items是用来加载抓取内容的容器。<br>需要抓取的内容：</p>
-<ul>
-<li>title</li>
-<li>date</li>
-<li>location</li>
-<li>site</li>
-<li>theme</li>
-<li>type</li>
-<li>link</li>
-</ul>
-<p>创建item类：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="title">from</span> scrapy.item <span class="import"><span class="keyword">import</span> Item, Field</span></div><div class="line"><span class="class"></span></div><div class="line"><span class="keyword">class</span> manzhanItem<span class="container">(<span class="type">Item</span>)</span>:</div><div class="line">	title = <span class="type">Field</span><span class="container">()</span></div><div class="line">	date = <span class="type">Field</span><span class="container">()</span></div><div class="line">	location = <span class="type">Field</span><span class="container">()</span></div><div class="line">	site = <span class="type">Field</span><span class="container">()</span></div><div class="line">	theme = <span class="type">Field</span><span class="container">()</span></div><div class="line">	type = <span class="type">Field</span><span class="container">()</span></div><div class="line">	link = <span class="type">Field</span><span class="container">()</span></div></pre></td></tr></table></figure>
-
-<h1 id="制作爬虫">制作爬虫</h1>
-<p>制作爬虫分为两步: 先爬再取</p>
-<h2 id="爬">爬</h2>
-<p>Spider是用户自己编写的类，用来从一个域内抓取信息。<br>他们定义了用于下载的URL列表、跟踪链接的方案、解析网页内容的方式，以此来提取items。<br>要建立一个Spider，你必须用scrapy.spider.BaseSpider创建一个子类，并确定三个强制的属性:</p>
-<ul>
-<li>name: 爬虫的识别名称，必须唯一</li>
-<li>start_urls: 爬虫的URL列表。爬虫从这里开始抓取数据。第一次的数据会从这些urls开始。其他子URL将会从这些起始URL中继承性生成</li>
-<li>parse(): 解析方法，调用的时候传入从每一个URL传回的Response对象作为唯一参数，负责解析并匹配抓取的数据，跟踪更多的URL。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> scrapy.spider <span class="keyword">import</span> Spider</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ManzhanSpider</span><span class="params">(Spider)</span>:</span></div><div class="line">	name = <span class="string">"manzhan"</span></div><div class="line">	allowed_domains = [<span class="string">"manzhan.com"</span>]</div><div class="line">	start_urls = [</div><div class="line">		<span class="string">"http://www.manzhan.com"</span></div><div class="line">	]</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">		filename = response.url</div><div class="line">		open(filename, <span class="string">'wb'</span>).write(response.body)</div></pre></td></tr></table></figure>
-
-<p>allow_domains是搜索的域名范围，也就是爬虫的约束区域，规定爬虫只爬取这个域名下的网页。<br>测试 scrapy crawl manzhan</p>
-<h2 id="取">取</h2>
-<p>在基础的爬虫里，这一步可以用正则式来抓。<br>在Scrapy里，使用一种叫做Xpath selectors的机制，它基于Xpath表达式。<br>在Scrapy里面， Selectors有四种基础的方法:</p>
-<ul>
-<li>xpath(): 返回一系列的selectors，每一个select表示一个xpath参数表达式选择的节点</li>
-<li>css(): 返回一系列的selectors，每一个select表示一个css参数表达式选择的节点</li>
-<li>extract(): 返回一个unicode字符串，为选中的数据</li>
-<li>re(): 返回一串一个unicode字符串，为使用正则表达式抓取出来的内容</li>
-</ul>
-<p>具体的xpath表达式</p>
-<ul>
-<li>nodename  选取此节点的所有子节点</li>
-<li>/   从根节点选取</li>
-<li>//  从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置</li>
-<li>.   选取当前节点</li>
-<li>..  选取当前节点的父节点</li>
-<li>@   选取属性</li>
-<li>count 当前节点包含其他节点</li>
-<li>[1] 当前节点在文件中的位置</li>
-</ul>
-<p>parse函数更改为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">	sel = Selector(response)</div><div class="line">	infos = sel.xpath(<span class="string">'//tr[count(td)=6]'</span>)</div><div class="line">	<span class="keyword">for</span> info <span class="keyword">in</span> infos.xpath(<span class="string">'.//td'</span>):</div><div class="line">		<span class="keyword">pass</span></div></pre></td></tr></table></figure>
-
-<p><a href="https://github.com/Abbeychenxi/cosjy" target="_blank" rel="external">代码git地址</a></p>
-<h1 id="存储内容">存储内容</h1>
-<p>保存信息的最简单的方法是通过Feed exports，主要有四种：JSON，JSON lines，CSV，XML。<br>我们将结果用最常用的JSON导出</p>
-<p><code>scrapy crawl manzhan -o items.json -t json</code></p>
+		<p>Rust 1.0 发布了。<br>这个看上去比Go的语法优美，简洁的静态编译型语言。</p>
+<p>大致看了一下语法。和Swift很类似。</p>
+<p>决定入坑Rust。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/cosjy/">cosjy</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/Scrapy/">Scrapy</a>
-  </div>
 
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/10/23/manzhan-com的爬虫抓站小结/" data-title="manzhan.com的爬虫抓站小结 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/12/14/Rust/" data-title="Rust | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -195,19 +118,11 @@ man">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/10/31/bcy抓站小结/" title="bcy抓站小结">
-  <strong>上一篇：</strong><br/>
-  <span>
-  bcy抓站小结</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/10/07/node异步开发难题/"  title="node异步开发难题">
+<a href="/2014/12/05/IOS之协议和委托/"  title="IOS之协议和委托">
  <strong>下一篇：</strong><br/> 
- <span>node异步开发难题
+ <span>IOS之协议和委托
 </span>
 </a>
 </div>
@@ -216,7 +131,7 @@ man">
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/10/23/manzhan-com的爬虫抓站小结/" data-title="manzhan.com的爬虫抓站小结" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/12/14/Rust/" data-title="Rust" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -239,7 +154,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#新建项目"><span class="toc-number">1.</span> <span class="toc-text">新建项目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#明确目标"><span class="toc-number">2.</span> <span class="toc-text">明确目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#制作爬虫"><span class="toc-number">3.</span> <span class="toc-text">制作爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#爬"><span class="toc-number">3.1.</span> <span class="toc-text">爬</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#取"><span class="toc-number">3.2.</span> <span class="toc-text">取</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#存储内容"><span class="toc-number">4.</span> <span class="toc-text">存储内容</span></a></li></ol>
+ 
  
   </div>
 
