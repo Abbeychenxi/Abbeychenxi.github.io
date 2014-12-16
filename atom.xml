@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-12-14T13:42:01.098Z</updated>
+  <updated>2014-12-16T08:36:33.349Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -16,26 +16,6 @@
   
   <entry>
     <title><![CDATA[Python 函数式编程工具]]></title>
-    <link href="http://www.abbeychenxi.net/2014/12/14/Python-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7_20141214213315/"/>
-    <id>http://www.abbeychenxi.net/2014/12/14/Python-函数式编程工具_20141214213315/</id>
-    <published>2014-12-14T13:30:38.000Z</published>
-    <updated>2014-12-14T13:36:07.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="filter">filter</h3>
-<p>filter(function, sequence) 返回一个 sequence（序列），包括了给定序列中所有调用 function(item) 后返回值为 true 的元素。（如果可能的话，会返回相同的类型）。如果该 序列 （sequence） 是一个 string （字符串）或者 tuple （元组），返回值必定是同一类型，否则，它总是 list 。例如，以下程序可以计算部分素数:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span></div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]</div><div class="line"></div><div class="line">filter(<span class="keyword">lambda</span> x: x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span>, range(<span class="number">2</span>, <span class="number">25</span>))</div></pre></td></tr></table></figure>
-
-<h3 id="map">map</h3>
-<p>map(function, sequence) 为每一个元素依次调用 function(item) 并将返回值组成一个链表返回。例如，以下程序计算立方:</p>
-<p>```python</p>
-]]></content>
-    
-    
-      <category term="Python" scheme="http://www.abbeychenxi.net/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python 函数式编程工具]]></title>
     <link href="http://www.abbeychenxi.net/2014/12/14/Python-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"/>
     <id>http://www.abbeychenxi.net/2014/12/14/Python-函数式编程工具/</id>
     <published>2014-12-14T13:30:38.000Z</published>
@@ -44,66 +24,6 @@
 <li>filter(function, sequence) 返回一个 sequence（序列），包括了给定序列中所有调用 function(item) 后返回值为 true 的元素。（如果可能的话，会返回相同的类型）。如果该 序列 （sequence） 是一个 string （字符串）或者 tuple （元组），返回值必定是同一类型，否则，它总是 list 。例如，以下程序可以计算部分素数:</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span></div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]</div></pre></td></tr></table></figure>
-
-]]></content>
-    
-    
-      <category term="Python" scheme="http://www.abbeychenxi.net/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python 函数式编程工具]]></title>
-    <link href="http://www.abbeychenxi.net/2014/12/14/Python-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7_20141214213315_20141214213718_20141214214046/"/>
-    <id>http://www.abbeychenxi.net/2014/12/14/Python-函数式编程工具_20141214213315_20141214213718_20141214214046/</id>
-    <published>2014-12-14T13:30:38.000Z</published>
-    <updated>2014-12-14T13:40:50.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="filter">filter</h3>
-<p>filter(function, sequence) 返回一个 sequence（序列），包括了给定序列中所有调用 function(item) 后返回值为 true 的元素。（如果可能的话，会返回相同的类型）。如果该 序列 （sequence） 是一个 string （字符串）或者 tuple （元组），返回值必定是同一类型，否则，它总是 list 。例如，以下程序可以计算部分素数:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span></div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]</div><div class="line"></div><div class="line">filter(<span class="keyword">lambda</span> x: x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span>, range(<span class="number">2</span>, <span class="number">25</span>))</div></pre></td></tr></table></figure>
-
-<h3 id="map">map</h3>
-<p>map(function, sequence) 为每一个元素依次调用 function(item) 并将返回值组成一个链表返回。例如，以下程序计算立方:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x*x*x</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>map(cube, range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line">[<span class="number">1</span>, <span class="number">8</span>, <span class="number">27</span>, <span class="number">64</span>, <span class="number">125</span>, <span class="number">216</span>, <span class="number">343</span>, <span class="number">512</span>, <span class="number">729</span>, <span class="number">1000</span>]</div><div class="line"></div><div class="line">map(<span class="keyword">lambda</span> x: x**<span class="number">3</span>, range(<span class="number">1</span>, <span class="number">11</span>))</div></pre></td></tr></table></figure>
-
-<p>可以传入多个序列，函数也必须要有对应数量的参数，执行时会依次用各序列上对应的元素来调用函数（如果某些序列比其它的短，就用 None 来代替）。如果把 None 做为一个函数传入，则直接返回参数做为替代。例如:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span>seq = range(<span class="number">8</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>map(add, seq, seq)</div><div class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">14</span>]</div></pre></td></tr></table></figure>
-
-<h3 id="reduce">reduce</h3>
-<p>reduce(function, sequence) 返回一个单值，它是这样构造的：首先以序列的前两个元素调用函数 function，再以返回值和第三个参数调用，依次执行下去。例如，以下程序计算 1 到 10 的整数之和:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line"><span class="number">55</span></div></pre></td></tr></table></figure>
-
-<p>如果序列中只有一个元素，就返回它，如果序列是空的，就抛出一个异常。</p>
-<p>可以传入第三个参数作为初始值。如果序列是空的，就返回初始值，否则函数会先接收初始值和序列的第一个元素，然后是返回值和下一个元素，依此类推。例如:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">sum</span><span class="params">(seq)</span>:</span></div><div class="line"><span class="prompt">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line"><span class="prompt">... </span>    <span class="keyword">return</span> reduce(add, seq, <span class="number">0</span>)</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sum(range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line"><span class="number">55</span></div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sum([])</div><div class="line"><span class="number">0</span></div></pre></td></tr></table></figure>
-
-]]></content>
-    
-    
-      <category term="Python" scheme="http://www.abbeychenxi.net/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python 函数式编程工具]]></title>
-    <link href="http://www.abbeychenxi.net/2014/12/14/Python-%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7_20141214213315_20141214213718/"/>
-    <id>http://www.abbeychenxi.net/2014/12/14/Python-函数式编程工具_20141214213315_20141214213718/</id>
-    <published>2014-12-14T13:30:38.000Z</published>
-    <updated>2014-12-14T13:40:15.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="filter">filter</h3>
-<p>filter(function, sequence) 返回一个 sequence（序列），包括了给定序列中所有调用 function(item) 后返回值为 true 的元素。（如果可能的话，会返回相同的类型）。如果该 序列 （sequence） 是一个 string （字符串）或者 tuple （元组），返回值必定是同一类型，否则，它总是 list 。例如，以下程序可以计算部分素数:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span></div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>))</div><div class="line">[<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]</div><div class="line"></div><div class="line">filter(<span class="keyword">lambda</span> x: x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span>, range(<span class="number">2</span>, <span class="number">25</span>))</div></pre></td></tr></table></figure>
-
-<h3 id="map">map</h3>
-<p>map(function, sequence) 为每一个元素依次调用 function(item) 并将返回值组成一个链表返回。例如，以下程序计算立方:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x*x*x</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>map(cube, range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line">[<span class="number">1</span>, <span class="number">8</span>, <span class="number">27</span>, <span class="number">64</span>, <span class="number">125</span>, <span class="number">216</span>, <span class="number">343</span>, <span class="number">512</span>, <span class="number">729</span>, <span class="number">1000</span>]</div><div class="line"></div><div class="line">map(<span class="keyword">lambda</span> x: x**<span class="number">3</span>, range(<span class="number">1</span>, <span class="number">11</span>))</div></pre></td></tr></table></figure>
-
-<p>可以传入多个序列，函数也必须要有对应数量的参数，执行时会依次用各序列上对应的元素来调用函数（如果某些序列比其它的短，就用 None 来代替）。如果把 None 做为一个函数传入，则直接返回参数做为替代。例如:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span>seq = range(<span class="number">8</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>map(add, seq, seq)</div><div class="line">[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">14</span>]</div></pre></td></tr></table></figure>
-
-<h3 id="reduce">reduce</h3>
-<p>reduce(function, sequence) 返回一个单值，它是这样构造的：首先以序列的前两个元素调用函数 function，再以返回值和第三个参数调用，依次执行下去。例如，以下程序计算 1 到 10 的整数之和:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x+y</div><div class="line">...</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>))</div><div class="line"><span class="number">55</span></div></pre></td></tr></table></figure>
 
 ]]></content>
     
@@ -1127,6 +1047,111 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
 <li>groups：表达式中分组的数量。</li>
 <li>groupindex：以表达式中有别名的组的别名为键、以该组对应的编号为值的字典，没有别名的组不包含在内。 </li>
 </ol>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[五]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%94%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[五]/</id>
+    <published>2014-09-06T16:00:11.000Z</published>
+    <updated>2014-10-25T14:35:47.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Proxy设置">Proxy设置</h2>
+<p>在程序中明确Proxy不受环境变量的影响</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">enable_proxy =</span> True</div><div class="line"><span class="variable">proxy_handler =</span> urllib2.ProxyHandler({<span class="string">"http"</span>: 'http://some-proxy.com:<span class="number">8080</span>'})</div><div class="line"><span class="variable">null_proxy_handler =</span> urllib2.ProxyHandler({})</div><div class="line"><span class="keyword">if</span> enable_proxy:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(proxy_handler)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(null_proxy_handler)</div><div class="line">urllib2.install_opener(opener)</div></pre></td></tr></table></figure>
+
+<h2 id="Timeout设置">Timeout设置</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com', <span class="variable">timeout =</span> <span class="number">10</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="在HTTP_Request中加入特定的Header">在HTTP Request中加入特定的Header</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">request = urllib2.Request(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">request.add_handler(<span class="string">'User-Agent'</span>, <span class="string">'fake-client'</span>)</div><div class="line">response = urllib2.urlopen(request)</div><div class="line"><span class="keyword">print</span> response.<span class="keyword">read</span>()</div></pre></td></tr></table></figure>
+
+<h2 id="Redirect">Redirect</h2>
+<p>urllib2 默认情况下会针对HTTP 3XX返回码自动进行redirect动作，无需人工配置。要检测是否发送了Redirect动作，只要检查Response的URL和Request的URL是否一致。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">my_url =</span> 'http://www.google.cn'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div><div class="line"></div><div class="line"><span class="variable">my_url =</span> 'http://rrurl.cn/blUZup'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div></pre></td></tr></table></figure>
+
+<h2 id="Cookie">Cookie</h2>
+<p>urllib2对Cookie的处理也是自动的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import urllib2</div><div class="line">import cookielib</div><div class="line">cookie = cookielib.CookieJar()</div><div class="line">opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))</div><div class="line">response = opener.<span class="built_in">open</span>(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"><span class="keyword">for</span> <span class="keyword">item</span> <span class="operator">in</span> cookie:</div><div class="line">	print <span class="string">'Name = '</span>+<span class="keyword">item</span>.name</div><div class="line">	print <span class="string">'Value = '</span>+<span class="keyword">item</span>.<span class="built_in">value</span></div></pre></td></tr></table></figure>
+
+<h2 id="使用HTTP的PUT和DELETE方法">使用HTTP的PUT和DELETE方法</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">request =</span> urllib2.Request(uri, <span class="variable">data =</span> data)</div><div class="line">request.<span class="variable">get_method =</span> lambda: 'PUT'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(request)</div></pre></td></tr></table></figure>
+
+<h2 id="得到HTTP的返回码">得到HTTP的返回码</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urllib2.urlopen(<span class="string">'http://bbs.csdn.net/why'</span>)</div><div class="line"><span class="keyword">except</span> urllib2.HTTPError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+
+<h2 id="Debug_Log">Debug Log</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">httpHandler =</span> urllib2.HTTPHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">httpsHandler =</span> urllib2.HTTPSHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(httpHandler, httpsHandler)</div><div class="line">urllib2.install_opener(opener)</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com')</div></pre></td></tr></table></figure>
+
+<h2 id="表单处理">表单处理</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">postdata = urllib.urlencode({</div><div class="line">	'username': 'chenxi',</div><div class="line">	'password': 'why888',</div><div class="line">	'fk': '',</div><div class="line">	'login_submit': '登录'</div><div class="line">})</div><div class="line">req = urllib2.<span class="type">Request</span> (</div><div class="line">	url = 'http://secure.verycd.com/signin',</div><div class="line">	data = postdata</div><div class="line">)</div><div class="line"><span class="literal">result</span> = urllib2.urlopen(req)</div><div class="line">print <span class="literal">result</span>.read()</div></pre></td></tr></table></figure>
+
+<h2 id="伪装成浏览器访问">伪装成浏览器访问</h2>
+<p>修改http包中的header来实现</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="constant">headers</span> = {</div><div class="line">	'User-Agent': 'Mozilla/5.0 (windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) gecko/20091201 Firefox/3.5.6'</div><div class="line">}</div><div class="line"><span class="constant">req</span> = urllib2.Request (</div><div class="line">	url = 'http://secure.verycd.com/signin/*/http://www.verycd.com/',</div><div class="line">	data = postdata,</div><div class="line">	headers = headers</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<h2 id="对付“反盗链”">对付“反盗链”</h2>
+<p>把headers的referer改成该网站即可</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">headers = {</div><div class="line">	'Referer': 'http:<span class="comment">//www.cnbeta.com/articles'</span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[四]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E5%9B%9B%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[四]/</id>
+    <published>2014-09-06T15:49:25.000Z</published>
+    <updated>2014-10-25T14:35:40.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Openers">Openers</h2>
+<p>当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。</p>
+<p>正常情况下， 我们使用默认opener: 通过urlopen。</p>
+<h2 id="Handles">Handles</h2>
+<p>Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如何处理URL打开时的各个方面。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"></div><div class="line"><span class="variable">password_mgr =</span> urllib2.HTTPPasswordMgrWithDefaultRealm()</div><div class="line"></div><div class="line"><span class="variable">top_level_url =</span> <span class="string">"http://example.com/foo/"</span></div><div class="line"></div><div class="line">password_mgr.add_password(None, top_level_url, 'why', '<span class="number">123</span>')</div><div class="line"></div><div class="line"><span class="variable">handler =</span> urllib2.HTTPBasicAuthHandler(password_mgr)</div><div class="line"></div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(handler)</div><div class="line"></div><div class="line"><span class="variable">a_url =</span> 'http://www.baidu.com/'</div><div class="line"></div><div class="line">opener.open(a_url)</div><div class="line"></div><div class="line">urllib2.install_opener(open)</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python网络爬虫[三]]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%89%5D/"/>
+    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/</id>
+    <published>2014-09-06T09:51:23.000Z</published>
+    <updated>2014-10-25T14:35:33.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="HTTP异常处理">HTTP异常处理</h2>
+<p>urlopen不能处理一个response时，产生urlError。</p>
+<p>不过通常的Python APIs异常也会同时产生。</p>
+<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
+<h1 id="URLError">URLError</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
+
+<h1 id="HTTPError">HTTPError</h1>
+<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
+<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
+
+<h1 id="Wrapping">Wrapping</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
+
 ]]></content>
     
     
