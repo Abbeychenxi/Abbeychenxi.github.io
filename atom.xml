@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-12-16T08:36:33.349Z</updated>
+  <updated>2014-12-16T13:58:32.995Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,86 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Scrapy中的Xpath]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/16/Scrapy%E4%B8%AD%E7%9A%84Xpath/"/>
+    <id>http://www.abbeychenxi.net/2014/12/16/Scrapy中的Xpath/</id>
+    <published>2014-12-16T13:50:26.000Z</published>
+    <updated>2014-12-16T13:53:14.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="如何在Scrapy的Xpath中使用正则？">如何在Scrapy的Xpath中使用正则？</h1>
+<h2 id="需求">需求</h2>
+<p>html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别</p>
+<h2 id="ok_进入正题">ok 进入正题</h2>
+<h3 id="Scrapy_的EXSLT扩展">Scrapy 的EXSLT扩展</h3>
+<ol>
+<li>re</li>
+</ol>
+]]></content>
+    
+    
+      <category term="Scrapy" scheme="http://www.abbeychenxi.net/tags/Scrapy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scrapy中的Xpath]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/16/Scrapy%E4%B8%AD%E7%9A%84Xpath_20141216215343/"/>
+    <id>http://www.abbeychenxi.net/2014/12/16/Scrapy中的Xpath_20141216215343/</id>
+    <published>2014-12-16T13:50:26.000Z</published>
+    <updated>2014-12-16T13:56:19.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="如何在Scrapy的Xpath中使用正则？">如何在Scrapy的Xpath中使用正则？</h1>
+<h2 id="需求">需求</h2>
+<p>html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别</p>
+<h2 id="ok_进入正题">ok 进入正题</h2>
+<h3 id="Scrapy_的EXSLT扩展">Scrapy 的EXSLT扩展</h3>
+<ol>
+<li>re<br>例如在XPath的 starts-with() 或 contains() 无法满足需求时， test() 函数可以非常有用。</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> scrapy <span class="keyword">import</span> Selector</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>doc = <span class="string">"""</span></div><div class="line"><span class="prompt">... </span>&lt;div&gt;</div><div class="line"><span class="prompt">... </span>    &lt;ul&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>    &lt;/ul&gt;</div><div class="line"><span class="prompt">... </span>&lt;/div&gt;</div><div class="line"><span class="prompt">... </span>"""</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel = Selector(text=doc, type=<span class="string">"html"</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link3.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li[re:test(@class, "item-\d$")]//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+
+<p>那么如何结合一些特有的Xpath自带的操作<br>直接上代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">description</span> = <span class="built_in">info</span>.xpath(<span class="string">'.//a[not[re:test(<span class="variable">@href</span>, "http://www.baidu.com/\.+")]]/text() '</span>).extract()</div></pre></td></tr></table></figure>
+
+<p>//所有指向www.baidu.com的子链接的a 都不会被抓取<br>既集合的Xpath的not操作，又加上了Scrapy的re操作</p>
+<p>2. </p>
+]]></content>
+    
+    
+      <category term="Scrapy" scheme="http://www.abbeychenxi.net/tags/Scrapy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scrapy中的Xpath]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/16/Scrapy%E4%B8%AD%E7%9A%84Xpath_20141216215343_20141216215650/"/>
+    <id>http://www.abbeychenxi.net/2014/12/16/Scrapy中的Xpath_20141216215343_20141216215650/</id>
+    <published>2014-12-16T13:50:26.000Z</published>
+    <updated>2014-12-16T13:58:15.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="如何在Scrapy的Xpath中使用正则？">如何在Scrapy的Xpath中使用正则？</h1>
+<h2 id="需求">需求</h2>
+<p>html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别</p>
+<h2 id="ok_进入正题">ok 进入正题</h2>
+<h3 id="Scrapy_的EXSLT扩展">Scrapy 的EXSLT扩展</h3>
+<h4 id="re">re</h4>
+<p>例如在XPath的 starts-with() 或 contains() 无法满足需求时， test() 函数可以非常有用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> scrapy <span class="keyword">import</span> Selector</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>doc = <span class="string">"""</span></div><div class="line"><span class="prompt">... </span>&lt;div&gt;</div><div class="line"><span class="prompt">... </span>    &lt;ul&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>    &lt;/ul&gt;</div><div class="line"><span class="prompt">... </span>&lt;/div&gt;</div><div class="line"><span class="prompt">... </span>"""</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel = Selector(text=doc, type=<span class="string">"html"</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link3.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li[re:test(@class, "item-\d$")]//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+
+<p>那么如何结合一些特有的Xpath自带的操作<br>直接上代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">description</span> = <span class="built_in">info</span>.xpath(<span class="string">'.//a[not[re:test(<span class="variable">@href</span>, "http://www.baidu.com/\.+")]]/text() '</span>).extract()</div></pre></td></tr></table></figure>
+
+<p>//所有指向www.baidu.com的子链接的a 都不会被抓取<br>既集合的Xpath的not操作，又加上了Scrapy的re操作</p>
+<h4 id="set">set</h4>
+<p>集合操作可以方便地用于在提取文字元素前从文档树中去除一些部分。<br>例如使用itemscopes组和对应的itemprops来提取微数据(来自<a href="http://schema.org/Product的样本内容" target="_blank" rel="external">http://schema.org/Product的样本内容</a>):</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; doc = <span class="string">""</span><span class="string">"</span></div><div class="line">... &lt;div itemscope itemtype="http://schema.org/Product<span class="string">"&gt;</span></div><div class="line">...   &lt;span itemprop="name<span class="string">"&gt;Kenmore White 17"</span> Microwave&lt;/span&gt;</div><div class="line"><span class="keyword">...</span>   &lt;img src=<span class="string">"kenmore-microwave-17in.jpg"</span> alt=<span class="string">'Kenmore 17" Microwave'</span> /&gt;</div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"aggregateRating"</span></div><div class="line"><span class="keyword">...</span>     itemscope itemtype=<span class="string">"http://schema.org/AggregateRating"</span>&gt;</div><div class="line"><span class="keyword">...</span>    Rated &lt;span itemprop=<span class="string">"ratingValue"</span>&gt;<span class="number">3.5</span>&lt;/span&gt;/<span class="number">5</span></div><div class="line"><span class="keyword">...</span>    based on &lt;span itemprop=<span class="string">"reviewCount"</span>&gt;<span class="number">11</span>&lt;/span&gt; customer reviews</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"offers"</span> itemscope itemtype=<span class="string">"http://schema.org/Offer"</span>&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"price"</span>&gt;$<span class="number">55.00</span>&lt;/span&gt;</div><div class="line"><span class="keyword">...</span>     &lt;link itemprop=<span class="string">"availability"</span> href=<span class="string">"http://schema.org/InStock"</span> /&gt;In stock</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   Product description:</div><div class="line"><span class="keyword">...</span>   &lt;span itemprop=<span class="string">"description"</span>&gt;<span class="number">0.7</span> cubic feet countertop microwave.</div><div class="line"><span class="keyword">...</span>   Has six preset cooking categories and convenience features like</div><div class="line"><span class="keyword">...</span>   Add-A-Minute and Child Lock.&lt;/span&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   Customer reviews:</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"review"</span> itemscope itemtype=<span class="string">"http://schema.org/Review"</span>&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"name"</span>&gt;Not a happy camper&lt;/span&gt; -</div><div class="line"><span class="keyword">...</span>     by &lt;span itemprop=<span class="string">"author"</span>&gt;Ellie&lt;/span&gt;,</div><div class="line"><span class="keyword">...</span>     &lt;meta itemprop=<span class="string">"datePublished"</span> content=<span class="string">"2011-04-01"</span>&gt;April <span class="number">1</span>, <span class="number">2011</span></div><div class="line"><span class="keyword">...</span>     &lt;div itemprop=<span class="string">"reviewRating"</span> itemscope itemtype=<span class="string">"http://schema.org/Rating"</span>&gt;</div><div class="line"><span class="keyword">...</span>       &lt;meta itemprop=<span class="string">"worstRating"</span> content = <span class="string">"1"</span>&gt;</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"ratingValue"</span>&gt;<span class="number">1</span>&lt;/span&gt;/</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"bestRating"</span>&gt;<span class="number">5</span>&lt;/span&gt;stars</div><div class="line"><span class="keyword">...</span>     &lt;/div&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"description"</span>&gt;The lamp burned out and now I have to replace</div><div class="line"><span class="keyword">...</span>     it. &lt;/span&gt;</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"review"</span> itemscope itemtype=<span class="string">"http://schema.org/Review"</span>&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"name"</span>&gt;Value purchase&lt;/span&gt; -</div><div class="line"><span class="keyword">...</span>     by &lt;span itemprop=<span class="string">"author"</span>&gt;Lucas&lt;/span&gt;,</div><div class="line"><span class="keyword">...</span>     &lt;meta itemprop=<span class="string">"datePublished"</span> content=<span class="string">"2011-03-25"</span>&gt;March <span class="number">25</span>, <span class="number">2011</span></div><div class="line"><span class="keyword">...</span>     &lt;div itemprop=<span class="string">"reviewRating"</span> itemscope itemtype=<span class="string">"http://schema.org/Rating"</span>&gt;</div><div class="line"><span class="keyword">...</span>       &lt;meta itemprop=<span class="string">"worstRating"</span> content = <span class="string">"1"</span>/&gt;</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"ratingValue"</span>&gt;<span class="number">4</span>&lt;/span&gt;/</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"bestRating"</span>&gt;<span class="number">5</span>&lt;/span&gt;stars</div><div class="line"><span class="keyword">...</span>     &lt;/div&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"description"</span>&gt;Great microwave <span class="keyword">for</span> the price. It is small and</div><div class="line"><span class="keyword">...</span>     fits <span class="keyword">in</span> my apartment.&lt;/span&gt;</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span>   <span class="keyword">...</span></div><div class="line"><span class="keyword">...</span> &lt;/div&gt;</div><div class="line"><span class="keyword">...</span> <span class="string">""</span><span class="string">"</span></div><div class="line">&gt;&gt;&gt;</div><div class="line">&gt;&gt;&gt; for scope in sel.xpath('//div[@itemscope]'):</div><div class="line">...     print "current scope:<span class="string">", scope.xpath('@itemtype').extract()</span></div><div class="line">...     props = scope.xpath('''</div><div class="line">...                 set:difference(./descendant::*/@itemprop,</div><div class="line">...                                .//*[@itemscope]/*/@itemprop)''')</div><div class="line">...     print "    properties:<span class="string">", props.extract()</span></div><div class="line">...     print</div><div class="line">...</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Product']</div><div class="line">    properties: [u'name', u'aggregateRating', u'offers', u'description', u'review', u'review']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/AggregateRating']</div><div class="line">    properties: [u'ratingValue', u'reviewCount']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Offer']</div><div class="line">    properties: [u'price', u'availability']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Review']</div><div class="line">    properties: [u'name', u'author', u'datePublished', u'reviewRating', u'description']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Rating']</div><div class="line">    properties: [u'worstRating', u'ratingValue', u'bestRating']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Review']</div><div class="line">    properties: [u'name', u'author', u'datePublished', u'reviewRating', u'description']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Rating']</div><div class="line">    properties: [u'worstRating', u'ratingValue', u'bestRating']</div><div class="line"></div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+
+<p>在这里，我们首先在 itemscope 元素上迭代，对于其中的每一个元素，我们寻找所有的 itemprops 元素，并排除那些本身在另一个 itemscope 内的元素。</p>
+]]></content>
+    
+    
+      <category term="Scrapy" scheme="http://www.abbeychenxi.net/tags/Scrapy/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python 函数式编程工具]]></title>
@@ -1047,111 +1127,6 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
 <li>groups：表达式中分组的数量。</li>
 <li>groupindex：以表达式中有别名的组的别名为键、以该组对应的编号为值的字典，没有别名的组不包含在内。 </li>
 </ol>
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[五]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/07/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%BA%94%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/07/Python网络爬虫[五]/</id>
-    <published>2014-09-06T16:00:11.000Z</published>
-    <updated>2014-10-25T14:35:47.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="Proxy设置">Proxy设置</h2>
-<p>在程序中明确Proxy不受环境变量的影响</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">enable_proxy =</span> True</div><div class="line"><span class="variable">proxy_handler =</span> urllib2.ProxyHandler({<span class="string">"http"</span>: 'http://some-proxy.com:<span class="number">8080</span>'})</div><div class="line"><span class="variable">null_proxy_handler =</span> urllib2.ProxyHandler({})</div><div class="line"><span class="keyword">if</span> enable_proxy:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(proxy_handler)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="variable">opener =</span> urllib2.build_opener(null_proxy_handler)</div><div class="line">urllib2.install_opener(opener)</div></pre></td></tr></table></figure>
-
-<h2 id="Timeout设置">Timeout设置</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com', <span class="variable">timeout =</span> <span class="number">10</span>)</div></pre></td></tr></table></figure>
-
-<h2 id="在HTTP_Request中加入特定的Header">在HTTP Request中加入特定的Header</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">request = urllib2.Request(<span class="string">'http://www.baidu.com/'</span>)</div><div class="line">request.add_handler(<span class="string">'User-Agent'</span>, <span class="string">'fake-client'</span>)</div><div class="line">response = urllib2.urlopen(request)</div><div class="line"><span class="keyword">print</span> response.<span class="keyword">read</span>()</div></pre></td></tr></table></figure>
-
-<h2 id="Redirect">Redirect</h2>
-<p>urllib2 默认情况下会针对HTTP 3XX返回码自动进行redirect动作，无需人工配置。要检测是否发送了Redirect动作，只要检查Response的URL和Request的URL是否一致。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">my_url =</span> 'http://www.google.cn'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div><div class="line"></div><div class="line"><span class="variable">my_url =</span> 'http://rrurl.cn/blUZup'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(my_url)</div><div class="line"><span class="variable">redirected =</span> response.geturl() == my_url</div><div class="line">print redirected</div></pre></td></tr></table></figure>
-
-<h2 id="Cookie">Cookie</h2>
-<p>urllib2对Cookie的处理也是自动的</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import urllib2</div><div class="line">import cookielib</div><div class="line">cookie = cookielib.CookieJar()</div><div class="line">opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie))</div><div class="line">response = opener.<span class="built_in">open</span>(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"><span class="keyword">for</span> <span class="keyword">item</span> <span class="operator">in</span> cookie:</div><div class="line">	print <span class="string">'Name = '</span>+<span class="keyword">item</span>.name</div><div class="line">	print <span class="string">'Value = '</span>+<span class="keyword">item</span>.<span class="built_in">value</span></div></pre></td></tr></table></figure>
-
-<h2 id="使用HTTP的PUT和DELETE方法">使用HTTP的PUT和DELETE方法</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">request =</span> urllib2.Request(uri, <span class="variable">data =</span> data)</div><div class="line">request.<span class="variable">get_method =</span> lambda: 'PUT'</div><div class="line"><span class="variable">response =</span> urllib2.urlopen(request)</div></pre></td></tr></table></figure>
-
-<h2 id="得到HTTP的返回码">得到HTTP的返回码</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urllib2.urlopen(<span class="string">'http://bbs.csdn.net/why'</span>)</div><div class="line"><span class="keyword">except</span> urllib2.HTTPError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
-
-<h2 id="Debug_Log">Debug Log</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"><span class="variable">httpHandler =</span> urllib2.HTTPHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">httpsHandler =</span> urllib2.HTTPSHandler(<span class="variable">debuglevel =</span> <span class="number">1</span>)</div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(httpHandler, httpsHandler)</div><div class="line">urllib2.install_opener(opener)</div><div class="line"><span class="variable">response =</span> urllib2.urlopen('http://www.google.com')</div></pre></td></tr></table></figure>
-
-<h2 id="表单处理">表单处理</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">postdata = urllib.urlencode({</div><div class="line">	'username': 'chenxi',</div><div class="line">	'password': 'why888',</div><div class="line">	'fk': '',</div><div class="line">	'login_submit': '登录'</div><div class="line">})</div><div class="line">req = urllib2.<span class="type">Request</span> (</div><div class="line">	url = 'http://secure.verycd.com/signin',</div><div class="line">	data = postdata</div><div class="line">)</div><div class="line"><span class="literal">result</span> = urllib2.urlopen(req)</div><div class="line">print <span class="literal">result</span>.read()</div></pre></td></tr></table></figure>
-
-<h2 id="伪装成浏览器访问">伪装成浏览器访问</h2>
-<p>修改http包中的header来实现</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="constant">headers</span> = {</div><div class="line">	'User-Agent': 'Mozilla/5.0 (windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) gecko/20091201 Firefox/3.5.6'</div><div class="line">}</div><div class="line"><span class="constant">req</span> = urllib2.Request (</div><div class="line">	url = 'http://secure.verycd.com/signin/*/http://www.verycd.com/',</div><div class="line">	data = postdata,</div><div class="line">	headers = headers</div><div class="line">)</div></pre></td></tr></table></figure>
-
-<h2 id="对付“反盗链”">对付“反盗链”</h2>
-<p>把headers的referer改成该网站即可</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">headers = {</div><div class="line">	'Referer': 'http:<span class="comment">//www.cnbeta.com/articles'</span></div><div class="line">}</div></pre></td></tr></table></figure>
-
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[四]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E5%9B%9B%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[四]/</id>
-    <published>2014-09-06T15:49:25.000Z</published>
-    <updated>2014-10-25T14:35:40.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="Openers">Openers</h2>
-<p>当你获取一个URL你使用一个opener(一个urllib2.OpenerDirector的实例)。</p>
-<p>正常情况下， 我们使用默认opener: 通过urlopen。</p>
-<h2 id="Handles">Handles</h2>
-<p>Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如何处理URL打开时的各个方面。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"></div><div class="line"><span class="variable">password_mgr =</span> urllib2.HTTPPasswordMgrWithDefaultRealm()</div><div class="line"></div><div class="line"><span class="variable">top_level_url =</span> <span class="string">"http://example.com/foo/"</span></div><div class="line"></div><div class="line">password_mgr.add_password(None, top_level_url, 'why', '<span class="number">123</span>')</div><div class="line"></div><div class="line"><span class="variable">handler =</span> urllib2.HTTPBasicAuthHandler(password_mgr)</div><div class="line"></div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(handler)</div><div class="line"></div><div class="line"><span class="variable">a_url =</span> 'http://www.baidu.com/'</div><div class="line"></div><div class="line">opener.open(a_url)</div><div class="line"></div><div class="line">urllib2.install_opener(open)</div></pre></td></tr></table></figure>
-
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[三]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%89%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/</id>
-    <published>2014-09-06T09:51:23.000Z</published>
-    <updated>2014-10-25T14:35:33.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="HTTP异常处理">HTTP异常处理</h2>
-<p>urlopen不能处理一个response时，产生urlError。</p>
-<p>不过通常的Python APIs异常也会同时产生。</p>
-<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
-<h1 id="URLError">URLError</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
-
-<h1 id="HTTPError">HTTPError</h1>
-<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
-<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
-
-<h1 id="Wrapping">Wrapping</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
-
 ]]></content>
     
     

@@ -4,20 +4,18 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[一] | Abbey in Cradle Studio</title>
+    <title>Scrapy中的Xpath | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="URI
-URI通常由三部分组成：
+    <meta name="description" content="如何在Scrapy的Xpath中使用正则？
+需求
+html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别
+ok 进入正题
+Scrapy 的EXSLT扩展
 
-访问资源的命名机制；
-存放资源的主机名
-资源自身的名称，由路径表示
-
-URI定义:统一资源标识符URL定义:统一资源定位符
-爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。">
+re例如在XPath的 starts-with() 或 contains() 无法满足需求时， test() ">
     
     
     
@@ -80,14 +78,14 @@ URI定义:统一资源标识符URL定义:统一资源定位符
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/04/Python网络爬虫[一]/" title="Python网络爬虫[一]" itemprop="url">Python网络爬虫[一]</a>
+      <a href="/2014/12/16/Scrapy中的Xpath_20141216215343/" title="Scrapy中的Xpath" itemprop="url">Scrapy中的Xpath</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-04T15:39:08.000Z" itemprop="datePublished"> 发表于 2014-09-04</time>
+    <time datetime="2014-12-16T13:50:26.000Z" itemprop="datePublished"> 发表于 2014-12-16</time>
     
   </p>
 </header>
@@ -97,19 +95,25 @@ URI定义:统一资源标识符URL定义:统一资源定位符
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#URI"><span class="toc-number">1.</span> <span class="toc-text">URI</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在Scrapy的Xpath中使用正则？"><span class="toc-number">1.</span> <span class="toc-text">如何在Scrapy的Xpath中使用正则？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求"><span class="toc-number">1.1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ok_进入正题"><span class="toc-number">1.2.</span> <span class="toc-text">ok 进入正题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scrapy_的EXSLT扩展"><span class="toc-number">1.2.1.</span> <span class="toc-text">Scrapy 的EXSLT扩展</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="URI">URI</h2>
-<p>URI通常由三部分组成：</p>
+		<h1 id="如何在Scrapy的Xpath中使用正则？">如何在Scrapy的Xpath中使用正则？</h1>
+<h2 id="需求">需求</h2>
+<p>html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别</p>
+<h2 id="ok_进入正题">ok 进入正题</h2>
+<h3 id="Scrapy_的EXSLT扩展">Scrapy 的EXSLT扩展</h3>
 <ol>
-<li>访问资源的命名机制；</li>
-<li>存放资源的主机名</li>
-<li>资源自身的名称，由路径表示</li>
+<li>re<br>例如在XPath的 starts-with() 或 contains() 无法满足需求时， test() 函数可以非常有用。</li>
 </ol>
-<p>URI定义:统一资源标识符<br>URL定义:统一资源定位符</p>
-<p>爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> scrapy <span class="keyword">import</span> Selector</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>doc = <span class="string">"""</span></div><div class="line"><span class="prompt">... </span>&lt;div&gt;</div><div class="line"><span class="prompt">... </span>    &lt;ul&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>    &lt;/ul&gt;</div><div class="line"><span class="prompt">... </span>&lt;/div&gt;</div><div class="line"><span class="prompt">... </span>"""</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel = Selector(text=doc, type=<span class="string">"html"</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link3.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li[re:test(@class, "item-\d$")]//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+
+<p>那么如何结合一些特有的Xpath自带的操作<br>直接上代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">description</span> = <span class="built_in">info</span>.xpath(<span class="string">'.//a[not[re:test(<span class="variable">@href</span>, "http://www.baidu.com/\.+")]]/text() '</span>).extract()</div></pre></td></tr></table></figure>
+
+<p>//所有指向www.baidu.com的子链接的a 都不会被抓取<br>既集合的Xpath的not操作，又加上了Scrapy的re操作</p>
+<p>2. </p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -118,7 +122,7 @@ URI定义:统一资源标识符URL定义:统一资源定位符
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
+  <span></span> <a href="/tags/Scrapy/">Scrapy</a>
   </div>
 
 </div>
@@ -126,7 +130,7 @@ URI定义:统一资源标识符URL定义:统一资源定位符
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/04/Python网络爬虫[一]/" data-title="Python网络爬虫[一] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2014/12/16/Scrapy中的Xpath_20141216215343/" data-title="Scrapy中的Xpath | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -136,18 +140,18 @@ URI定义:统一资源标识符URL定义:统一资源定位符
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/09/06/Python网络爬虫[二]/" title="Python网络爬虫[二]">
+ <a href="/2014/12/16/Scrapy中的Xpath/" title="Scrapy中的Xpath">
   <strong>上一篇：</strong><br/>
   <span>
-  Python网络爬虫[二]</span>
+  Scrapy中的Xpath</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/09/04/today/"  title="today">
+<a href="/2014/12/16/Scrapy中的Xpath_20141216215343_20141216215650/"  title="Scrapy中的Xpath">
  <strong>下一篇：</strong><br/> 
- <span>today
+ <span>Scrapy中的Xpath
 </span>
 </a>
 </div>
@@ -156,7 +160,7 @@ URI定义:统一资源标识符URL定义:统一资源定位符
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/04/Python网络爬虫[一]/" data-title="Python网络爬虫[一]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2014/12/16/Scrapy中的Xpath_20141216215343/" data-title="Scrapy中的Xpath" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -179,7 +183,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#URI"><span class="toc-number">1.</span> <span class="toc-text">URI</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在Scrapy的Xpath中使用正则？"><span class="toc-number">1.</span> <span class="toc-text">如何在Scrapy的Xpath中使用正则？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#需求"><span class="toc-number">1.1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ok_进入正题"><span class="toc-number">1.2.</span> <span class="toc-text">ok 进入正题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scrapy_的EXSLT扩展"><span class="toc-number">1.2.1.</span> <span class="toc-text">Scrapy 的EXSLT扩展</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
