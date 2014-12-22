@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2014-12-16T14:07:12.751Z</updated>
+  <updated>2014-12-22T16:09:14.542Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,20 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Supervisord 一个简单方便的守护进程]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/23/Supervisord-%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%96%B9%E4%BE%BF%E7%9A%84%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"/>
+    <id>http://www.abbeychenxi.net/2014/12/23/Supervisord-一个简单方便的守护进程/</id>
+    <published>2014-12-22T16:08:12.000Z</published>
+    <updated>2014-12-22T16:09:02.000Z</updated>
+    <content type="html"><![CDATA[<p>占坑 明天有空再写＝。＝</p>
+]]></content>
+    
+    
+      <category term="［supervisord］" scheme="http://www.abbeychenxi.net/tags/%EF%BC%BBsupervisord%EF%BC%BD/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Scrapy中的Xpath]]></title>
@@ -1136,36 +1150,6 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
 <h2 id="Handles">Handles</h2>
 <p>Openers使用处理器handlers，每个handlers知道如何通过特定协议打开URLs，或者如何处理URL打开时的各个方面。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">import</span> urllib2</div><div class="line"></div><div class="line"><span class="variable">password_mgr =</span> urllib2.HTTPPasswordMgrWithDefaultRealm()</div><div class="line"></div><div class="line"><span class="variable">top_level_url =</span> <span class="string">"http://example.com/foo/"</span></div><div class="line"></div><div class="line">password_mgr.add_password(None, top_level_url, 'why', '<span class="number">123</span>')</div><div class="line"></div><div class="line"><span class="variable">handler =</span> urllib2.HTTPBasicAuthHandler(password_mgr)</div><div class="line"></div><div class="line"><span class="variable">opener =</span> urllib2.build_opener(handler)</div><div class="line"></div><div class="line"><span class="variable">a_url =</span> 'http://www.baidu.com/'</div><div class="line"></div><div class="line">opener.open(a_url)</div><div class="line"></div><div class="line">urllib2.install_opener(open)</div></pre></td></tr></table></figure>
-
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-      <category term="爬虫" scheme="http://www.abbeychenxi.net/tags/%E7%88%AC%E8%99%AB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python网络爬虫[三]]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/06/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%5B%E4%B8%89%5D/"/>
-    <id>http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/</id>
-    <published>2014-09-06T09:51:23.000Z</published>
-    <updated>2014-10-25T14:35:33.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="HTTP异常处理">HTTP异常处理</h2>
-<p>urlopen不能处理一个response时，产生urlError。</p>
-<p>不过通常的Python APIs异常也会同时产生。</p>
-<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
-<h1 id="URLError">URLError</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
-
-<h1 id="HTTPError">HTTPError</h1>
-<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
-<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
-
-<h1 id="Wrapping">Wrapping</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
 
 ]]></content>
     
