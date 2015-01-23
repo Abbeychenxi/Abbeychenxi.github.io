@@ -9,7 +9,10 @@
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="占坑 明天有空再写＝。＝">
+    <meta name="description" content="生成配置文件
+echo_supervisord_conf &amp;gt; /etc/supervisord.conf
+配置
+[program: my_app]command = python /path/to/your/app.py 启动项目的命令startsecs = 0stopwaitsecs = 0">
     
     
     
@@ -89,11 +92,29 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#生成配置文件"><span class="toc-number">1.</span> <span class="toc-text">生成配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动"><span class="toc-number">3.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web界面"><span class="toc-number">4.</span> <span class="toc-text">web界面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#supervisorctl"><span class="toc-number">5.</span> <span class="toc-text">supervisorctl</span></a></li></ol>
 		
 		</div>
 		
-		<p>占坑 明天有空再写＝。＝</p>
+		<h1 id="生成配置文件">生成配置文件</h1>
+<p>echo_supervisord_conf &gt; /etc/supervisord.conf</p>
+<h1 id="配置">配置</h1>
+<p>[program: my_app]<br>command = python /path/to/your/app.py 启动项目的命令<br>startsecs = 0<br>stopwaitsecs = 0<br>autostart = true<br>autorestart = true</p>
+<h1 id="启动">启动</h1>
+<ol>
+<li>以配置文件启动 supervisord -c /etc/supervisord.conf</li>
+<li>supervisord 默认启动是以/etc下的supervisord.conf启动</li>
+</ol>
+<h1 id="web界面">web界面</h1>
+<ol>
+<li>在配置文件中<br>[inet_http_server]<br>port = 0.0.0.0:9001<br>username = user<br>password = 123<br>访问localhost:9001就可以访问supervisor的web控制</li>
+</ol>
+<h1 id="supervisorctl">supervisorctl</h1>
+<ol>
+<li>supervisorctl status 查看进程状态</li>
+<li>supervisorctl stop programname 停止某个进程</li>
+<li>supervisorctl start all 启动所有进程</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -155,7 +176,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#生成配置文件"><span class="toc-number">1.</span> <span class="toc-text">生成配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#启动"><span class="toc-number">3.</span> <span class="toc-text">启动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web界面"><span class="toc-number">4.</span> <span class="toc-text">web界面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#supervisorctl"><span class="toc-number">5.</span> <span class="toc-text">supervisorctl</span></a></li></ol>
  
   </div>
 
@@ -280,7 +301,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
 		<a href="mailto:abbeychenx@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
 		
 	</div>
-		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2014 
+		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2015 
 		
 		<a href="http://www.abbeychenxi.net/about" target="_blank" title="Abbey">Abbey</a>
 		
