@@ -4,13 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>MEAN.js | Abbey in Cradle Studio</title>
+    <title>网络通用爬虫 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.
-Express">
+    <meta name="description" content="从互联网页面中精心选择一部分网页，以这些网页的链接地址作为种子URL
+将这些种子URL放入待抓取队列
+爬虫从待抓取URL队列依次提取，并通过DNS解析，将链接地址转换为网站服务器对应IP地址
+网页下载器负责将页面内容下载
+下载到本地的网页，一方面将其存储到页面库中，等待建立索引；另一方面将下载网页的">
     
     
     
@@ -75,14 +78,14 @@ Express">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/11/MEANjs/" title="MEAN.js" itemprop="url">MEAN.js</a>
+      <a href="/2015/05/05/网络通用爬虫/" title="网络通用爬虫" itemprop="url">网络通用爬虫</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-11T11:23:46.000Z" itemprop="datePublished"> 发表于 2014-09-11</time>
+    <time datetime="2015-05-05T03:01:28.000Z" itemprop="datePublished"> 发表于 2015-05-05</time>
     
   </p>
 </header>
@@ -92,16 +95,55 @@ Express">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#爬虫质量评估"><span class="toc-number">1.</span> <span class="toc-text">爬虫质量评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抓取策略"><span class="toc-number">2.</span> <span class="toc-text">抓取策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#宽度优先遍历策略"><span class="toc-number">2.1.</span> <span class="toc-text">宽度优先遍历策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非完全PageRank策略"><span class="toc-number">2.2.</span> <span class="toc-text">非完全PageRank策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OCIP策略"><span class="toc-number">2.3.</span> <span class="toc-text">OCIP策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大站优先策略"><span class="toc-number">2.4.</span> <span class="toc-text">大站优先策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网页更新策略"><span class="toc-number">3.</span> <span class="toc-text">网页更新策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#历史参考策略"><span class="toc-number">3.1.</span> <span class="toc-text">历史参考策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户体验策略"><span class="toc-number">3.2.</span> <span class="toc-text">用户体验策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚类抽样策略"><span class="toc-number">3.3.</span> <span class="toc-text">聚类抽样策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暗网抓取"><span class="toc-number">4.</span> <span class="toc-text">暗网抓取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询组合"><span class="toc-number">4.1.</span> <span class="toc-text">查询组合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式爬虫"><span class="toc-number">5.</span> <span class="toc-text">分布式爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主从式分布爬虫"><span class="toc-number">5.1.</span> <span class="toc-text">主从式分布爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对等式分布爬虫"><span class="toc-number">5.2.</span> <span class="toc-text">对等式分布爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题:_某台服务器宕机_一致性哈希"><span class="toc-number">5.3.</span> <span class="toc-text">问题: 某台服务器宕机  一致性哈希</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<ul>
-<li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
-<li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
-<li>AngularJS - Angular’s Official Website is a great starting point. You can also use Thinkster Popular Guide, and the Egghead Videos.</li>
-<li>Node.js - Start by going through Node.js Official Website and this StackOverflow Thread, which should get you going with the Node.js platform in no time.</li>
-</ul>
+		<ol>
+<li>从互联网页面中精心选择一部分网页，以这些网页的链接地址作为种子URL</li>
+<li>将这些种子URL放入待抓取队列</li>
+<li>爬虫从待抓取URL队列依次提取，并通过DNS解析，将链接地址转换为网站服务器对应IP地址</li>
+<li>网页下载器负责将页面内容下载</li>
+<li>下载到本地的网页，一方面将其存储到页面库中，等待建立索引；另一方面将下载网页的URL放入已抓取URL队列中，避免重复爬取</li>
+</ol>
+<h2 id="爬虫质量评估">爬虫质量评估</h2>
+<p>抓取网页覆盖率、抓取网页时新性、抓取网页重要性</p>
+<h2 id="抓取策略">抓取策略</h2>
+<ol>
+<li>宽度优先遍历策略</li>
+<li>非完全PageRank策略</li>
+<li>OCIP策略</li>
+<li>大站优先策略</li>
+</ol>
+<h3 id="宽度优先遍历策略">宽度优先遍历策略</h3>
+<p>将URL直接添加到待下载队列</p>
+<h3 id="非完全PageRank策略">非完全PageRank策略</h3>
+<p>对于已经下载的网页，加上待抓取URL队列的URL一起、形成网页集合，在此集合内进行PageRank计算。</p>
+<h3 id="OCIP策略">OCIP策略</h3>
+<p>在线页面重要性计算: 每个互联网页面给予一定的cash，每当下载了某个页面p，p将自己拥有的cash平均分配到页面包含的链接中，将自己的cash清空<br>效果略优于宽度优先遍历策略</p>
+<h3 id="大站优先策略">大站优先策略</h3>
+<p>以网站为单位来衡量网页重要性，对于待抓取URL队列中的网页，根据所属网站归类，如果哪个网站等待下载的页面最多，则优先下载这些链接。</p>
+<h2 id="网页更新策略">网页更新策略</h2>
+<p>常用策略: 历史参考策略、用户体验策略、聚类抽样策略</p>
+<h3 id="历史参考策略">历史参考策略</h3>
+<p>过去频繁更新的网站，将来也会频繁更新<br>利用泊松过程来建模，根据变化情况，利用模型预测将来何时内容会再次发生变化</p>
+<h3 id="用户体验策略">用户体验策略</h3>
+<p>保存网页的多个历史版本，并根据过去每次内容变化对搜索质量的影响，得出一个平均值，以此作为判断爬虫重抓该网页时机的参考依据，对于影响越厉害的网页，则越优先调度重新抓取</p>
+<h3 id="聚类抽样策略">聚类抽样策略</h3>
+<p>网页具有一些属性，根据属性可以预测其更新周期，具有相似属性的网页，其更新周期也是类似的。<br>根据这些属性将网页归类，同一类别内的网页拥有相同的更新周期。<br>网页更新周期的属性特征划分为两大类: 静态特征和动态特征<br>静态特征: 页面内容、图片数量、页面大小、链接深度、PageRank<br>动态特征: 体现静态特征随着时间的变化，如图片数量的变化情况、入链出链的情况。</p>
+<h2 id="暗网抓取">暗网抓取</h2>
+<h3 id="查询组合">查询组合</h3>
+<p>对于某个固定的查询模板，如果给模板内每个属性都赋值，形成不同的查询组合，提交给垂直搜索引擎，观察所有返回页面的内容，如果相互之间内容差异较大，则这个查询模板就是富含信息查询模板。</p>
+<p>ISIT查询模板技术: 首先从一维模板开始，对一维查询模板逐个考察，看其是否富含信息查询模板，如果是的话，则将这个一维模板扩展到二维，再次依次考察对应的二维模板，如此类推，逐步增加维数，直到再也无法找到富含信息查询模板为止。</p>
+<p>Google的ISIT技术与经典的Apriori规则挖掘算法类似。</p>
+<h2 id="分布式爬虫">分布式爬虫</h2>
+<p>大型分布式爬虫3个层级: 分布式数据中心、分布式抓取服务器及分布式爬虫程序。</p>
+<h3 id="主从式分布爬虫">主从式分布爬虫</h3>
+<p>一台服务器专门负责提供URL的分发，将不同的URL分配给不同的抓取服务器。 维度URL分发的服务器成为瓶颈</p>
+<h3 id="对等式分布爬虫">对等式分布爬虫</h3>
+<p>对URL的主域名进行哈希计算，之后取模，当前服务器与取得URL哈希后的值匹配，则进行抓取任务，否则将该URL发送给对应的服务器</p>
+<h3 id="问题:_某台服务器宕机_一致性哈希">问题: 某台服务器宕机  一致性哈希</h3>
+<p>将网站主域名进行哈希，映射为一个范围在0到$2^{32}$之间的某个值，大量的网站主域名会被均匀地哈希到这个数值区间。将哈希值范围首尾相接，形成有序的环形序列。<br>例子:<br>2号服务器将URL发送给3号服务器，3号宕机，2号将得不到响应，则将URL发送给3号的下一个节点4号服务器。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -110,7 +152,7 @@ Express">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/MEAN-js/">MEAN.js</a><a href="/tags/Full-Stack/">Full-Stack</a>
+  <span></span> <a href="/tags/搜索引擎/">搜索引擎</a>
   </div>
 
 </div>
@@ -118,7 +160,7 @@ Express">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/11/MEANjs/" data-title="MEAN.js | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2015/05/05/网络通用爬虫/" data-title="网络通用爬虫 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -127,19 +169,11 @@ Express">
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/15/No-Silver-Bullet/" title="No Silver Bullet">
-  <strong>上一篇：</strong><br/>
-  <span>
-  No Silver Bullet</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/07/Python网络爬虫[七]/"  title="Python网络爬虫[七]">
+<a href="/2015/04/29/网络编程/"  title="网络编程">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[七]
+ <span>网络编程
 </span>
 </a>
 </div>
@@ -148,7 +182,7 @@ Express">
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/11/MEANjs/" data-title="MEAN.js" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2015/05/05/网络通用爬虫/" data-title="网络通用爬虫" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -171,7 +205,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#爬虫质量评估"><span class="toc-number">1.</span> <span class="toc-text">爬虫质量评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抓取策略"><span class="toc-number">2.</span> <span class="toc-text">抓取策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#宽度优先遍历策略"><span class="toc-number">2.1.</span> <span class="toc-text">宽度优先遍历策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非完全PageRank策略"><span class="toc-number">2.2.</span> <span class="toc-text">非完全PageRank策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OCIP策略"><span class="toc-number">2.3.</span> <span class="toc-text">OCIP策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大站优先策略"><span class="toc-number">2.4.</span> <span class="toc-text">大站优先策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网页更新策略"><span class="toc-number">3.</span> <span class="toc-text">网页更新策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#历史参考策略"><span class="toc-number">3.1.</span> <span class="toc-text">历史参考策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户体验策略"><span class="toc-number">3.2.</span> <span class="toc-text">用户体验策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚类抽样策略"><span class="toc-number">3.3.</span> <span class="toc-text">聚类抽样策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#暗网抓取"><span class="toc-number">4.</span> <span class="toc-text">暗网抓取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询组合"><span class="toc-number">4.1.</span> <span class="toc-text">查询组合</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分布式爬虫"><span class="toc-number">5.</span> <span class="toc-text">分布式爬虫</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主从式分布爬虫"><span class="toc-number">5.1.</span> <span class="toc-text">主从式分布爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对等式分布爬虫"><span class="toc-number">5.2.</span> <span class="toc-text">对等式分布爬虫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题:_某台服务器宕机_一致性哈希"><span class="toc-number">5.3.</span> <span class="toc-text">问题: 某台服务器宕机  一致性哈希</span></a></li></ol></li></ol>
  
   </div>
 

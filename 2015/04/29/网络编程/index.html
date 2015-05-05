@@ -4,13 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>MEAN.js | Abbey in Cradle Studio</title>
+    <title>网络编程 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.
-Express">
+    <meta name="description" content="客户端服务器编程模型
+客户端服务器模型中的基本操作是事务。一个客户端-服务器事务由四步组成:
+
+客户端需要服务，就向服务器发送请求，发起一个事务。
+服务器收到请求，解释它，以适当的方式操作它的资源。
+服务器给客户端发送一个响应，并等待下一个请求。
+客户端收到响应并处理它
+
+
+网络
+客户端在主机A上与">
     
     
     
@@ -75,14 +84,14 @@ Express">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/11/MEANjs/" title="MEAN.js" itemprop="url">MEAN.js</a>
+      <a href="/2015/04/29/网络编程/" title="网络编程" itemprop="url">网络编程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-11T11:23:46.000Z" itemprop="datePublished"> 发表于 2014-09-11</time>
+    <time datetime="2015-04-29T03:03:26.000Z" itemprop="datePublished"> 发表于 2015-04-29</time>
     
   </p>
 </header>
@@ -92,16 +101,31 @@ Express">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端服务器编程模型"><span class="toc-number">1.</span> <span class="toc-text">客户端服务器编程模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络"><span class="toc-number">2.</span> <span class="toc-text">网络</span></a></li></ol>
 		
 		</div>
 		
-		<ul>
-<li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
-<li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
-<li>AngularJS - Angular’s Official Website is a great starting point. You can also use Thinkster Popular Guide, and the Egghead Videos.</li>
-<li>Node.js - Start by going through Node.js Official Website and this StackOverflow Thread, which should get you going with the Node.js platform in no time.</li>
-</ul>
+		<h1 id="客户端服务器编程模型">客户端服务器编程模型</h1>
+<p>客户端服务器模型中的基本操作是事务。一个客户端-服务器事务由四步组成:</p>
+<ol>
+<li>客户端需要服务，就向服务器发送请求，发起一个事务。</li>
+<li>服务器收到请求，解释它，以适当的方式操作它的资源。</li>
+<li>服务器给客户端发送一个响应，并等待下一个请求。</li>
+<li>客户端收到响应并处理它</li>
+</ol>
+<p><img src="http://www.processon.com/view/link/55404f30e4b07e81dd4f2319" alt="image"></p>
+<h1 id="网络">网络</h1>
+<p>客户端在主机A上与LAN1相连，服务器在主机B上与LAN2相连。A发送数据到B的过程:</p>
+<ol>
+<li>A进行一个系统调用，从客户端的虚拟地址拷贝数据到内核缓冲区</li>
+<li>主机A上的协议软件通过在数据头附加网络包(packge)和LAN1的帧头(frame)创建一个LAN1的帧。互联网络包头通过寻址到主机B。LAN帧头寻址到路由器。然后传送帧到适配器</li>
+<li>LAN1适配器拷贝帧到网络上</li>
+<li>帧到达路由器时，路由器的LAN1适配器从电缆上读取它，并传送到协议软件</li>
+<li>路由器从互联网络包头提取出目的互联网络地址，并作索引。剥落LAN1的帧头加上LAN2的帧头</li>
+<li>路由器的LAN2适配器拷贝该帧到网络</li>
+<li>帧到达主机B，适配器从电缆读到帧，并传送到协议软件</li>
+<li>主机B剥落包头和帧头。进行读取数据的系统调用，协议软件最终得到数据拷贝到服务器的虚拟地址空间。</li>
+</ol>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -110,7 +134,7 @@ Express">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/MEAN-js/">MEAN.js</a><a href="/tags/Full-Stack/">Full-Stack</a>
+  <span></span> <a href="/tags/networking-program/">networking program</a>
   </div>
 
 </div>
@@ -118,7 +142,7 @@ Express">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/11/MEANjs/" data-title="MEAN.js | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2015/04/29/网络编程/" data-title="网络编程 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -128,18 +152,18 @@ Express">
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/09/15/No-Silver-Bullet/" title="No Silver Bullet">
+ <a href="/2015/05/05/网络通用爬虫/" title="网络通用爬虫">
   <strong>上一篇：</strong><br/>
   <span>
-  No Silver Bullet</span>
+  网络通用爬虫</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/09/07/Python网络爬虫[七]/"  title="Python网络爬虫[七]">
+<a href="/2014/12/23/Supervisord-一个简单方便的守护进程/"  title="Supervisord 一个简单方便的守护进程">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[七]
+ <span>Supervisord 一个简单方便的守护进程
 </span>
 </a>
 </div>
@@ -148,7 +172,7 @@ Express">
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/11/MEANjs/" data-title="MEAN.js" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2015/04/29/网络编程/" data-title="网络编程" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -171,7 +195,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端服务器编程模型"><span class="toc-number">1.</span> <span class="toc-text">客户端服务器编程模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络"><span class="toc-number">2.</span> <span class="toc-text">网络</span></a></li></ol>
  
   </div>
 
