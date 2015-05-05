@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2015-05-05T03:22:18.516Z</updated>
+  <updated>2015-05-05T03:42:35.684Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -111,7 +111,7 @@
     <link href="http://www.abbeychenxi.net/2014/12/23/Supervisord-%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%96%B9%E4%BE%BF%E7%9A%84%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"/>
     <id>http://www.abbeychenxi.net/2014/12/23/Supervisord-一个简单方便的守护进程/</id>
     <published>2014-12-22T16:08:12.000Z</published>
-    <updated>2015-01-23T02:29:18.000Z</updated>
+    <updated>2015-05-05T03:42:26.000Z</updated>
     <content type="html"><![CDATA[<h1 id="生成配置文件">生成配置文件</h1>
 <p>echo_supervisord_conf &gt; /etc/supervisord.conf</p>
 <h1 id="配置">配置</h1>
@@ -134,7 +134,7 @@
 ]]></content>
     
     
-      <category term="［supervisord］" scheme="http://www.abbeychenxi.net/tags/%EF%BC%BBsupervisord%EF%BC%BD/"/>
+      <category term="supervisord" scheme="http://www.abbeychenxi.net/tags/supervisord/"/>
     
   </entry>
   
