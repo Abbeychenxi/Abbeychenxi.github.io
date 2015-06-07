@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2015-06-07T05:47:26.884Z</updated>
+  <updated>2015-06-07T05:48:32.145Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.abbeychenxi.net/2015/06/07/sed-awk%E5%AD%A6%E4%B9%A0/"/>
     <id>http://www.abbeychenxi.net/2015/06/07/sed-awk学习/</id>
     <published>2015-06-07T05:12:44.000Z</published>
-    <updated>2015-06-07T05:46:42.000Z</updated>
+    <updated>2015-06-07T05:48:25.000Z</updated>
     <content type="html"><![CDATA[<h1 id="sed">sed</h1>
 <p>sream editor</p>
 <p>将文件/etc/passwd中，/bin/bash指定的登录shell全部替换成/usr/local/bin/bash</p>
@@ -49,7 +49,7 @@
 </thead>
 <tbody>
 <tr>
-<td>(未指定的行</td>
+<td>(未指定的行)</td>
 <td>所有数据</td>
 </tr>
 <tr>
