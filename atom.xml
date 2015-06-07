@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Abbey in Cradle Studio]]></title>
+  <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.abbeychenxi.net/"/>
+  <updated>2015-06-07T05:18:28.572Z</updated>
+  <id>http://www.abbeychenxi.net/</id>
+  
+  <author>
+    <name><![CDATA[Abbey]]></name>
+    <email><![CDATA[Abbeychenx@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[sed awk学习]]></title>
+    <link href="http://www.abbeychenxi.net/2015/06/07/sed-awk%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://www.abbeychenxi.net/2015/06/07/sed-awk学习/</id>
+    <published>2015-06-07T05:12:44.000Z</published>
+    <updated>2015-06-07T05:13:33.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="sed">sed</h1>
+<p>sream editor</p>
+<p>将文件/etc/passwd中，/bin/bash指定的登录shell全部替换成/usr/local/bin/bash</p>
+<p>d(删除) / p(数据输出) / y(替换1个字符) / w(文件输出) /n (数据输入)</p>
+<h2 id="s命令(字符串替换)">s命令(字符串替换)</h2>
+<p><code>sed -e &#39;s/原字符串/[替换后的字符串]/[标志]&#39; 输入文件</code></p>
+<figure class="highlight sed"><figcaption><span>-e 's/aaa//g' input.txt</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sed <span class="operator">-e</span> <span class="string">'s/\//R/'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s!/usr/local!/user!g'</span> input.txt</div></pre></td></tr></table></figure>
+
+<p>替换字符串中出现&amp; 表示和查找字符串一样</p>
+<figure class="highlight sed"><figcaption><span>-e 's/aaa/+&+/g' input.txt```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">可以和正则表达式结合:</div></pre></td></tr></table></figure>
+
+<p>sed -e ‘s/.*/output: &amp;/g’ input.txt</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##y命令(替换一个字符)</div><div class="line"><span class="smartquote">`sed -e '</span>y/替换前/替换后/' 输入文件`</div><div class="line">同时替换多个字符a=&gt;x, b=&gt;y, c=&gt;z的替换</div><div class="line"><span class="smartquote">`sed -e '</span>y/abc/xyz/' input.txt`</div><div class="line"></div><div class="line">##d命令(删除)</div><div class="line">d是删除指定行，并将剩余行进行输出的命令</div><div class="line"><span class="smartquote">`sed -e '</span>1,2d' input.txt`</div><div class="line"></div><div class="line">###地址</div><div class="line">只对特定行进行处理时。如果省略地址对所有行都会处理。start,end。 最后一行用$表示</div></pre></td></tr></table></figure>
+
+<p>sed -n -e ‘1,3p’ input.txt<br>sed -n -e ‘2,$p’ input.txt</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">指定地址支持正则表达式</div><div class="line"></div><div class="line">|地址例|表示的含义|</div><div class="line">|------|----------|</div><div class="line">|(未指定的行|所有数据|</div><div class="line">|3|第三行|</div><div class="line">|20,$|从20行开始到最后一行|</div><div class="line">|10, 5| 第10行(第2个数字比第1个数字小的情况)|</div><div class="line">|/^[0-9]/|所有以数字开头的行|</div><div class="line">|15, /z$/| 从第15行开始到以z结尾的行|</div><div class="line">|5, 10!| 从第5行开始到第10行以外的行|</div><div class="line"></div><div class="line"></div><div class="line"><span class="smartquote">`sed -n -e '</span>/^aaa/,/ddd$/p' input.txt`</div><div class="line">###指定多个命令</div><div class="line">命令之间以;分隔</div><div class="line"><span class="smartquote">`sed -e '</span>2d;s/aaa/eee/g' input.txt`</div><div class="line"></div><div class="line">##脚本文件的读取和执行</div><div class="line"><span class="code">`sed -f 脚本文件 输入文件`</span></div><div class="line">可以指定多个脚本文件，也可以同时使用-e 和 -f 选项</div><div class="line">在脚本文件中一行记述一个处理</div></pre></td></tr></table></figure>
+
+<p>shell<br>1,3s/aaa/eee/g<br>3d</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">`sed -f xxx.sed input.txt`</div><div class="line"><span class="comment">##命令的组合</span></div><div class="line">'<span class="decorator">{...}</span>'对命令进行组合</div></pre></td></tr></table></figure>
+
+<p>shell<br>1,3{<br>    s/aaa/eee/g<br>    y/abc/xyz/<br>    p<br>}</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">###标签/分支处理/循环处理</div><div class="line">可以在脚本中设置标签进行循环处理，还可以将是否执行了s命令的替换处理作为判断条件对处理进行分支</div><div class="line"></div><div class="line">|指定方法|所表示的内容|</div><div class="line">|<span class="comment">-------|---------|</span></div><div class="line">|:<span class="keyword">label</span>名|指定标签,<span class="keyword">label</span>名在脚本中是唯一的|</div><div class="line">|b <span class="keyword">label</span>名|无条件跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|条件b <span class="keyword">label</span>名|输入行满足条件时，跳转到<span class="keyword">label</span>名指定的命令进行执行如果指定<span class="string">"/模式/b 标签"</span>，输入行和模式匹配时，跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|条件 !b <span class="keyword">label</span>名|输入行不满足条件时，跳转到<span class="keyword">label</span>名指定的命令进行执行 如果指定<span class="string">"/模式/!b标签"</span>,输入行和模式不匹配时，跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|t <span class="keyword">label</span>名|读入输入行执行命令，只有在使用s命令替换成功时才会跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|T <span class="keyword">label</span>名|读入输入行执行命令，在使用s命令替换不成功时才会跳转到<span class="keyword">label</span>名指定的命令进行执行|</div></pre></td></tr></table></figure>
+
+<p>shell<br>: 标签<br>命令1<br>命令2<br>/模式/b 标签<br>命令3</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+
+<p>:loop<br>N<br>$!b loop<br>s/\n//g</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#awk</span></div><div class="line">awk会事先把输入的数据根据字段单位进行分割。</div><div class="line">awk的pattern和动作action</div><div class="line">模式<span class="number">1</span> {动作<span class="number">1</span>}</div><div class="line">模式<span class="number">2</span> {动作<span class="number">2</span>}</div><div class="line"><span class="keyword">...</span></div><div class="line">模式n {动作n}</div><div class="line"></div><div class="line">`awk '脚本' inputfile`</div></pre></td></tr></table></figure>
+
+<p>awk<br>awk ‘length&gt;30’ inputfile #长度超过半角30个字符的行<br>awk ‘NF &gt;= 5 &amp;&amp; NF &lt;= 10’ inputfile #字段数在5个以上10以下的行<br>awk ‘NR &lt;= 5’ inputfile #只表示最开始的5行<br>awk ‘NR%2 == 0’ inputfile #只表示偶数行<br>awk ‘$1 &lt; 100’ inputfile #表示第一个字段的值比100小的行<br>awk ‘/问题|答案/‘ inputfile #包含”问题”或者”答案”的行<br>awk ‘/^#/‘ inputfile #以”#”开头的行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">内置函数length</div><div class="line">$N(第N个字段)</div><div class="line">NF(字段数)</div><div class="line">NR(行号)</div><div class="line"></div><div class="line">##AWK可以使用的模式</div><div class="line">-<span class="ruby"> 空模式<span class="symbol">:</span> 如果省略模式,所有的行都会匹配</span></div><div class="line">-<span class="ruby"> 正则表达式<span class="symbol">:</span> 和sed一样</span></div><div class="line">-<span class="ruby"> 比较表达式和逻辑表达式<span class="symbol">:</span> 比较运算是关于大小关系,是否匹配等的运算`<span class="variable">$1</span> &lt; <span class="number">100</span> && <span class="variable">$2</span> == <span class="string">"ABC"</span>`</span></div><div class="line">-<span class="ruby"> <span class="constant">BEGIN</span>和<span class="constant">END</span></span></div><div class="line">-<span class="ruby"> 模式范围 `pattern1, pattern2` `/^<span class="keyword">begin</span><span class="variable">$/</span>,<span class="regexp">/^end$/</span>` `awk <span class="string">'/^begin$/, /^end$/'</span> inputfile`</span></div><div class="line"></div><div class="line">删除空白行</div></pre></td></tr></table></figure>
+
+<p>awk ‘length != 0’ inputfile<br>awk ‘NF != 0’ inputfile<br>awk ‘before != $0 { print; before = $0 }’ inputfile<br>awk ‘NF != 0 || bf != 0 { print; bf=NF }’ inputfile<br>awk ‘{ id[$1] = id[$1] “ “ NR } END { for (elm in id) print elm “ “ id[elm]}’ inputfile</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="header">##AWK脚本</span></div><div class="line"><span class="code">`awk -f scriptfile inputfile`</span></div><div class="line"><span class="header">###动作</span></div><div class="line"><span class="bullet">- </span>在动作中可以使用的语句</div></pre></td></tr></table></figure>
+
+<p>表达式：常量，变量，代入，函数调用<br>print 表达式的排列<br>printf 格式，表达式的排列<br>if (表达式) 语句<br>if (表达式: 语句 else 语句)<br>while(表达式) 语句<br>do 语句 while (表达式)<br>for (表达式; 表达式; 表达式) 语句<br>for (变量 in 数组) 语句<br>continue<br>break<br>next<br>exit<br>exit 表达式<br>{ 表达式的排列 }</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">###特殊变量</span></div><div class="line">- $<span class="number">1</span>, $<span class="number">2</span>,<span class="keyword">...</span>,$n 和 $<span class="number">0</span></div><div class="line">$<span class="number">0</span> 输入行全体</div><div class="line">- ARGC， ARGV</div><div class="line">ARGC 命令行参数的个数</div><div class="line">ARGV 命令行参数的数组</div></pre></td></tr></table></figure>
+
+<p>BEGIN {<br>    for (i=0; i &lt; ARGC; ++i)<br>    print ARGV[i]<br>}</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> <span class="constant">FILENAME</span> 保存当前输入文件的文件名</span></div><div class="line">-<span class="ruby"> <span class="constant">FNR</span> 当前文件的行号</span></div><div class="line">-<span class="ruby"> <span class="constant">FS</span> 输入字段分隔符的变量</span></div><div class="line">-<span class="ruby"> <span class="constant">NF</span> 当前行的字段数</span></div><div class="line">-<span class="ruby"> <span class="constant">NR</span> 读入的行数</span></div><div class="line">-<span class="ruby"> <span class="constant">OFS</span> 输出字段分隔符的变量</span></div><div class="line">-<span class="ruby"> <span class="constant">ORS</span> 输出行的分隔符变量</span></div><div class="line">-<span class="ruby"> <span class="constant">RS</span> 输入行的分隔符变量</span></div><div class="line"></div><div class="line">-<span class="ruby"> 数组</span></div><div class="line">awk数组是关联数组 下标不仅可以是数字还可以是字符串</div></pre></td></tr></table></figure>
+
+<p>a[n] = 10<br>b[“印度”] = “India”<br>c[x, y] 多元数组<br>delete a[n]<br>```</p>
+]]></content>
+    
+    
+      <category term="Linux" scheme="http://www.abbeychenxi.net/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[网络通用爬虫]]></title>
+    <link href="http://www.abbeychenxi.net/2015/05/05/%E7%BD%91%E7%BB%9C%E9%80%9A%E7%94%A8%E7%88%AC%E8%99%AB/"/>
+    <id>http://www.abbeychenxi.net/2015/05/05/网络通用爬虫/</id>
+    <published>2015-05-05T03:01:28.000Z</published>
+    <updated>2015-05-05T03:03:12.000Z</updated>
+    <content type="html"><![CDATA[<ol>
+<li>从互联网页面中精心选择一部分网页，以这些网页的链接地址作为种子URL</li>
+<li>将这些种子URL放入待抓取队列</li>
+<li>爬虫从待抓取URL队列依次提取，并通过DNS解析，将链接地址转换为网站服务器对应IP地址</li>
+<li>网页下载器负责将页面内容下载</li>
+<li>下载到本地的网页，一方面将其存储到页面库中，等待建立索引；另一方面将下载网页的URL放入已抓取URL队列中，避免重复爬取</li>
+</ol>
+<h2 id="爬虫质量评估">爬虫质量评估</h2>
+<p>抓取网页覆盖率、抓取网页时新性、抓取网页重要性</p>
+<h2 id="抓取策略">抓取策略</h2>
+<ol>
+<li>宽度优先遍历策略</li>
+<li>非完全PageRank策略</li>
+<li>OCIP策略</li>
+<li>大站优先策略</li>
+</ol>
+<h3 id="宽度优先遍历策略">宽度优先遍历策略</h3>
+<p>将URL直接添加到待下载队列</p>
+<h3 id="非完全PageRank策略">非完全PageRank策略</h3>
+<p>对于已经下载的网页，加上待抓取URL队列的URL一起、形成网页集合，在此集合内进行PageRank计算。</p>
+<h3 id="OCIP策略">OCIP策略</h3>
+<p>在线页面重要性计算: 每个互联网页面给予一定的cash，每当下载了某个页面p，p将自己拥有的cash平均分配到页面包含的链接中，将自己的cash清空<br>效果略优于宽度优先遍历策略</p>
+<h3 id="大站优先策略">大站优先策略</h3>
+<p>以网站为单位来衡量网页重要性，对于待抓取URL队列中的网页，根据所属网站归类，如果哪个网站等待下载的页面最多，则优先下载这些链接。</p>
+<h2 id="网页更新策略">网页更新策略</h2>
+<p>常用策略: 历史参考策略、用户体验策略、聚类抽样策略</p>
+<h3 id="历史参考策略">历史参考策略</h3>
+<p>过去频繁更新的网站，将来也会频繁更新<br>利用泊松过程来建模，根据变化情况，利用模型预测将来何时内容会再次发生变化</p>
+<h3 id="用户体验策略">用户体验策略</h3>
+<p>保存网页的多个历史版本，并根据过去每次内容变化对搜索质量的影响，得出一个平均值，以此作为判断爬虫重抓该网页时机的参考依据，对于影响越厉害的网页，则越优先调度重新抓取</p>
+<h3 id="聚类抽样策略">聚类抽样策略</h3>
+<p>网页具有一些属性，根据属性可以预测其更新周期，具有相似属性的网页，其更新周期也是类似的。<br>根据这些属性将网页归类，同一类别内的网页拥有相同的更新周期。<br>网页更新周期的属性特征划分为两大类: 静态特征和动态特征<br>静态特征: 页面内容、图片数量、页面大小、链接深度、PageRank<br>动态特征: 体现静态特征随着时间的变化，如图片数量的变化情况、入链出链的情况。</p>
+<h2 id="暗网抓取">暗网抓取</h2>
+<h3 id="查询组合">查询组合</h3>
+<p>对于某个固定的查询模板，如果给模板内每个属性都赋值，形成不同的查询组合，提交给垂直搜索引擎，观察所有返回页面的内容，如果相互之间内容差异较大，则这个查询模板就是富含信息查询模板。</p>
+<p>ISIT查询模板技术: 首先从一维模板开始，对一维查询模板逐个考察，看其是否富含信息查询模板，如果是的话，则将这个一维模板扩展到二维，再次依次考察对应的二维模板，如此类推，逐步增加维数，直到再也无法找到富含信息查询模板为止。</p>
+<p>Google的ISIT技术与经典的Apriori规则挖掘算法类似。</p>
+<h2 id="分布式爬虫">分布式爬虫</h2>
+<p>大型分布式爬虫3个层级: 分布式数据中心、分布式抓取服务器及分布式爬虫程序。</p>
+<h3 id="主从式分布爬虫">主从式分布爬虫</h3>
+<p>一台服务器专门负责提供URL的分发，将不同的URL分配给不同的抓取服务器。 维度URL分发的服务器成为瓶颈</p>
+<h3 id="对等式分布爬虫">对等式分布爬虫</h3>
+<p>对URL的主域名进行哈希计算，之后取模，当前服务器与取得URL哈希后的值匹配，则进行抓取任务，否则将该URL发送给对应的服务器</p>
+<h3 id="问题:_某台服务器宕机_一致性哈希">问题: 某台服务器宕机  一致性哈希</h3>
+<p>将网站主域名进行哈希，映射为一个范围在0到$2^{32}$之间的某个值，大量的网站主域名会被均匀地哈希到这个数值区间。将哈希值范围首尾相接，形成有序的环形序列。<br>例子:<br>2号服务器将URL发送给3号服务器，3号宕机，2号将得不到响应，则将URL发送给3号的下一个节点4号服务器。</p>
+]]></content>
+    
+    
+      <category term="搜索引擎" scheme="http://www.abbeychenxi.net/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[网络编程]]></title>
+    <link href="http://www.abbeychenxi.net/2015/04/29/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    <id>http://www.abbeychenxi.net/2015/04/29/网络编程/</id>
+    <published>2015-04-29T03:03:26.000Z</published>
+    <updated>2015-04-29T05:10:08.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="客户端服务器编程模型">客户端服务器编程模型</h1>
+<p>客户端服务器模型中的基本操作是事务。一个客户端-服务器事务由四步组成:</p>
+<ol>
+<li>客户端需要服务，就向服务器发送请求，发起一个事务。</li>
+<li>服务器收到请求，解释它，以适当的方式操作它的资源。</li>
+<li>服务器给客户端发送一个响应，并等待下一个请求。</li>
+<li>客户端收到响应并处理它</li>
+</ol>
+<p><img src="http://www.processon.com/view/link/55404f30e4b07e81dd4f2319" alt="image"></p>
+<h1 id="网络">网络</h1>
+<p>客户端在主机A上与LAN1相连，服务器在主机B上与LAN2相连。A发送数据到B的过程:</p>
+<ol>
+<li>A进行一个系统调用，从客户端的虚拟地址拷贝数据到内核缓冲区</li>
+<li>主机A上的协议软件通过在数据头附加网络包(packge)和LAN1的帧头(frame)创建一个LAN1的帧。互联网络包头通过寻址到主机B。LAN帧头寻址到路由器。然后传送帧到适配器</li>
+<li>LAN1适配器拷贝帧到网络上</li>
+<li>帧到达路由器时，路由器的LAN1适配器从电缆上读取它，并传送到协议软件</li>
+<li>路由器从互联网络包头提取出目的互联网络地址，并作索引。剥落LAN1的帧头加上LAN2的帧头</li>
+<li>路由器的LAN2适配器拷贝该帧到网络</li>
+<li>帧到达主机B，适配器从电缆读到帧，并传送到协议软件</li>
+<li>主机B剥落包头和帧头。进行读取数据的系统调用，协议软件最终得到数据拷贝到服务器的虚拟地址空间。</li>
+</ol>
+]]></content>
+    
+    
+      <category term="networking program" scheme="http://www.abbeychenxi.net/tags/networking-program/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Supervisord 一个简单方便的守护进程]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/23/Supervisord-%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E6%96%B9%E4%BE%BF%E7%9A%84%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/"/>
+    <id>http://www.abbeychenxi.net/2014/12/23/Supervisord-一个简单方便的守护进程/</id>
+    <published>2014-12-22T16:08:12.000Z</published>
+    <updated>2015-05-05T03:42:26.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="生成配置文件">生成配置文件</h1>
+<p>echo_supervisord_conf &gt; /etc/supervisord.conf</p>
+<h1 id="配置">配置</h1>
+<p>[program: my_app]<br>command = python /path/to/your/app.py 启动项目的命令<br>startsecs = 0<br>stopwaitsecs = 0<br>autostart = true<br>autorestart = true</p>
+<h1 id="启动">启动</h1>
+<ol>
+<li>以配置文件启动 supervisord -c /etc/supervisord.conf</li>
+<li>supervisord 默认启动是以/etc下的supervisord.conf启动</li>
+</ol>
+<h1 id="web界面">web界面</h1>
+<ol>
+<li>在配置文件中<br>[inet_http_server]<br>port = 0.0.0.0:9001<br>username = user<br>password = 123<br>访问localhost:9001就可以访问supervisor的web控制</li>
+</ol>
+<h1 id="supervisorctl">supervisorctl</h1>
+<ol>
+<li>supervisorctl status 查看进程状态</li>
+<li>supervisorctl stop programname 停止某个进程</li>
+<li>supervisorctl start all 启动所有进程</li>
+</ol>
+]]></content>
+    
+    
+      <category term="supervisord" scheme="http://www.abbeychenxi.net/tags/supervisord/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Scrapy中的Xpath]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/16/Scrapy%E4%B8%AD%E7%9A%84Xpath/"/>
+    <id>http://www.abbeychenxi.net/2014/12/16/Scrapy中的Xpath/</id>
+    <published>2014-12-16T13:50:26.000Z</published>
+    <updated>2014-12-16T14:06:55.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="如何在Scrapy的Xpath中使用正则？">如何在Scrapy的Xpath中使用正则？</h1>
+<h2 id="需求">需求</h2>
+<p>html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别</p>
+<h2 id="ok_进入正题">ok 进入正题</h2>
+<h3 id="Scrapy_的EXSLT扩展">Scrapy 的EXSLT扩展</h3>
+<h4 id="re">re</h4>
+<p>例如在XPath的 starts-with() 或 contains() 无法满足需求时， test() 函数可以非常有用。</p>
+<p>例如在列表中选择有”class”元素且结尾为一个数字的链接:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> scrapy <span class="keyword">import</span> Selector</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>doc = <span class="string">"""</span></div><div class="line"><span class="prompt">... </span>&lt;div&gt;</div><div class="line"><span class="prompt">... </span>    &lt;ul&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-inactive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;fourth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>        &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;&lt;/li&gt;</div><div class="line"><span class="prompt">... </span>    &lt;/ul&gt;</div><div class="line"><span class="prompt">... </span>&lt;/div&gt;</div><div class="line"><span class="prompt">... </span>"""</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel = Selector(text=doc, type=<span class="string">"html"</span>)</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link3.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line"><span class="prompt">&gt;&gt;&gt; </span>sel.xpath(<span class="string">'//li[re:test(@class, "item-\d$")]//@href'</span>).extract()</div><div class="line">[<span class="string">u'link1.html'</span>, <span class="string">u'link2.html'</span>, <span class="string">u'link4.html'</span>, <span class="string">u'link5.html'</span>]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+
+<p>既使用Xpath的原生操作，如何又使用Scrapy中的正则？<br>因为Scrapy中的Xpath是1.0版本 并不支持正则表达式<br>so， 上代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">description</span> = <span class="built_in">info</span>.xpath(<span class="string">'.//a[not[re:test(<span class="variable">@href</span>, "http://bbs.nju.edu.cn/\.+")]]/text() '</span>).extract()</div></pre></td></tr></table></figure>
+
+<p>上面的xpath表达式，所有指向bbs.nju.edu.cn的子链接的a标签都不在爬取的范围内。</p>
+<h4 id="集合操作">集合操作</h4>
+<p>集合操作可以方便地用于在提取文字元素前从文档树中去除一些部分。</p>
+<p>例如使用itemscopes组和对应的itemprops来提取微数据(来自<a href="http://schema.org/Product的样本内容" target="_blank" rel="external">http://schema.org/Product的样本内容</a>):</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; doc = <span class="string">""</span><span class="string">"</span></div><div class="line">... &lt;div itemscope itemtype="http://schema.org/Product<span class="string">"&gt;</span></div><div class="line">...   &lt;span itemprop="name<span class="string">"&gt;Kenmore White 17"</span> Microwave&lt;/span&gt;</div><div class="line"><span class="keyword">...</span>   &lt;img src=<span class="string">"kenmore-microwave-17in.jpg"</span> alt=<span class="string">'Kenmore 17" Microwave'</span> /&gt;</div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"aggregateRating"</span></div><div class="line"><span class="keyword">...</span>     itemscope itemtype=<span class="string">"http://schema.org/AggregateRating"</span>&gt;</div><div class="line"><span class="keyword">...</span>    Rated &lt;span itemprop=<span class="string">"ratingValue"</span>&gt;<span class="number">3.5</span>&lt;/span&gt;/<span class="number">5</span></div><div class="line"><span class="keyword">...</span>    based on &lt;span itemprop=<span class="string">"reviewCount"</span>&gt;<span class="number">11</span>&lt;/span&gt; customer reviews</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"offers"</span> itemscope itemtype=<span class="string">"http://schema.org/Offer"</span>&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"price"</span>&gt;$<span class="number">55.00</span>&lt;/span&gt;</div><div class="line"><span class="keyword">...</span>     &lt;link itemprop=<span class="string">"availability"</span> href=<span class="string">"http://schema.org/InStock"</span> /&gt;In stock</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   Product description:</div><div class="line"><span class="keyword">...</span>   &lt;span itemprop=<span class="string">"description"</span>&gt;<span class="number">0.7</span> cubic feet countertop microwave.</div><div class="line"><span class="keyword">...</span>   Has six preset cooking categories and convenience features like</div><div class="line"><span class="keyword">...</span>   Add-A-Minute and Child Lock.&lt;/span&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   Customer reviews:</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"review"</span> itemscope itemtype=<span class="string">"http://schema.org/Review"</span>&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"name"</span>&gt;Not a happy camper&lt;/span&gt; -</div><div class="line"><span class="keyword">...</span>     by &lt;span itemprop=<span class="string">"author"</span>&gt;Ellie&lt;/span&gt;,</div><div class="line"><span class="keyword">...</span>     &lt;meta itemprop=<span class="string">"datePublished"</span> content=<span class="string">"2011-04-01"</span>&gt;April <span class="number">1</span>, <span class="number">2011</span></div><div class="line"><span class="keyword">...</span>     &lt;div itemprop=<span class="string">"reviewRating"</span> itemscope itemtype=<span class="string">"http://schema.org/Rating"</span>&gt;</div><div class="line"><span class="keyword">...</span>       &lt;meta itemprop=<span class="string">"worstRating"</span> content = <span class="string">"1"</span>&gt;</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"ratingValue"</span>&gt;<span class="number">1</span>&lt;/span&gt;/</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"bestRating"</span>&gt;<span class="number">5</span>&lt;/span&gt;stars</div><div class="line"><span class="keyword">...</span>     &lt;/div&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"description"</span>&gt;The lamp burned out and now I have to replace</div><div class="line"><span class="keyword">...</span>     it. &lt;/span&gt;</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span>   &lt;div itemprop=<span class="string">"review"</span> itemscope itemtype=<span class="string">"http://schema.org/Review"</span>&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"name"</span>&gt;Value purchase&lt;/span&gt; -</div><div class="line"><span class="keyword">...</span>     by &lt;span itemprop=<span class="string">"author"</span>&gt;Lucas&lt;/span&gt;,</div><div class="line"><span class="keyword">...</span>     &lt;meta itemprop=<span class="string">"datePublished"</span> content=<span class="string">"2011-03-25"</span>&gt;March <span class="number">25</span>, <span class="number">2011</span></div><div class="line"><span class="keyword">...</span>     &lt;div itemprop=<span class="string">"reviewRating"</span> itemscope itemtype=<span class="string">"http://schema.org/Rating"</span>&gt;</div><div class="line"><span class="keyword">...</span>       &lt;meta itemprop=<span class="string">"worstRating"</span> content = <span class="string">"1"</span>/&gt;</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"ratingValue"</span>&gt;<span class="number">4</span>&lt;/span&gt;/</div><div class="line"><span class="keyword">...</span>       &lt;span itemprop=<span class="string">"bestRating"</span>&gt;<span class="number">5</span>&lt;/span&gt;stars</div><div class="line"><span class="keyword">...</span>     &lt;/div&gt;</div><div class="line"><span class="keyword">...</span>     &lt;span itemprop=<span class="string">"description"</span>&gt;Great microwave <span class="keyword">for</span> the price. It is small and</div><div class="line"><span class="keyword">...</span>     fits <span class="keyword">in</span> my apartment.&lt;/span&gt;</div><div class="line"><span class="keyword">...</span>   &lt;/div&gt;</div><div class="line"><span class="keyword">...</span>   <span class="keyword">...</span></div><div class="line"><span class="keyword">...</span> &lt;/div&gt;</div><div class="line"><span class="keyword">...</span> <span class="string">""</span><span class="string">"</span></div><div class="line">&gt;&gt;&gt;</div><div class="line">&gt;&gt;&gt; for scope in sel.xpath('//div[@itemscope]'):</div><div class="line">...     print "current scope:<span class="string">", scope.xpath('@itemtype').extract()</span></div><div class="line">...     props = scope.xpath('''</div><div class="line">...                 set:difference(./descendant::*/@itemprop,</div><div class="line">...                                .//*[@itemscope]/*/@itemprop)''')</div><div class="line">...     print "    properties:<span class="string">", props.extract()</span></div><div class="line">...     print</div><div class="line">...</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Product']</div><div class="line">    properties: [u'name', u'aggregateRating', u'offers', u'description', u'review', u'review']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/AggregateRating']</div><div class="line">    properties: [u'ratingValue', u'reviewCount']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Offer']</div><div class="line">    properties: [u'price', u'availability']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Review']</div><div class="line">    properties: [u'name', u'author', u'datePublished', u'reviewRating', u'description']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Rating']</div><div class="line">    properties: [u'worstRating', u'ratingValue', u'bestRating']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Review']</div><div class="line">    properties: [u'name', u'author', u'datePublished', u'reviewRating', u'description']</div><div class="line"></div><div class="line">current scope: [u'http://schema.org/Rating']</div><div class="line">    properties: [u'worstRating', u'ratingValue', u'bestRating']</div><div class="line"></div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+
+<p>在这里，我们首先在 itemscope 元素上迭代，对于其中的每一个元素，我们寻找所有的 itemprops 元素，并排除那些本身在另一个 itemscope 内的元素。</p>
+]]></content>
+    
+    
+      <category term="Scrapy" scheme="http://www.abbeychenxi.net/tags/Scrapy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Rust]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/14/Rust/"/>
+    <id>http://www.abbeychenxi.net/2014/12/14/Rust/</id>
+    <published>2014-12-14T04:06:08.000Z</published>
+    <updated>2014-12-14T04:08:07.000Z</updated>
+    <content type="html"><![CDATA[<p>Rust 1.0 发布了。<br>这个看上去比Go的语法优美，简洁的静态编译型语言。</p>
+<p>大致看了一下语法。和Swift很类似。</p>
+<p>决定入坑Rust。</p>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[IOS之协议和委托]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/05/IOS%E4%B9%8B%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%A7%94%E6%89%98/"/>
+    <id>http://www.abbeychenxi.net/2014/12/05/IOS之协议和委托/</id>
+    <published>2014-12-04T16:06:53.000Z</published>
+    <updated>2014-12-04T16:30:13.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="protocol">protocol</h1>
+<blockquote>
+<p>一个协议不实现任何它定义的方法。它的作用是：当一个对象遵从这个协议时，这个对象必须实现协议的所有方法。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">AddItemViewControllerDelegate</span>: <span class="title">class</span> </span>{</div><div class="line">    <span class="func"><span class="keyword">func</span></span> addItemViewControllerDidCancel(controller: <span class="type">AddItemViewController</span>)</div><div class="line">    <span class="func"><span class="keyword">func</span></span> addItemViewController(controller: <span class="type">AddItemViewController</span>, didFinishAddingItem item: <span class="type">ChecklistItem</span>)</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>为了让ChecklistViewController遵从这个协议，它必须提供这两个方法的实现。从此你可以参考ChecklistViewController仅使用协议名称。<br>protocol 类似与 java 中的 interface</p>
+<p>在AddItemViewController中，不需要再写:<br><code>var delegate: ChecklistViewController</code><br>而是写为:<br><code>var delegate: AddItemViewControllerDelegate</code></p>
+<p>delegate这个变量对实现了这个协议的对象来说只是一个参考，引用。你可以通过delegate这个变量去发送信息给对象，而不需要直到这个对象到底是什么。</p>
+<h1 id="简单的五部实现delegate">简单的五部实现delegate</h1>
+<p>A是B的delegate，B将发送消息</p>
+<ol>
+<li>为B定义一个delegate协议</li>
+<li>给B定义一个可选的delegate变量，这个变量必须是weak的</li>
+<li>当事件发生的时候，让B向这个delegate发送消息</li>
+<li>让A遵守这个协议。必须在类名后面加上协议的名字<code>class ChecklistViewController: AddItemViewControllerDelegate</code></li>
+<li>告诉B，A现在已经是它的一个delegate</li>
+</ol>
+]]></content>
+    
+    
+      <category term="IOS" scheme="http://www.abbeychenxi.net/categories/IOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[最长回文子串]]></title>
+    <link href="http://www.abbeychenxi.net/2014/12/02/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/"/>
+    <id>http://www.abbeychenxi.net/2014/12/02/最长回文子串/</id>
+    <published>2014-12-01T16:46:34.000Z</published>
+    <updated>2014-12-01T17:01:04.000Z</updated>
+    <content type="html"><![CDATA[<p>转载自july</p>
+<h1 id="最长回文子串">最长回文子串</h1>
+<p>给定一个字符串，求它的最长回文子串的长度。</p>
+<h2 id="分析与解法">分析与解法</h2>
+<p>最容易想到的办法是枚举所有的子串，分别判断其是否为回文。这个思路初看起来是正确的，但却做了很多无用功，如果一个长的子串包含另一个短一些的子串，那么对子串的回文判断其实是不需要的。</p>
+<p>那么如何高效的进行判断呢？我们想想，如果一段字符串是回文，那么以某个字符为中心的前缀和后缀都是相同的，例如以一段回文串“aba”为例，以b为中心，它的前缀和后缀都是相同的，都是a。</p>
+<p>那么，我们是否可以可以枚举中心位置，然后再在该位置上用扩展法，记录并更新得到的最长的回文长度呢？答案是肯定的，参考代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">length = len(s)</div><div class="line">isPalinded = [[<span class="keyword">False</span> <span class="keyword">for</span> n <span class="keyword">in</span> range(length)]<span class="keyword">for</span> n <span class="keyword">in</span> range(length)]</div><div class="line">maxOfLength = <span class="number">1</span></div><div class="line">start = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, length):</div><div class="line">	isPalinded[i][i] = <span class="keyword">True</span></div><div class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0</span>, i):</div><div class="line">			isPalinded[j][i] = (s[j] == s[i] <span class="keyword">and</span> (i - j &lt; <span class="number">2</span> <span class="keyword">or</span> isPalinded[j+<span class="number">1</span>][i-<span class="number">1</span>]))</div><div class="line">			<span class="keyword">if</span> isPalinded[j][i] <span class="keyword">and</span> maxOfLength &lt; (i - j + <span class="number">1</span>):</div><div class="line">				maxOfLength = i - j + <span class="number">1</span></div><div class="line">				start = j</div><div class="line"><span class="keyword">return</span> s[start : maxOfLength + <span class="number">1</span>]</div><div class="line"><span class="comment">#时间复杂度O(n^2)超过限制</span></div></pre></td></tr></table></figure>
+
+
+<p> 代码稍微难懂一点的地方就是内层的两个 for 循环，它们分别对于以 i 为中心的，长度为奇数和偶数的两种情况，整个代码遍历中心位置 i 并以之扩展，找出最长的回文。</p>
+<h3 id="解法二、O(N)解法">解法二、O(N)解法</h3>
+<p>在上文的解法一：枚举中心位置中，我们需要特别考虑字符串的长度是奇数还是偶数，所以导致我们在编写代码实现的时候要把奇数和偶数的情况分开编写，是否有一种方法，可以不用管长度是奇数还是偶数，而统一处理呢？比如是否能把所有的情况全部转换为奇数处理？</p>
+<p>答案还是肯定的。这就是下面我们将要看到的Manacher算法，且这个算法求最长回文子串的时间复杂度是线性O(N)的。</p>
+<p>首先通过在每个字符的两边都插入一个特殊的符号，将所有可能的奇数或偶数长度的回文子串都转换成了奇数长度。比如 abba 变成 #a#b#b#a#， aba变成 #a#b#a#。</p>
+<p>此外，为了进一步减少编码的复杂度，可以在字符串的开始加入另一个特殊字符，这样就不用特殊处理越界问题，比如$#a#b#a#。</p>
+<p>以字符串12212321为例，插入#和$这两个特殊符号，变成了 S[] = “$#1#2#2#1#2#3#2#1#”，然后用一个数组 P[i] 来记录以字符S[i]为中心的最长回文子串向左或向右扩张的长度（包括S[i]）。</p>
+<p>比如S和P的对应关系：</p>
+<p>S # 1 # 2 # 2 # 1 # 2 # 3 # 2 # 1 #<br>P 1 2 1 2 5 2 1 4 1 2 1 6 1 2 1 2 1<br>可以看出，P[i]-1正好是原字符串中最长回文串的总长度，为5。</p>
+<p>接下来怎么计算P[i]呢？Manacher算法增加两个辅助变量id和mx，其中id表示最大回文子串中心的位置，mx则为id+P[id]，也就是最大回文子串的边界。得到一个很重要的结论：</p>
+<p>如果mx &gt; i，那么P[i] &gt;= Min(P[2 <em> id - i], mx - i)<br>下面，令j = 2</em>id - i，也就是说j是i关于id的对称点。</p>
+<p>当 mx - i &gt; P[j] 的时候，以S[j]为中心的回文子串包含在以S[id]为中心的回文子串中，由于i和j对称，以S[i]为中心的回文子串必然包含在以S[id]为中心的回文子串中，所以必有P[i] = P[j]；<br><img src="https://camo.githubusercontent.com/6e347c94c2660435bde50fa5305135229c8d76cf/687474703a2f2f7777772e66656c69783032312e636f6d2f626c6f672f6174746163686d656e742f313331383437363238345f37393335346134372e706e67" alt=""></p>
+<p>当 P[j] &gt;= mx - i 的时候，以S[j]为中心的回文子串不一定完全包含于以S[id]为中心的回文子串中，但是基于对称性可知，下图中两个绿框所包围的部分是相同的，也就是说以S[i]为中心的回文子串，其向右至少会扩张到mx的位置，也就是说 P[i] &gt;= mx - i。至于mx之后的部分是否对称，再具体匹配。</p>
+<p><img src="https://camo.githubusercontent.com/ff7edaf62027622be69d38aa3412b542328f8386/687474703a2f2f7777772e66656c69783032312e636f6d2f626c6f672f6174746163686d656e742f313331383437383131345f34333739666235632e706e67" alt=""></p>
+<p>此外，对于 mx &lt;= i 的情况，因为无法对 P[i]做更多的假设，只能让P[i] = 1，然后再去匹配。</p>
+<p>综上，关键代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">  <span class="comment"># @return a string</span></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">processString</span><span class="params">(self, s)</span>:</span></div><div class="line">    s = <span class="string">" "</span>.join(s)</div><div class="line">    l = s.split(<span class="string">" "</span>)</div><div class="line">    l.insert(<span class="number">0</span>, <span class="string">'$'</span>)</div><div class="line">    s = <span class="string">'#'</span>.join(l)</div><div class="line">    s += <span class="string">'#^'</span></div><div class="line">    <span class="keyword">return</span> s</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span><span class="params">(self, s)</span>:</span></div><div class="line">    s = self.processString(s)</div><div class="line">    <span class="comment"># print s</span></div><div class="line">    mx = <span class="number">0</span></div><div class="line">    id = <span class="number">0</span></div><div class="line">    p = [<span class="number">0</span> <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">0</span>, len(s))]</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(s) - <span class="number">1</span>):</div><div class="line">      <span class="comment"># print i</span></div><div class="line">      p[i] = min(p[<span class="number">2</span> * id - i], mx - i) <span class="keyword">if</span> mx &gt; i <span class="keyword">else</span> <span class="number">1</span></div><div class="line">      <span class="keyword">while</span> s[i + p[i]] == s[i - p[i]]:</div><div class="line">        p[i] += <span class="number">1</span></div><div class="line">      <span class="keyword">if</span> i + p[i] &gt; mx:</div><div class="line">        mx = i + p[i]</div><div class="line">        id = i</div><div class="line">    maxLength = max(p)</div><div class="line">    index = p.index(maxLength)</div><div class="line">    start = index - maxLength + <span class="number">1</span></div><div class="line">    end = index + maxLength - <span class="number">1</span></div><div class="line">    s = s[start : end]</div><div class="line">    l = s.split(<span class="string">'#'</span>)</div><div class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(l)</div></pre></td></tr></table></figure>
+
+
+<p>此Manacher算法使用id、mx做配合，可以在每次循环中，直接对P[i]的快速赋值，从而在计算以i为中心的回文子串的过程中，不必每次都从1开始比较，减少了比较次数，最终使得求解最长回文子串的长度达到线性O(N)的时间复杂度。</p>
+]]></content>
+    
+    
+      <category term="LeetCode" scheme="http://www.abbeychenxi.net/categories/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[分布式系统]]></title>
+    <link href="http://www.abbeychenxi.net/2014/11/18/%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://www.abbeychenxi.net/2014/11/18/分布式系统/</id>
+    <published>2014-11-18T14:43:01.000Z</published>
+    <updated>2014-11-18T14:43:48.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="中间件在分布式系统中的地位和角色">中间件在分布式系统中的地位和角色</h2>
+<p>为了使种类各异的计算机和网络都呈现为单个的系统，分布式系统常常通过一个“软件层”组织起来，该层在逻辑上位于由用户和应用程序组成的高层与由操作系统组成的低层之间，这样的分布式系统又称为中间件。中间件层延伸到了多台机器上，且为每个应用程序提供了相同的接口。它的重要的目的是提供一定程度的透明性，也就是一定程度上向应用程序隐藏数据处理的分布性。中间件集分布式操作系统与网络操作系统的优点于一身，既能够具有网络操作系统的可扩展性和开放性，又能够具有分布式操作系统的透明性和与之相关的易用性。</p>
+<h2 id="分布式系统进程通信，rpc基本原理步骤">分布式系统进程通信，rpc基本原理步骤</h2>
+<ol>
+<li>客户过程以正常方式调用客户存根</li>
+<li>客户存根生成一个消息，然后调用本地操作系统</li>
+<li>客户端操作系统将消息发送给远程操作系统，并阻塞客户过程</li>
+<li>远程操作系统将消息交给服务器存根</li>
+<li>服务器存根将参数提取出来，然后调用服务器</li>
+<li>服务器执行要求的操作，操作完成后将结果返回给服务器存根</li>
+<li>服务器存根将结果打成消息包，然后调用本地操作系统</li>
+<li>服务器操作系统将消息发送回客户端操作系统</li>
+<li>客户端操作系统将消息交给客户存根</li>
+<li>客户存根将结果从消息中提取出来，返回给调用进程</li>
+</ol>
+<h2 id="移动agent特点">移动agent特点</h2>
+<p>自主性；反应性；主动/面向目标；推理/学习/自适应能力；可移动性；社会性。</p>
+<h2 id="命名服务(优缺点)">命名服务(优缺点)</h2>
+<h2 id="移动实体定位">移动实体定位</h2>
+<ol>
+<li>广播和多播</li>
+<li>转发指针</li>
+<li>给实体指定一个起始位置</li>
+<li>创建一颗搜索树</li>
+</ol>
+<h2 id="并发，petri网建模">并发，petri网建模</h2>
+<h3 id="哲学家进餐">哲学家进餐</h3>
+<p><img src="http://ww3.sinaimg.cn/mw690/b34f7e8bgw1emfhdhmzsgj218e0v4jv8.jpg" alt="哲学家进餐"></p>
+<p>图解：</p>
+<p>h-hunger   k-thinking   f –fork/chopstick   e-eating</p>
+<ol>
+<li>圆圈：hi,ki,ei,fi为库所<br>h：表示为哲学家饥饿状态库所 : k表示为哲学家思考状态的库所 e:表示为哲学家吃饭状态的库所 f:表示筷子处于备用状态的库所</li>
+<li>黑色实心点为token。初始状态时：f0-f4中的是筷子，k0-k4中的是哲学家</li>
+<li>方框为变迁<br>初始状态：筷子备用状态，处于f0-f4库所中。哲学家是思考状态，处于k0-k4中。</li>
+</ol>
+<p>以哲学家0为例</p>
+<ul>
+<li>T1 变迁1（感到饥饿）：哲学家在思考中感到饿了，从库所k0经过T1到达库所h0。哲学家从思考状态进入饥饿状态。</li>
+<li>T2变迁2（获得筷子）：哲学家和筷子分别从h0，f4，f0库所经过T2迁移到库所e0。哲学家从饥饿状态进入吃饭状态。</li>
+<li>T3变迁3（释放筷子）：吃完饭后，哲学家经过T3迁移到k0库所中，从吃饭状态转入思考状态。两只筷子经过T3，分别迁移到库所f0，f4，从使用状态进入备用状态。</li>
+</ul>
+<h3 id="生产者消费者">生产者消费者</h3>
+<p><img src="http://ww4.sinaimg.cn/mw690/b34f7e8bgw1emfhj3gp7wj21fm0ladjn.jpg" alt=""></p>
+<p><img src="http://ww2.sinaimg.cn/mw690/b34f7e8bgw1emfhjevzcrj20te0isdhh.jpg" alt=""></p>
+<h2 id="移动mogent通信失效（本地和异地）的解决方案">移动mogent通信失效（本地和异地）的解决方案</h2>
+<ul>
+<li>分析<ul>
+<li>无论本地通信还是异地通信，其通信模型是一致的 </li>
+<li>通信失效本质上都是因为在路由信件和实际信件传输过程中，目标agent发生了物理位置的变化，而这种变化是随机的，不可预计的。 </li>
+</ul>
+</li>
+<li>结论<ul>
+<li>通信失效现象并不是mogent系统特有的现象.它是一个因agent的移动而带来的可能会出现在任意一个移动agent系统中的普遍现象</li>
+</ul>
+</li>
+<li>其它系统的处理<ul>
+<li>Aglets：未见</li>
+<li>Mole：<ul>
+<li>将失效信件扔弃;</li>
+<li>扔弃的同时回送错误信息</li>
+<li>将失效信件就地保存,待被通信agent在回送时交付 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>根本原因：<ul>
+<li>移动：随机改变位置信息</li>
+<li>通信：要求位置信息“暂时”不变</li>
+<li>通信和移动所共享的“位置”信息未进行同步控制是造成通信失效的根本原因</li>
+<li>从OS进程互斥考虑，接收者的“位置”在通信失效问题中具有决定性的意义，当通信和移动相矛盾时，该“位置”就成为了一个必须互斥使用的“资源” </li>
+</ul>
+</li>
+<li>“位置”的互斥  ＝》  “状态”的互斥</li>
+<li>在一个能够避免通信失效的移动agent系统中，必须且只要做到以下三条 ：<ul>
+<li>准确纪录agent的状态信息 </li>
+<li>只能向一个处于“静止态”的agent发送信件 </li>
+<li>信件发送过程中必须限制接收者从“静止态”向“移动态”的状态转换 </li>
+</ul>
+</li>
+</ul>
+<h2 id="同步：逻辑时间算法，向量时间戳（将每个时间的向量时间戳标出）">同步：逻辑时间算法，向量时间戳（将每个时间的向量时间戳标出）</h2>
+<p>Lamport算法：不能反应因果关系。</p>
+<p>向量时钟 ：要求能计算出每个进程中的事件，标出向量的时间戳，不同事件之间的向量时间的大小关系，依赖关系与并发关系。</p>
+<h3 id="逻辑时钟">逻辑时钟</h3>
+<ul>
+<li>为了同步逻辑时钟，Lamport定义了一个称作 “先发生” (happens-before) 的关系。表达式ab读作 “a在b之前发生”，意思是所有进程一致认为事件a先发生，然后事件b才发生。这种先发生关系有两种情况。 <ul>
+<li>如果a和b是同一个进程中的两个事件，且a在之前发生，则ab为真。 </li>
+<li>如果a是一个进程发送消息的事件，而b为另一个进程接收消息的事件，则ab也为真。消息不可能在发送之前被修改，也不能在发送的同时被接收，这是因为消息需要一定时间才能到达接收端。 </li>
+<li>Lamport逻辑时间钟具有传递性和并发性；</li>
+</ul>
+</li>
+<li>对这个算法稍作补充就可以满足全局时间的需要。即在每两个事件之间，时钟必须至少滴答一次。如果一个进程以相当快的速度发送或者接受两个消息，那么它的时钟必须在这之间至少滴答一次。 </li>
+<li>在某些情况下还需要一个附加条件，即两个事件不会精确地同时发生。为了达到这个目标，我们可以将事件发生所在的进程号附加在时间的低位后，并用小数点分开。这样，如果进程1和进程2中的事件都发生在时刻40，那么前者记为40.1后者记为40.2。 </li>
+<li>使用这种方法，我们现在有了一个为分布式系统中的所有事件分配时间的方法，它遵循下面的规则： <ul>
+<li>若同一进程中a在b之前发生，则C(a)&lt;C(b)。 </li>
+<li>若a和b分别代表发送一个消息和接收该消息的事件，则C(a)&lt;C(b)。 </li>
+<li>对于所有不同的事件a和b，C(a) ≠ C(b)。</li>
+</ul>
+</li>
+<li>这个算法为我们提供了一种对系统中所有事件进行完全排序的方法。许多其他的分布式算法都需要这种排序以避免混淆，所以文献中广泛引用此算法。 </li>
+<li>使用Lamport时间戳后，只通过比较事件a和b各自的时间值C(a)和C(b)，无法说明它们之间的关系。换句话所，C(a)&lt;C(b)不能说明事件a就是在事件b之前发生。还需要另外一些信息。即 Lamport时间戳不能捕捉因果关系(causality)。</li>
+</ul>
+<h3 id="向量事件戳">向量事件戳</h3>
+<p>为什么采用向量时间戳可以表示事件因果关系？</p>
+<ul>
+<li>因果关系可以通过向量时间戳来捕获。分配给事件a的向量时间戳VT(a)具有下列性质：如果对某一事件b，有VT(a)&lt;VT(b)，那么认为事件a在因果关系上处于事件b之前。向量时间戳的创建是通过让每个进程P维护一个向量V来完成的，该向量具有下面两个性质： <ul>
+<li>Vi[i]是到目前为止进程Pi发生的事件的数量。 </li>
+<li>如果Vi[j]=k，那么进程Pi知道进程Pj中已经发生了k个事件</li>
+<li>第一个性质是通过在进程Pi中的新事件发生时递增Vi[i]来维护的。</li>
+<li>第二个性质时通过在所发送的消息中携带向量来维护的。当进程Pi发送消息m时，它将自己的当前向量作为时间戳vt一起发送。 </li>
+</ul>
+</li>
+<li>使用这种方式，接收者可以得知进程Pi中已经发生的事件数。</li>
+<li>更重要的是，接收者可以得知进程Pi发送消息m之前其他进程已经发生了多少个事件。换句话说，消息m的时间戳vt告诉接收者其他进程中有多少事件发生在它之前，并且消息m可能在因果关系上依赖于这些事件。</li>
+<li><p>当进程Pj接收到消息m时，它调整自己的向量，将每项Vj[k] 设置为max{Vj[k],vt[k]}。该向量现在反映了进程Pj必须接收的消息数，该消息数目至少是在发送消息m之前见到的消息。此后将Vj[i]项增1，这表示接收消息m的事件是来自于进程Pi的下一个事件。<br>只在不违背因果关系限制时，才能使用向量时间戳来传递消息。我们来再次考虑一下电子公告板的例子。当进程Pi张贴一篇文章时，它将该文章作为消息a广播出去，并且在该消息上附加一个时间戳vt(a)，其值等于V。当另一个进程Pj接收到a时，它将调整自己的向量，以使Vj[i]=vt(a)[i]。</p>
+</li>
+<li><p>现在假设进程Pj张贴了一个该文章的回复。回复是通过该进程广播一个消息r实现的，消息r携带值等于Vj的时间戳vt(r)。注意vt(r)[i]&gt; vt(a)[i]。假设通信是可靠的，包含文章的消息a和包含回复的消息r最终都到达了另一个进程Pk。因为我们没有对消息的顺序关系做出假设，所以消息r可能在消息a之前到达进程Pk。进程Pk接收到消息r时检查时间戳，并决定推迟提交消息r，直到因果关系上位于r之前的消息都接收到了才提交。消息r只有下列条件满足时才得到交付：<br>vt(r)[j]=vk[j]+1;<br>对于所有满足i¹j的i和j，vt(r)[i]&lt; Vk[i]<br>第一个条件说明r是进程Pk正在等待的下一条来自进程Pj的消息。<br>第二个条件说明当进程Pj发送消息r时，进程Pk只看到被进程Pj看到的消息。这意味着进程Pk已经看到了消息。</p>
+</li>
+</ul>
+<p><img src="http://ww3.sinaimg.cn/mw690/b34f7e8bgw1emfikdx9x2j20sq0wi0vu.jpg" alt=""></p>
+<h2 id="一致性模型，要能写出以客户为中心的四个模型（条件描述）以数据为中心的三种类别（了解））">一致性模型，要能写出以客户为中心的四个模型（条件描述）以数据为中心的三种类别（了解））</h2>
+<ol>
+<li><p>每一个以客户为中心的一致性模型是单调读的一致性模型。如果数据存储满足以下条件，那么称该数据存储提供单调读一致性(monotonic-read consistency)： </p>
+<ul>
+<li><p>如果一个进程读取数据x的值，那么该进程对执行任何后续读操作将总是得到第一次读取的那个值或更新的值。 </p>
+<p>也就是说，单调读一致性保证，如果一个进程已经在t时刻看到x的值，那么以后他不再会看到较老的版本的x的值。 </p>
+</li>
+</ul>
+</li>
+<li><p>在很多情况下，写操作以正确的顺序传播到数据存储的所有拷贝是非常重要的。这种性质被描述为单调写一致性。单调写一致性(monotonic-write consistency)的数据存储应该满足以下条件： </p>
+<ul>
+<li>一个进程对数据项x执行的写操作必须在该进程对x执行任何后续写操作之前完成。 </li>
+</ul>
+</li>
+<li><p>下面介绍一种与单调写一致性有密切关系的以客户为中心的一致性模型。如果数据存储满足以下条件，那么称该数据存储提供写后读一致性(read-your-writes consistency)。 </p>
+<ul>
+<li><p>一个进程对数据项x执行一次写操作的结果总是会被该进程对x执行的后续读操作看见。 </p>
+<p>也就是说，一个写操作总是在同一进程执行的后续读操作之前完成，而不管这个后续的读操作发生在什么位置。</p>
+</li>
+</ul>
+</li>
+<li><p>最后一种以客户为中心的一致性模型是这样的模型，即更新是作为前一个读操作的结果传播的。如果数据存储满足以下条件，那么称该数据存储提供读后写一致性(writes-follow-reads consistency)。 </p>
+<ul>
+<li><p>同一个进程对数据项x执行的读操作之后的写操作，保证发生在与x读取值相同或比之更新的值上。</p>
+<p>也就是说，进程对数据项上x所执行的任何后续的写操作都会在x的拷贝上执行，而该拷贝是用该进程最近读取的值更新的。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="代码迁移（基础、分类）">代码迁移（基础、分类）</h2>
+<p>分布式系统中的代码迁移是以进程迁移(process migration)的形式进行的，在这种形式下整个进程被从一台机器搬到另一台机器上去。其基本的思想是：如果把进程由负载较重的机器上转移到负载较轻的机器上去，就可以提升系统的整体性能。（迁移的是计算程序本身，而非数据）</p>
+<h3 id="分类">分类</h3>
+<ul>
+<li>弱可迁移性：在这种模型中，可以只传输代码段以及某些初始化数据。弱可移动性的典型特征是，传输过来的程序总是以初始状态重新开始执行的。</li>
+<li>强可移动性(strong mobility)：它还可以迁移执行段。强可移动性的典型特征是，可以先停止运行中的进程，然后将它搬到另一台机器上去，再从刚才中断的位置继续执行。 </li>
+</ul>
+<p>分类（主动方）：</p>
+<ul>
+<li>发送者启动(sender-initiated)迁移：在这种模型中，代码当前驻留在哪台机器上或者正在哪台机器上执行，就由该机器来启动迁移。一般来说，在向计算服务器上载程序时进行的就是发送者启动的迁移。</li>
+<li>接收者启动(receiver-initiated)迁移：代码迁移的主动权掌握在目标机器手中。Java小程序是这种迁移的一个例子。</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/mw690/b34f7e8bgw1emfinpb34nj21au0p2dj7.jpg" alt=""></p>
+<h2 id="事务提交：2pc\3pc">事务提交：2pc\3pc</h2>
+<ol>
+<li><p>两阶段提交协议(2PC)：考虑一个分布式事务中有很多进程作为参与者，每个进程都运行在不同的机器上。假定没有故障发生，协议就由以下两个阶段组成，每个阶段又由两步组成。</p>
+<ul>
+<li>协调者向所有的参与者发送一个Vote_Request消息。 </li>
+<li>当参与者接收到Vote_Request消息时，就向协调者返回一个Vote_Commit消息通知协调者它已经准备好本地提交事务中属于它的部分，否则就返回一个Vote_Abort消息。 </li>
+<li>协调者收集来自参与者的所有选票。如果所有的参与者都表决要提交事务，那么协调者就进行提交。在这种情况下它向所有的参与者发送一个Global_Commit消息。但是，如果有一个参与者表决要取消事务，那么协调者就决定取消事务并多播一个Global_Abort消息。 </li>
+<li><p>每个提交表决的参与者都等待协调者的最后反应。如果参与者接收到一个Global_Commit消息，那么它就在本地提交事务，否则接收到一个Global_Abort消息时，就在本地取消事务。<br><img src="http://ww4.sinaimg.cn/mw690/b34f7e8bjw1emfibctv28j21bi0cudi7.jpg" alt=""></p>
+<ul>
+<li>The finite state machine for the coordinator in 2PC.（协调者）</li>
+<li>The finite state machine for a participant.（参与者）</li>
+</ul>
+<p>两阶段提交的一个问题在于当协调者崩溃时，参与者不能做出最后的决定。因此参与者可能在协调者恢复之前保持阻塞。三阶段提交协议(3PC)，避免了在出现故障停机时的阻塞过程。</p>
+</li>
+</ul>
+</li>
+<li><p>三阶段提交（3PC）</p>
+<p> 3PC的本质在于协调者和每个参与者都满足以下两个条件： </p>
+<ul>
+<li>没有一个可以直接转换到Commit或者Abort状态的单独状态。 </li>
+<li><p>没有一个这样的状态：它不能做出最后决定，而且可以从它直接转换到Commit状态。  </p>
+<p>三阶段提交协议(3PC)的基本原理为：在2PC的参与者投票和协调者决策之间增加了“预提交”阶段。协调者在接收到所有参与者的提交票后发送一个全局预提交命令，当参与者接收到全局预提交命令之后，它就得知其他的参与者都投了提交票，从而确定自己在稍后肯定会执行提交操作，除非它失败了。每个参与者都对全局预提交发出确认消息，协调者一旦接收到所有参与者的确认消息就再发出“全局性提交”。3PC协议在站点失败，甚至是所有的站点都失败的情况下也不会带来阻塞。</p>
+<p>它们各自的状态机如图所示。（a 协调者，b 参与者）<br><img src="http://ww3.sinaimg.cn/mw690/b34f7e8bgw1emfidmwjbnj21d40hwwhr.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>二者比较：</li>
+</ul>
+<p>与2PC相比，3PC的主要不同点在于以下情况：崩溃的参与者可能恢复到了Commit状态而所有参与者还处于Ready状态。在这种情况下，其余的可能操作进程不能做出最后的决定，不得不在崩溃的进程恢复之前阻塞。在3PC中，只要有可操作的进程处于Ready状态，就没有崩溃的进程可以恢复到Init、Abort或Precommit之外的状态。因此存活进程总是可以做出的最后决定。 </p>
+<h2 id="复制和一致性（四个经典模型（不带同步变量的））">复制和一致性（四个经典模型（不带同步变量的））</h2>
+<ol>
+<li><p>严格一致性</p>
+<p> 条件定义：对于数据项x的任何读操作将返回最近一次对x进行的写操作的结果所对应的值。 </p>
+<p> 严格一致性中存在的问题是它依赖于绝对的全局时间(注意由于技术的限制,我们需要处理同一时间间隔内所发生的多个操作)</p>
+<p> <img src="http://ww1.sinaimg.cn/mw690/b34f7e8bgw1emfhxjvyg6j21d409qwex.jpg" alt=""><br> (a)严格的一致性存储; (b) 非严格的一致性存储 </p>
+<p> 总之，当数据存储是严格一致的时候，对于所有的进程来说，所有写<br> 操作是瞬间可见的，系统维持着一个绝对的全局时间顺序。(如果一<br> 个数据项被改变了，那么无论数据项改变之后多久执行读操作，无论<br> 哪些进程执行读操作，无论这些进程的位置如何，所有在该数据项上<br> 执行的后续读操作都将得到新数值。同样，如果执行了读操作，那么<br> 无论多快地执行下一个写操作，该读操作都将得到当前的值。 )</p>
+</li>
+</ol>
+<ol>
+<li><p>顺序一致性</p>
+<p> 条件定义: </p>
+<p> 任何执行结果都是相同的，就好像所有进程对数据存储的读、写操作    时按照某种序列顺序执行的，并且每个进程的操作按照程序所制定的    顺序出现在这个序列中。 </p>
+<p> <img src="http://ww1.sinaimg.cn/mw690/b34f7e8bgw1emfi1uz27qj21aa09iab4.jpg" alt=""><br> (a) 顺序一致的数据存储； (b)非顺序一致的数据存储 </p>
+</li>
+<li><p>线性一致性</p>
+<p> 条件定义：当数据存储上的每个操作都具有时间戳并满足以下条件时，称这个数据存储是可线性化的。任何执行结果都是相同的，就好像所有进程对数据存储的读、写操作是按某种顺序执行的，并且每个进程的操作按照顺序所执行的顺序出现在这个顺序中。另外，如果tsop1(x)&lt;tsop2(y)，那么在这个顺序中，操作OP1(x)出现在操作OP2之前。 （注意，可线性化的数据存储也是顺序一致的。它们的区别在于：线性化是根据一系列同步时钟确定序列顺序的。在实际应用中，线性化主要用于开发算法的形式验证。关于根据时间戳维护顺序的附加限制使得线性化的实现比顺序一致性的实现开销更大。Tsop(x)—-时间戳）。</p>
+</li>
+<li><p>因果一致性</p>
+<p> 因果关系理解：考虑一个存储器的实例。假设进程P1对变量x执行了写操作。然后进程P2先读取x，然后对y执行写操作。这里，对x的读操作和对y的写操作具有潜在的因果关系，因为y的计算可能依赖于P2所读取的x值。没有因果关系的操作被称为并发的。</p>
+<p> 条件定义：所有进程必须以相同的顺序看到具有潜在因果关系的写操作。不同机器上的进程可以以不同的顺序被看到并发的写操作。<br>实现因果一致性要求跟踪哪些进程看到了哪些写操作。这意味着必须构建和维护一张记录哪些操作依赖于哪些操作的依赖关系图。一种实现方法是使用上一章所讨论的向量时间戳。</p>
+</li>
+</ol>
+<h2 id="分布式系统算法（选举算法（欺负算法）、互斥算法（集中式带协调者的、分布式不带协调者的、recut、令牌环（不一定考）））">分布式系统算法（选举算法（欺负算法）、互斥算法（集中式带协调者的、分布式不带协调者的、recut、令牌环（不一定考）））</h2>
+<h2 id="选举算法">选举算法</h2>
+<h3 id="欺负算法">欺负算法</h3>
+<p>1.1 当任何一个进程发现协调者不再响应请求时，它就发起一个选举。进程P按如下过程主持一次选举： </p>
+<ul>
+<li>1.1.1 P向所有编号比它大的进程发送一个election消息； </li>
+<li>1.1.2 如果无人响应，P获胜成为协调者； </li>
+<li>1.1.3 如果有编号比它大的进程响应，则响应者接管选举工作。P的工作完成。</li>
+</ul>
+<p><img src="http://ww2.sinaimg.cn/mw690/b34f7e8bgw1emfhom07xqj21ci0fqwgr.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/mw690/b34f7e8bgw1emfhomlpx8j21ba0fgdhe.jpg" alt=""></p>
+<ul>
+<li>(a)  进程4主持一个选举；</li>
+<li>(b) 进程5和6进行响应，告诉进程4停止选举；</li>
+<li>(c) 进程5和6此时各自主持一个选举；</li>
+<li>(d) 进程6通知进程5停止选举；</li>
+<li>(e) 进程6获胜，并通知每个进程。</li>
+</ul>
+<h2 id="互斥算法">互斥算法</h2>
+<h3 id="集中式算法">集中式算法</h3>
+<p>只有一个协调者，无论何时一个进程要进入临界区，它都要向协调者发送一个请求消息，说明它想要进入哪个临界区并请求允许。如果当前没有其他进程在该临界区内，协调者就发送允许进入的应答消息。</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/b34f7e8bgw1emfht04vfvj21900e0q4l.jpg" alt=""></p>
+<ul>
+<li>(a) 进程1请求协调者允许它进入一个临界区。请求得到了批准； </li>
+<li>(b) 进程2也请求进入同一个临界区。协调者不应答；进程2进入等待队列</li>
+<li>(c) 进程1在退出临界区时通知协调者，协调者然后做出应答。协调者再通知等待队列中的排在最前面的进程2进入临界区</li>
+<li>优点：没有进程会处于永远等待状态(不会出现饿死的情况)；易于实现，每使用一次临界区只需3条消息(请求、允许和释放)；不仅能用于管理临界区，也可以用于更一般的资源分配。 </li>
+<li>缺点：协调者是一个单个故障点，所以如果它崩溃了，整个系统就可能瘫痪。在一般情况下，如果进程在发出请求之后被阻塞，那么请求者就不能区分“拒绝进入”和协调者已经崩溃这两种情况，因为上述两种情况都没有消息返回。此外，在规模较大的系统中，单个协调者会成为性能的瓶颈。</li>
+</ul>
+<h3 id="分布式算法">分布式算法</h3>
+<p>该算法的工作过程如下：当一个进程想进入一个临界区时，它构造一个消息，其中包含它要进入的临界区的名字、它的进程号和当前时间。然后它将消息发送给所有其他的进程，理论上讲也包括它自己。<br>当一个进程接收到来自另一个进程的请求消息时，它根据自己与消息中的临界区相关的状态来决定它要采取的动作。可以分为三种情况： </p>
+<ul>
+<li>2.1 若接收者不再临界区也不想进入临界区，它就向发送者发送一个OK消息。 </li>
+<li>2.2 若接收者已经在临界区，它不进行应答，而是将该请求放入队列中。 </li>
+<li>2.3 如果接收者想进入临界区但尚未进入时，它将对收到的消息的时间戳和包含在它发送给其余进程的消息中的时间戳进行比较。时间戳最早的那个进程获胜。如果收到的消息的时间戳比较早，那么接收者向发送者发回一个OK消息。如果它自己的消息的时间戳比较早，那么接收者将接收到的请求放入队列中，并且不发送任何消息。</li>
+</ul>
+<p>在发送了请求进入临界区的请求消息后，进程进行等待，直到其他所有进程都发回允许进入消息为止。一旦得到所有进程的允许，它就可以进入临界区了。当它退出临界区时，它向其他队列中的所有进程发送OK消息，并将它们从队列中删除。</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/b34f7e8bgw1emfhuu9pp4j21bm0f8q4d.jpg" alt=""></p>
+<ul>
+<li>(a) 两个进程同时希望进入同一个临界区； </li>
+<li>(b) 进程0具有最早的时间戳，所以它获胜； </li>
+<li>(c) 当进程0退出临界区时，它发送一个OK消息，所以进程2现在可以进入临界区 <ul>
+<li>优点：不会发生死锁或者饿死现象；最大的优点是不存在单个故障点。</li>
+<li>缺点：单个故障点被n个故障点所取代；要求更多网络通信的算法；要么必须使用组通信原语，要么每个进程都必须自己维护组成员的清单，清单中包括进入组的进程、离开组的进程以及崩溃的进程。</li>
+</ul>
+</li>
+</ul>
+<h3 id="令牌环">令牌环</h3>
+<p>当环初始化时，进程0得到一个令牌token。该令牌绕着环运行，用点对点发送消息的方式把它从进程k传递到进程k+1(以环大小为模)。进程从它邻近的进程得到令牌后，检查自己是否要进入临界区。如果自己要进入临界区，那么它就进入临界区，做它要做的工作，然后离开临界区。在该进程退出临界区后，它沿着环继续传递令牌。不允许使用同一个令牌进入另一个临界区。如果一个进程得到了邻近进程传来的令牌，但是它并不想进入临界区，那么它只是将令牌沿环往下传递。</p>
+<ul>
+<li>优点：不会发生饿死现象，那么最差的情况是等待其他所有进程都进入这个临界区然后再从中退出后它再进去。</li>
+<li>缺点：如果令牌丢失了，那么它必须重新生成令牌，检测令牌丢失是很困难的；如果有进程崩溃，该算法也会出现麻烦，但是恢复起来比其他算法容易。</li>
+</ul>
+]]></content>
+    
+    
+      <category term="分布式" scheme="http://www.abbeychenxi.net/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="NJUStudying" scheme="http://www.abbeychenxi.net/categories/NJUStudying/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关联规则]]></title>
+    <link href="http://www.abbeychenxi.net/2014/11/12/%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99/"/>
+    <id>http://www.abbeychenxi.net/2014/11/12/关联规则/</id>
+    <published>2014-11-12T01:48:27.000Z</published>
+    <updated>2014-11-12T01:49:55.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="关联规则">关联规则</h2>
+<h1 id="关联规则挖掘">关联规则挖掘</h1>
+<p>$ support(A =&gt; B) = P(A U B) $<br>$ confidence(A =&gt; B) = P(AUB)/P(A) $</p>
+<ol>
+<li>找出频繁项集</li>
+<li>由频繁项集产生强关联规则</li>
+</ol>
+<h1 id="由事务数据库挖掘单维布尔关联规则">由事务数据库挖掘单维布尔关联规则</h1>
+<h2 id="Apriori算法:_使用候选项集找频繁项集">Apriori算法: 使用候选项集找频繁项集</h2>
+<ol>
+<li>连接</li>
+<li>剪枝</li>
+</ol>
+<h2 id="由频繁项集产生关联规则">由频繁项集产生关联规则</h2>
+<p>$ confidence(A =&gt; B) = P(A|B) = supportcount(A U B)\div supportcount(A) $</p>
+<h2 id="提高Apriori有效性">提高Apriori有效性</h2>
+<ol>
+<li>基于散列的技术</li>
+<li>事务压缩</li>
+<li>划分</li>
+<li>选样</li>
+<li>动态项集计数</li>
+</ol>
+<p><em>FP-树</em></p>
+<h3 id="冰山查询">冰山查询</h3>
+<h1 id="多层关联规则">多层关联规则</h1>
+<h2 id="挖掘量化关联规则">挖掘量化关联规则</h2>
+<ul>
+<li>分箱: 等宽分箱 等深分箱 基于同质分箱</li>
+<li>找频繁谓词集</li>
+<li>关联规则聚类</li>
+</ul>
+<p>A和B相关性: $ P(A U B)\div (P(A) * P(B)) $</p>
+]]></content>
+    
+    
+      <category term="data mining" scheme="http://www.abbeychenxi.net/tags/data-mining/"/>
+    
+      <category term="NJUStudying" scheme="http://www.abbeychenxi.net/categories/NJUStudying/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[bcy抓站小结]]></title>
+    <link href="http://www.abbeychenxi.net/2014/10/31/bcy%E6%8A%93%E7%AB%99%E5%B0%8F%E7%BB%93/"/>
+    <id>http://www.abbeychenxi.net/2014/10/31/bcy抓站小结/</id>
+    <published>2014-10-31T10:30:22.000Z</published>
+    <updated>2014-10-31T10:38:39.000Z</updated>
+    <content type="html"><![CDATA[<ol>
+<li>目标: 抓取bcy.net/party/all所有的漫展信息</li>
+<li>分析发现 bcy.net 通过js，ajax请求 获取下周等标签下的漫展信息</li>
+</ol>
+<h2 id="解决方案">解决方案</h2>
+<ol>
+<li>尝试通过Scrapyjs来模拟js交互。但是没有弄得middleware等等问题</li>
+<li>尝试使用webdriver；但是速度太慢，严重影响效率</li>
+<li>研究bcy的network标签，发现下周等标签会有一个ajax的post请求</li>
+</ol>
+<h2 id="最终解决方法">最终解决方法</h2>
+<ul>
+<li>研究ajax的post请求，发现网页指向<a href="http://bcy.net/party/expo/almexpoindex" target="_blank" rel="external">http://bcy.net/party/expo/almexpoindex</a></li>
+<li>打开 <a href="http://bcy.net/party/expo/almexpoindex" target="_blank" rel="external">http://bcy.net/party/expo/almexpoindex</a> 查看network标签，发现有一个get请求</li>
+<li>回到之前页面，找到ajax请求下面的formdata数据，利用formdata数据构建新的url，模拟post请求</li>
+<li>查看network标签，成功收到返回的网页漫展信息的数据</li>
+</ul>
+<h1 id="大功告成！">大功告成！</h1>
+]]></content>
+    
+    
+      <category term="Scrapy" scheme="http://www.abbeychenxi.net/tags/Scrapy/"/>
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="cosjy" scheme="http://www.abbeychenxi.net/categories/cosjy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[manzhan.com的爬虫抓站小结]]></title>
+    <link href="http://www.abbeychenxi.net/2014/10/23/manzhan-com%E7%9A%84%E7%88%AC%E8%99%AB%E6%8A%93%E7%AB%99%E5%B0%8F%E7%BB%93/"/>
+    <id>http://www.abbeychenxi.net/2014/10/23/manzhan-com的爬虫抓站小结/</id>
+    <published>2014-10-22T17:13:55.000Z</published>
+    <updated>2014-10-25T19:05:35.000Z</updated>
+    <content type="html"><![CDATA[<p>目标网站: www.manzhan.com<br>使用框架: Scrapy</p>
+<h1 id="新建项目">新建项目</h1>
+<p><code>scrapy startproject manzhan</code></p>
+<p>各文件的作用:</p>
+<ul>
+<li>scrapy.cfg: 项目的配置文件</li>
+<li>manzhan/: 项目的Python模块</li>
+<li>manzhan/items.py: 项目的items文件</li>
+<li>manzhan/pipelines.py: 项目的pipelines文件</li>
+<li>manzhan/settings.py: 项目的设置文件</li>
+<li>manzhan/spiders/: 存储爬虫的目录</li>
+</ul>
+<h1 id="明确目标">明确目标</h1>
+<p>在Scrapy中，items是用来加载抓取内容的容器。<br>需要抓取的内容：</p>
+<ul>
+<li>title</li>
+<li>date</li>
+<li>location</li>
+<li>site</li>
+<li>theme</li>
+<li>type</li>
+<li>link</li>
+</ul>
+<p>创建item类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="title">from</span> scrapy.item <span class="import"><span class="keyword">import</span> Item, Field</span></div><div class="line"><span class="class"></span></div><div class="line"><span class="keyword">class</span> manzhanItem<span class="container">(<span class="type">Item</span>)</span>:</div><div class="line">	title = <span class="type">Field</span><span class="container">()</span></div><div class="line">	date = <span class="type">Field</span><span class="container">()</span></div><div class="line">	location = <span class="type">Field</span><span class="container">()</span></div><div class="line">	site = <span class="type">Field</span><span class="container">()</span></div><div class="line">	theme = <span class="type">Field</span><span class="container">()</span></div><div class="line">	type = <span class="type">Field</span><span class="container">()</span></div><div class="line">	link = <span class="type">Field</span><span class="container">()</span></div></pre></td></tr></table></figure>
+
+<h1 id="制作爬虫">制作爬虫</h1>
+<p>制作爬虫分为两步: 先爬再取</p>
+<h2 id="爬">爬</h2>
+<p>Spider是用户自己编写的类，用来从一个域内抓取信息。<br>他们定义了用于下载的URL列表、跟踪链接的方案、解析网页内容的方式，以此来提取items。<br>要建立一个Spider，你必须用scrapy.spider.BaseSpider创建一个子类，并确定三个强制的属性:</p>
+<ul>
+<li>name: 爬虫的识别名称，必须唯一</li>
+<li>start_urls: 爬虫的URL列表。爬虫从这里开始抓取数据。第一次的数据会从这些urls开始。其他子URL将会从这些起始URL中继承性生成</li>
+<li>parse(): 解析方法，调用的时候传入从每一个URL传回的Response对象作为唯一参数，负责解析并匹配抓取的数据，跟踪更多的URL。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> scrapy.spider <span class="keyword">import</span> Spider</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ManzhanSpider</span><span class="params">(Spider)</span>:</span></div><div class="line">	name = <span class="string">"manzhan"</span></div><div class="line">	allowed_domains = [<span class="string">"manzhan.com"</span>]</div><div class="line">	start_urls = [</div><div class="line">		<span class="string">"http://www.manzhan.com"</span></div><div class="line">	]</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">		filename = response.url</div><div class="line">		open(filename, <span class="string">'wb'</span>).write(response.body)</div></pre></td></tr></table></figure>
+
+<p>allow_domains是搜索的域名范围，也就是爬虫的约束区域，规定爬虫只爬取这个域名下的网页。<br>测试 scrapy crawl manzhan</p>
+<h2 id="取">取</h2>
+<p>在基础的爬虫里，这一步可以用正则式来抓。<br>在Scrapy里，使用一种叫做Xpath selectors的机制，它基于Xpath表达式。<br>在Scrapy里面， Selectors有四种基础的方法:</p>
+<ul>
+<li>xpath(): 返回一系列的selectors，每一个select表示一个xpath参数表达式选择的节点</li>
+<li>css(): 返回一系列的selectors，每一个select表示一个css参数表达式选择的节点</li>
+<li>extract(): 返回一个unicode字符串，为选中的数据</li>
+<li>re(): 返回一串一个unicode字符串，为使用正则表达式抓取出来的内容</li>
+</ul>
+<p>具体的xpath表达式</p>
+<ul>
+<li>nodename  选取此节点的所有子节点</li>
+<li>/   从根节点选取</li>
+<li>//  从匹配选择的当前节点选择文档中的节点，而不考虑它们的位置</li>
+<li>.   选取当前节点</li>
+<li>..  选取当前节点的父节点</li>
+<li>@   选取属性</li>
+<li>count 当前节点包含其他节点</li>
+<li>[1] 当前节点在文件中的位置</li>
+</ul>
+<p>parse函数更改为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(self, response)</span>:</span></div><div class="line">	sel = Selector(response)</div><div class="line">	infos = sel.xpath(<span class="string">'//tr[count(td)=6]'</span>)</div><div class="line">	<span class="keyword">for</span> info <span class="keyword">in</span> infos.xpath(<span class="string">'.//td'</span>):</div><div class="line">		<span class="keyword">pass</span></div></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/Abbeychenxi/cosjy" target="_blank" rel="external">代码git地址</a></p>
+<h1 id="存储内容">存储内容</h1>
+<p>保存信息的最简单的方法是通过Feed exports，主要有四种：JSON，JSON lines，CSV，XML。<br>我们将结果用最常用的JSON导出</p>
+<p><code>scrapy crawl manzhan -o items.json -t json</code></p>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+      <category term="Scrapy" scheme="http://www.abbeychenxi.net/tags/Scrapy/"/>
+    
+      <category term="cosjy" scheme="http://www.abbeychenxi.net/categories/cosjy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[node异步开发难题]]></title>
+    <link href="http://www.abbeychenxi.net/2014/10/07/node%E5%BC%82%E6%AD%A5%E5%BC%80%E5%8F%91%E9%9A%BE%E9%A2%98/"/>
+    <id>http://www.abbeychenxi.net/2014/10/07/node异步开发难题/</id>
+    <published>2014-10-07T14:36:10.000Z</published>
+    <updated>2014-10-25T14:34:49.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="作用域导致bug">作用域导致bug</h2>
+<p>javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunction</span><span class="params">(callback)</span> </span>{</div><div class="line">	setTimeout(<span class="keyword">callback</span>, <span class="number">200</span>);</div><div class="line">}</div><div class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span><span class="params">(color)</span> </span>{</div><div class="line">	asyncFunction(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">		console.log(<span class="string">'xxxx'</span>);</div><div class="line">	}) </div><div class="line">})(color);</div><div class="line"></div><div class="line">color = <span class="string">'green'</span>;</div></pre></td></tr></table></figure>
+
+<h2 id="Nimble实现串行化控制">Nimble实现串行化控制</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> flow = <span class="built_in">require</span>(<span class="string">'nimble'</span>);</div><div class="line"></div><div class="line">flow.series([</div><div class="line">	<span class="function"><span class="keyword">function</span><span class="params">(callback)</span> </span>{</div><div class="line">		setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">			<span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">			callback();</div><div class="line">		}, <span class="number">1000</span>)</div><div class="line">	},</div><div class="line">	<span class="function"><span class="keyword">function</span><span class="params">(callback)</span> </span>{</div><div class="line">		setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">			<span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">			callback();</div><div class="line">		}, <span class="number">500</span>)</div><div class="line">	}	</div><div class="line">]);</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="node.js" scheme="http://www.abbeychenxi.net/tags/node-js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python在函数中接收元组和列表]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/29/Python%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E6%8E%A5%E6%94%B6%E5%85%83%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8/"/>
+    <id>http://www.abbeychenxi.net/2014/09/29/Python在函数中接收元组和列表/</id>
+    <published>2014-09-29T13:02:11.000Z</published>
+    <updated>2014-10-25T18:30:53.000Z</updated>
+    <content type="html"><![CDATA[<p>当要使函数接收元组或字典形式的参数的时候，有一种特殊的方法，分别使用<em>和*</em>前缀。这种方法在函数需要获取可变数量的参数的时候特别有用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">powersum</span><span class="params">(power, *args)</span>:</span></div><div class="line">	total = <span class="number">0</span></div><div class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> args:</div><div class="line">		total += pow(i. power)</div><div class="line">	<span class="keyword">return</span> total</div><div class="line"></div><div class="line">power(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</div></pre></td></tr></table></figure>
+
+<p>由于在args变量前有<em>前缀，所有多余的函数参数都会作为一个元组存储在args中。如果使用的是*</em>前缀，多余的参数则会被认为是一个字典的键/值对。</p>
+<h2 id="lambda形式">lambda形式</h2>
+<p>用来创建新的函数对象，并在运行时返回它们。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_repeater</span><span class="params">(n)</span>:</span></div><div class="line">	<span class="keyword">return</span> <span class="keyword">lambda</span> s: s*n</div><div class="line">	</div><div class="line">twice = make_repeater(<span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="keyword">print</span> twice(<span class="string">'word'</span>)</div><div class="line"><span class="keyword">print</span> twice(<span class="number">5</span>)</div></pre></td></tr></table></figure>
+
+<h2 id="exec和eval语句">exec和eval语句</h2>
+<p>exec语句用来执行储存在字符串或文件中的Python语句。<br><code>exec &#39;print &quot;Hello World&quot;&#39;</code></p>
+<p>eval语句用来计算存储在字符串中的有效Python表达式。<br><code>eval(&#39;2*3&#39;)</code></p>
+<h2 id="repr函数">repr函数</h2>
+<p>repr函数用来取得对象的规范字符串表。<br><code>eval (repr(object)) == object</code></p>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python 储存器]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E5%82%A8%E5%AD%98%E5%99%A8/"/>
+    <id>http://www.abbeychenxi.net/2014/09/29/Python-储存器/</id>
+    <published>2014-09-29T12:37:41.000Z</published>
+    <updated>2014-10-25T18:31:05.000Z</updated>
+    <content type="html"><![CDATA[<p>Python提供一个标准的模块，称为pickle。使用它可以在一个文件中储存任何Python对象，之后你又可以把它完整无缺地取出来。被称为持久地储存对象。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import cPickle <span class="keyword">as</span> <span class="keyword">p</span></div><div class="line"></div><div class="line">shoplistfile = <span class="string">'shoplist.data'</span></div><div class="line"></div><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>]</div><div class="line"></div><div class="line"><span class="keyword">f</span> = <span class="keyword">file</span>(shoplistfile, <span class="string">'w'</span>)</div><div class="line"><span class="keyword">p</span>.dump(shoplist, <span class="keyword">f</span>)</div><div class="line"><span class="keyword">f</span>.<span class="keyword">close</span>()</div></pre></td></tr></table></figure>
+
+<h2 id="异常处理">异常处理</h2>
+<h1 id="使用try…except_语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。">使用try…except 语句来处理异常。把通常的语句放在try块中，而把我们的错误处理放在except块中。</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	s = raw_input(<span class="string">'Enter something --&gt; '</span>)</div><div class="line"><span class="keyword">except</span> EOFError:</div><div class="line">	<span class="keyword">print</span> <span class="string">''</span></div><div class="line">	sys.exit()</div><div class="line"><span class="keyword">except</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">''</span></div><div class="line">	</div><div class="line"><span class="keyword">print</span> <span class="string">'Done'</span></div></pre></td></tr></table></figure>
+
+<h1 id="try…finally">try…finally</h1>
+<p>读一个文件时，希望无论异常发送与否的情况下都关闭文件。使用finally块来实现。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import <span class="built_in">time</span></div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	f = <span class="built_in">file</span>(<span class="string">'poem.txt'</span>)</div><div class="line">	<span class="keyword">while</span> True:</div><div class="line">		<span class="built_in">line</span> = f.readline()</div><div class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">line</span>) == <span class="number">0</span>:</div><div class="line">			break</div><div class="line">		<span class="built_in">time</span>.sleep(<span class="number">2</span>)</div><div class="line">		print <span class="built_in">line</span></div><div class="line"><span class="keyword">finally</span>:</div><div class="line">	f.<span class="built_in">close</span>()</div></pre></td></tr></table></figure>
+
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python 数据结构]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    <id>http://www.abbeychenxi.net/2014/09/29/Python-数据结构/</id>
+    <published>2014-09-29T04:02:43.000Z</published>
+    <updated>2014-10-25T18:31:13.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="对象与参考">对象与参考</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</div><div class="line">mylist = shoplist</div><div class="line"></div><div class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</div><div class="line"></div><div class="line">mylist = shoplist[:]</div><div class="line"></div><div class="line"><span class="keyword">del</span> mylist[<span class="number">0</span>]</div></pre></td></tr></table></figure>
+
+<p>如果要复制一个列表或者类似的序列或者其他复杂的对象，必须使用切片操作符来取得拷贝。如果只是想要使用另外一个变量名，两个变量名称都参考同一个对象，那么如果不小心，会引来各种麻烦。</p>
+<h2 id="更多字符串的内容">更多字符串的内容</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">name = <span class="string">'Swaroop'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.startwith(<span class="string">'Swa'</span>):</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="string">'a'</span> <span class="keyword">in</span> name:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.find(<span class="string">'war'</span>) != -<span class="number">1</span>:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line">delimiter = <span class="string">'_*_'</span></div><div class="line">mylist = [<span class="string">'russia'</span>, <span class="string">'india'</span>]</div><div class="line">delimter.join(mylist)</div></pre></td></tr></table></figure>
+
+<p>str类也有以一个作为分隔符的字符串join序列的项目的整洁的方法，它返回一个生成的大字符串。</p>
+<h2 id="软件开发过程">软件开发过程</h2>
+<ol>
+<li>分析</li>
+<li>设计</li>
+<li>实施</li>
+<li>测试与调试</li>
+<li>实施或开发</li>
+<li>优化</li>
+</ol>
+]]></content>
+    
+    
+      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Node.js 入门]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/23/Node-js-%E5%85%A5%E9%97%A8/"/>
+    <id>http://www.abbeychenxi.net/2014/09/23/Node-js-入门/</id>
+    <published>2014-09-23T11:43:54.000Z</published>
+    <updated>2014-10-25T18:30:14.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="一个完整的基于Node-js的web应用">一个完整的基于Node.js的web应用</h2>
+<h1 id="用例">用例</h1>
+<ul>
+<li>用户通过浏览器使用我们的应用。</li>
+<li>当用户请求<a href="http://domain/start时，" target="_blank" rel="external">http://domain/start时，</a> 可以看到一个欢迎页面，页面上有一个文件上传的表单。</li>
+<li>用户可以选择一个图片并提交表单，随后文件将被上传到<a href="http://domain/upload,该页面完成上传后会把图片显示在页面上。" target="_blank" rel="external">http://domain/upload,该页面完成上传后会把图片显示在页面上。</a></li>
+</ul>
+<h1 id="应用不同模块分析">应用不同模块分析</h1>
+<ul>
+<li>需要提供Web页面，因此需要一个HTTP服务器</li>
+<li>对于不同的请求，根据请求的URL，我们服务器给予不同的响应，因此需要一个路由，用于把请求对应到请求处理程序</li>
+<li>当请求被服务器接收并通过路由传递之后，需要可以对其进行处理，需要最终的请求处理程序</li>
+<li>路由还应该能处理POST数据，并且把数据封装成更友好的格式传递给请求处理程序，因此需要请求数据处理功能</li>
+<li>我们不仅仅要处理URL对应的请求，还要把内容显示出来，这意味着我们需要一些视图逻辑供请求处理程序使用，以便将内容发送给用户的浏览器</li>
+<li>最后，用户需要上传图片，所以需要上传处理功能</li>
+</ul>
+<h1 id="一个基础的HTTP服务器">一个基础的HTTP服务器</h1>
+<p>服务器模块：创建一个server.js</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var http = require(<span class="string">"http"</span>);</div><div class="line">http.createServer(<span class="keyword">function</span>(<span class="built_in">request</span>, <span class="built_in">response</span>) {</div><div class="line">	<span class="built_in">response</span>.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">	<span class="built_in">response</span>.write(<span class="string">"Hello World"</span>);</div><div class="line">	<span class="built_in">response</span>.<span class="keyword">end</span>();</div><div class="line">}).listen(<span class="number">8888</span>);</div></pre></td></tr></table></figure>
+
+<h1 id="分析HTTP服务器">分析HTTP服务器</h1>
+<p>引入一个http模块并复制给http变量，接下来调用createServer函数。<br>这个函数返回一个对象，并调用listen方法，指定http服务器监听的端口号。</p>
+<h1 id="函数传递">函数传递</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">execute</span><span class="params">(someFunction, value)</span> </span>{</div><div class="line">	someFunction(value);</div><div class="line">}</div><div class="line"></div><div class="line">excute(<span class="function"><span class="keyword">function</span><span class="params">(word)</span> </span>{<span class="built_in">console</span>.log (word) }, <span class="string">"hello"</span>);</div></pre></td></tr></table></figure>
+
+<h1 id="函数传递是如何让HTTP服务器工作的">函数传递是如何让HTTP服务器工作的</h1>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var http = require(<span class="string">"http"</span>);</div><div class="line"></div><div class="line"><span class="keyword">function</span> onRequest(<span class="built_in">request</span>, <span class="built_in">response</span>) {</div><div class="line">	<span class="built_in">response</span>.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">	<span class="built_in">response</span>.write(<span class="string">"hello world"</span>);</div><div class="line">	<span class="built_in">response</span>.<span class="keyword">end</span>();</div><div class="line">}</div><div class="line"></div><div class="line">http.createServer(onRequest).listen(<span class="number">8888</span>);</div></pre></td></tr></table></figure>
+
+<h1 id="基于事件的驱动回调">基于事件的驱动回调</h1>
+<p><a href="http://debuggable.com/posts/understanding-node-js:4bd98440-45e4-4a9a-8ef7-0f7ecbdd56cb" target="_blank" rel="external">Understanding node.js</a>介绍了一些背景知识。</p>
+<p>服务器收到HTTP请求的时候是异步的，请求任何时候都可能到达，但是我们服务器却跑在一个单进程中。</p>
+<h1 id="服务器是如何处理请求的">服务器是如何处理请求的</h1>
+<p>收到请求的时候，使用reponse.writeHead()函数发送一个HTTP状态200和HTTP头的内容类型，使用response.write()函数在HTTP相应主体中发送文本“Hello World”。<br>最后，调用response.end()完成响应。</p>
+<p>把服务器脚本放到一个start函数里，然后导出这个函数。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">()</span> </span>{</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> </span>{</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"Request received."</span>);</div><div class="line">		response.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">		response.write(<span class="string">"Hello World"</span>);</div><div class="line">		response.end();</div><div class="line">	}</div><div class="line">	http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"Server has started."</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+
+<p>在index.js文件中写入：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">"./server"</span>);</div><div class="line"></div><div class="line">server.start();</div></pre></td></tr></table></figure>
+
+<h1 id="如何来进行请求的“路由”">如何来进行请求的“路由”</h1>
+<p>数据都会包含在request对象中，该对象作为onRequest()回调函数的第一个参数传递。为了解析这些数据，需要额外的Node.js模块，分别是url和querystring模块。</p>
+<pre><code>                           url.parse(string).query
+                                       <span class="string">|</span>
+       url.parse(string).pathname      <span class="string">|</span>
+                   <span class="string">|                   |</span>
+                   <span class="string">|                   |</span>
+                 ------ -------------------
+http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
+                            ---       -----
+                             <span class="string">|          |</span>
+                             <span class="string">|          |</span>
+          querystring(string)[<span class="string">"foo"</span>]    <span class="string">|</span>
+                                        <span class="string">|</span>
+                     querystring(string)[<span class="string">"hello"</span>]
+</code></pre><p>现在给onRequest()函数加上逻辑，用来找出浏览器请求的URL路径:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">()</span> </span>{</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> </span>{</div><div class="line">		<span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);</div><div class="line">		response.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">		response.write(<span class="string">"Hello World"</span>);</div><div class="line">		response.end();</div><div class="line">	}</div><div class="line">	http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+
+<p>编写路由：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">route</span><span class="params">(pathname)</span> </span>{</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"About to route a request for "</span> + pathname);</div><div class="line">}</div><div class="line"></div><div class="line">exports.route = route;</div></pre></td></tr></table></figure>
+
+<p>服务器应当知道路由的存在并且加以利用。可以使用依赖注入的方式较松散地添加路由模块。<a href="http://martinfowler.com/articles/injection.html" target="_blank" rel="external">Martin Fowlers 关于依赖注入</a>的文章来作为背景知识。</p>
+<p>扩展start()函数</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(route)</span> </span>{</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> </span>{</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);</div><div class="line"></div><div class="line">    route(pathname);</div><div class="line"></div><div class="line">    response.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">    response.write(<span class="string">"Hello World"</span>);</div><div class="line">    response.end();</div><div class="line">  }</div><div class="line"></div><div class="line">  http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"Server has started."</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+
+<p>相应的扩展index.js，使得路由函数可以被注入到服务器中</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">"./server"</span>);</div><div class="line"><span class="keyword">var</span> router = <span class="built_in">require</span>(<span class="string">"./router"</span>);</div><div class="line"></div><div class="line">server.start(router.route);</div></pre></td></tr></table></figure>
+
+<h1 id="行为驱动执行">行为驱动执行</h1>
+<p>Steve Yegge<a href="http://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html" target="_blank" rel="external">名词王国中的死刑</a>帮助理解函数编程</p>
+<h1 id="路由给真正的请求处理程序">路由给真正的请求处理程序</h1>
+<p>创建一个requestHandlers的模块：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">()</span> </span>{</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"Request handler 'start' was called."</span>);</div><div class="line">}</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">upload</span><span class="params">()</span> </span>{</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"Request handler 'upload' was called."</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div><div class="line">exports.upload = upload;</div></pre></td></tr></table></figure>
+
+<p>在javascript中，对象就是一个键/值对的集合—你可以把javascript的对象想象成一个键为字符串类型的字典。</p>
+<p>将对象引入到index.js：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">var</span> server <span class="subst">=</span> <span class="keyword">require</span>(<span class="string">"./server"</span>);</div><div class="line"><span class="built_in">var</span> router <span class="subst">=</span> <span class="keyword">require</span>(<span class="string">"./router"</span>);</div><div class="line"><span class="built_in">var</span> requestHandlers <span class="subst">=</span> <span class="keyword">require</span>(<span class="string">"./requestHandlers"</span>);</div><div class="line"></div><div class="line"><span class="built_in">var</span> <span class="keyword">handle</span> <span class="subst">=</span> {};</div><div class="line"><span class="keyword">handle</span><span class="preprocessor">[</span><span class="string">"/"</span><span class="preprocessor">]</span><span class="markup"> = requestHandlers.start;</span></div><div class="line">handle<span class="preprocessor">[</span><span class="string">"/start"</span><span class="preprocessor">]</span><span class="markup"> = requestHandlers.start;</span></div><div class="line">handle<span class="preprocessor">[</span><span class="string">"/upload"</span><span class="preprocessor">]</span><span class="markup"> = requestHandlers.upload;</span></div><div class="line"></div><div class="line">server.start(router.route, handle);</div></pre></td></tr></table></figure>
+
+<p>完成了对象的定义之后，把它作为额外的参数传递给服务器，将server.js修改如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(route, handle)</span> </span>{</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> </span>{</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);</div><div class="line"></div><div class="line">    route(handle, pathname);</div><div class="line"></div><div class="line">    response.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">    response.write(<span class="string">"Hello World"</span>);</div><div class="line">    response.end();</div><div class="line">  }</div><div class="line"></div><div class="line">  http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"Server has started."</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+
+<p>这样我们就在start()函数里添加了handle参数，并且把handle对象作为第一个参数传递给了route()回调函数。<br>修改route.js文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">route</span><span class="params">(handle, pathname)</span> </span>{</div><div class="line">	<span class="built_in">console</span>.log(<span class="string">"About to route a request for "</span> + pathname);</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> handle[pathname] === <span class="string">'function'</span>) {</div><div class="line">    handle[pathname]();</div><div class="line">  } <span class="keyword">else</span> {</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"No request handler found for "</span> + pathname);</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line">exports.route = route;</div></pre></td></tr></table></figure>
+
+<h1 id="阻塞与非阻塞">阻塞与非阻塞</h1>
+<p><a href="http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/" target="_blank" rel="external">理解node.js的事件轮询</a></p>
+<p>简单又实用的非阻塞操作exec()</p>
+<h2 id="以非阻塞操作进行请求响应">以非阻塞操作进行请求响应</h2>
+<p>Node.js的实现方案:函数传递。<br>将内容传递给服务器的方式，将服务器“传递”给内容的方式。<br>就是将response对象通过请求路由传递给请求处理程序。随后，处理程序就可以采用该对象上的函数来对请求作出响应。<br>从server.js开始：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(route, handle)</span> </span>{</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> </span>{</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);</div><div class="line"></div><div class="line">    route(handle, pathname, response);</div><div class="line">  }</div><div class="line"></div><div class="line">  http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"Server has started."</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+
+<p>将response对象作为第三个参数传递给route()函数，并且，将onRequest()处理程序中所有有关response的函数调用都移除，因为这部分工作让route()函数完成。</p>
+<p>router.js：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> route(handle, pathname, <span class="built_in">response</span>) {</div><div class="line">	console.<span class="built_in">log</span>(<span class="string">"About to route a request for "</span> + pathname);</div><div class="line">	<span class="keyword">if</span>(typeof handle[pathname] === <span class="comment">'function') {</span></div><div class="line">		handle[pathname](<span class="built_in">response</span>);</div><div class="line">	}<span class="keyword">else</span> {</div><div class="line">		console.<span class="built_in">log</span>(<span class="string">"No request handler found for "</span> + pathname);</div><div class="line">    <span class="built_in">response</span>.writeHead(<span class="number">404</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">    <span class="built_in">response</span>.write(<span class="string">"404 Not found"</span>);</div><div class="line">    <span class="built_in">response</span>.<span class="keyword">end</span>();</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line">exports.route = route;</div></pre></td></tr></table></figure>
+
+<p>将requestHandler.js修改为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">var exec = require(<span class="string">"child_process"</span>).exec;</div><div class="line"></div><div class="line"><span class="keyword">function</span> start(<span class="built_in">response</span>) {</div><div class="line">  console.<span class="built_in">log</span>(<span class="string">"Request handler 'start' was called."</span>);</div><div class="line"></div><div class="line">  exec(<span class="string">"ls -lah"</span>, <span class="keyword">function</span> (<span class="keyword">error</span>, stdout, stderr) {</div><div class="line">    <span class="built_in">response</span>.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">    <span class="built_in">response</span>.write(stdout);</div><div class="line">    <span class="built_in">response</span>.<span class="keyword">end</span>();</div><div class="line">  });</div><div class="line">}</div><div class="line"></div><div class="line"><span class="keyword">function</span> upload(<span class="built_in">response</span>) {</div><div class="line">  console.<span class="built_in">log</span>(<span class="string">"Request handler 'upload' was called."</span>);</div><div class="line">  <span class="built_in">response</span>.writeHead(<span class="number">200</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">  <span class="built_in">response</span>.write(<span class="string">"Hello Upload"</span>);</div><div class="line">  <span class="built_in">response</span>.<span class="keyword">end</span>();</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div><div class="line">exports.upload = upload;</div></pre></td></tr></table></figure>
+
+<h1 id="更有用的场景">更有用的场景</h1>
+<ul>
+<li>尽管Node.js中处理基础的POST请求相对比较简单，但在这过程中还是能学到很多</li>
+<li>用Node.js来处理文件上传比较复杂</li>
+</ul>
+<h1 id="处理POST请求">处理POST请求</h1>
+<p>将requestHandlers.js修改为如下形式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(response)</span> {</span></div><div class="line">  <span class="transposed_variable">console.</span>log(<span class="string">"Request handler '</span><span class="transposed_variable">start'</span> was <span class="transposed_variable">called.</span><span class="string">");</span></div><div class="line"></div><div class="line">  var body = '&lt;html&gt;<span class="string">'+</span></div><div class="line">    '&lt;head&gt;<span class="string">'+</span></div><div class="line">    '&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; '</span>+</div><div class="line">    <span class="string">'charset=UTF-8"</span> /&gt;<span class="string">'+</span></div><div class="line">    '&lt;/head&gt;<span class="string">'+</span></div><div class="line">    '&lt;body&gt;<span class="string">'+</span></div><div class="line">    '&lt;form action=<span class="string">"/upload"</span> method=<span class="string">"post"</span>&gt;<span class="string">'+</span></div><div class="line">    '&lt;textarea name=<span class="string">"text"</span> rows=<span class="string">"20"</span> cols=<span class="string">"60"</span>&gt;&lt;/textarea&gt;<span class="string">'+</span></div><div class="line">    '&lt;input type=<span class="string">"submit"</span> value=<span class="string">"Submit text"</span> /&gt;<span class="string">'+</span></div><div class="line">    '&lt;/form&gt;<span class="string">'+</span></div><div class="line">    '&lt;/body&gt;<span class="string">'+</span></div><div class="line">    '&lt;/html&gt;<span class="string">';</span></div><div class="line"></div><div class="line">    response.writeHead(200, {"Content-Type<span class="string">": "</span>text/html<span class="string">"});</span></div><div class="line">    response.write(body);</div><div class="line">    response.end();</div><div class="line">}</div><div class="line"></div><div class="line">function upload(response) {</div><div class="line">  console.log("Request handler <span class="string">'upload'</span> was <span class="transposed_variable">called.</span><span class="string">");</span></div><div class="line">  response.writeHead(200, {"Content-Type<span class="string">": "</span>text/plain<span class="string">"});</span></div><div class="line">  response.write("Hello Upload<span class="string">");</span></div><div class="line">  response.end();</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div><div class="line">exports.upload = upload;</div></pre></td></tr></table></figure>
+
+<p>为了使得整个过程非阻塞，Node.js会将POST数据拆分成很多小块，然后通过触发特定的事件，将这些小数据库传递给回调函数。</p>
+<p>我们需要告诉Node.js当这些事件触发的时候，回调哪些函数。通过在request对象上注册监听器来实现。这里的request对象是每次接收到HTTP请求时候，都会把该对象传递给onRequest回调函数。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">request.addListener(<span class="string">"data"</span>, <span class="function"><span class="keyword">function</span><span class="params">(chunk)</span> </span>{</div><div class="line">  <span class="comment">// called when a new chunk of data was received</span></div><div class="line">});</div><div class="line"></div><div class="line">request.addListener(<span class="string">"end"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">  <span class="comment">// called when all chunks of data have been received</span></div><div class="line">});</div></pre></td></tr></table></figure>
+
+<p>从server.js开始：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</div><div class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(route, handle)</span> </span>{</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onRequest</span><span class="params">(request, response)</span> </span>{</div><div class="line">    <span class="keyword">var</span> postData = <span class="string">""</span>;</div><div class="line">    <span class="keyword">var</span> pathname = url.parse(request.url).pathname;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"Request for "</span> + pathname + <span class="string">" received."</span>);</div><div class="line"></div><div class="line">    request.setEncoding(<span class="string">"utf8"</span>);</div><div class="line"></div><div class="line">    request.addListener(<span class="string">"data"</span>, <span class="function"><span class="keyword">function</span><span class="params">(postDataChunk)</span> </span>{</div><div class="line">      postData += postDataChunk;</div><div class="line">      <span class="built_in">console</span>.log(<span class="string">"Received POST data chunk '"</span>+</div><div class="line">      postDataChunk + <span class="string">"'."</span>);</div><div class="line">    });</div><div class="line"></div><div class="line">    request.addListener(<span class="string">"end"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">      route(handle, pathname, response, postData);</div><div class="line">    });</div><div class="line"></div><div class="line">  }</div><div class="line"></div><div class="line">  http.createServer(onRequest).listen(<span class="number">8888</span>);</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">"Server has started."</span>);</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div></pre></td></tr></table></figure>
+
+<p>上述代码做了三件事情：</p>
+<ul>
+<li>设置了接收数据的编码格式为UTF-8</li>
+<li>注册了“data”事件的监听器，用于收集每次接收到的新数据块，并赋值给postData变量</li>
+<li>将请求路由的调用移到end事件处理程序中，以确保它只会当所有数据接收完毕后才触发，并且只触发一次。同时把POST数据传递给请求路由，因为数据，请求处理程序会用到</li>
+</ul>
+<p>在upload页面，展示用户输入的内容。修改router.js：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">function</span> route(handle, pathname, <span class="built_in">response</span>, postData) {</div><div class="line">  console.<span class="built_in">log</span>(<span class="string">"About to route a request for "</span> + pathname);</div><div class="line">  <span class="keyword">if</span> (typeof handle[pathname] === <span class="comment">'function') {</span></div><div class="line">    handle[pathname](<span class="built_in">response</span>, postData);</div><div class="line">  } <span class="keyword">else</span> {</div><div class="line">    console.<span class="built_in">log</span>(<span class="string">"No request handler found for "</span> + pathname);</div><div class="line">    <span class="built_in">response</span>.writeHead(<span class="number">404</span>, {<span class="string">"Content-Type"</span>: <span class="string">"text/plain"</span>});</div><div class="line">    <span class="built_in">response</span>.write(<span class="string">"404 Not found"</span>);</div><div class="line">    <span class="built_in">response</span>.<span class="keyword">end</span>();</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line">exports.route = route;</div></pre></td></tr></table></figure>
+
+<p>然后，在requestHandler.js中，将数据包含在对upload请求的响应中：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(response, postData)</span> {</span></div><div class="line">  <span class="transposed_variable">console.</span>log(<span class="string">"Request handler '</span><span class="transposed_variable">start'</span> was <span class="transposed_variable">called.</span><span class="string">");</span></div><div class="line"></div><div class="line">  var body = '&lt;html&gt;<span class="string">'+</span></div><div class="line">    '&lt;head&gt;<span class="string">'+</span></div><div class="line">    '&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; '</span>+</div><div class="line">    <span class="string">'charset=UTF-8"</span> /&gt;<span class="string">'+</span></div><div class="line">    '&lt;/head&gt;<span class="string">'+</span></div><div class="line">    '&lt;body&gt;<span class="string">'+</span></div><div class="line">    '&lt;form action=<span class="string">"/upload"</span> method=<span class="string">"post"</span>&gt;<span class="string">'+</span></div><div class="line">    '&lt;textarea name=<span class="string">"text"</span> rows=<span class="string">"20"</span> cols=<span class="string">"60"</span>&gt;&lt;/textarea&gt;<span class="string">'+</span></div><div class="line">    '&lt;input type=<span class="string">"submit"</span> value=<span class="string">"Submit text"</span> /&gt;<span class="string">'+</span></div><div class="line">    '&lt;/form&gt;<span class="string">'+</span></div><div class="line">    '&lt;/body&gt;<span class="string">'+</span></div><div class="line">    '&lt;/html&gt;<span class="string">';</span></div><div class="line"></div><div class="line">    response.writeHead(200, {"Content-Type<span class="string">": "</span>text/html<span class="string">"});</span></div><div class="line">    response.write(body);</div><div class="line">    response.end();</div><div class="line">}</div><div class="line"></div><div class="line">function upload(response, postData) {</div><div class="line">  console.log("Request handler <span class="string">'upload'</span> was <span class="transposed_variable">called.</span><span class="string">");</span></div><div class="line">  response.writeHead(200, {"Content-Type<span class="string">": "</span>text/plain<span class="string">"});</span></div><div class="line">  response.write("<span class="transposed_variable">You'</span>ve sent: <span class="string">" + postData);</span></div><div class="line">  response.end();</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div><div class="line">exports.upload = upload;</div></pre></td></tr></table></figure>
+
+<p>最后做的是：我们是把请求的整个消息传递给了请求路由和请求处理程序。我们应该只把POST数据中，感兴趣的部分传递给请求路由和请求处理程序。</p>
+<p>querystring模块：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">var querystring = require(<span class="string">"querystring"</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span><span class="params">(response, postData)</span> {</span></div><div class="line">  <span class="transposed_variable">console.</span>log(<span class="string">"Request handler '</span><span class="transposed_variable">start'</span> was <span class="transposed_variable">called.</span><span class="string">");</span></div><div class="line"></div><div class="line">  var body = '&lt;html&gt;<span class="string">'+</span></div><div class="line">    '&lt;head&gt;<span class="string">'+</span></div><div class="line">    '&lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; '</span>+</div><div class="line">    <span class="string">'charset=UTF-8"</span> /&gt;<span class="string">'+</span></div><div class="line">    '&lt;/head&gt;<span class="string">'+</span></div><div class="line">    '&lt;body&gt;<span class="string">'+</span></div><div class="line">    '&lt;form action=<span class="string">"/upload"</span> method=<span class="string">"post"</span>&gt;<span class="string">'+</span></div><div class="line">    '&lt;textarea name=<span class="string">"text"</span> rows=<span class="string">"20"</span> cols=<span class="string">"60"</span>&gt;&lt;/textarea&gt;<span class="string">'+</span></div><div class="line">    '&lt;input type=<span class="string">"submit"</span> value=<span class="string">"Submit text"</span> /&gt;<span class="string">'+</span></div><div class="line">    '&lt;/form&gt;<span class="string">'+</span></div><div class="line">    '&lt;/body&gt;<span class="string">'+</span></div><div class="line">    '&lt;/html&gt;<span class="string">';</span></div><div class="line"></div><div class="line">    response.writeHead(200, {"Content-Type<span class="string">": "</span>text/html<span class="string">"});</span></div><div class="line">    response.write(body);</div><div class="line">    response.end();</div><div class="line">}</div><div class="line"></div><div class="line">function upload(response, postData) {</div><div class="line">  console.log("Request handler <span class="string">'upload'</span> was <span class="transposed_variable">called.</span><span class="string">");</span></div><div class="line">  response.writeHead(200, {"Content-Type<span class="string">": "</span>text/plain<span class="string">"});</span></div><div class="line">  response.write("<span class="transposed_variable">You'</span>ve sent the text: <span class="string">"+</span></div><div class="line">  querystring.parse(postData).text);</div><div class="line">  response.end();</div><div class="line">}</div><div class="line"></div><div class="line">exports.start = start;</div><div class="line">exports.upload = upload;</div></pre></td></tr></table></figure>
+
+<h2 id="处理文件上传">处理文件上传</h2>
+<p>外部模块：Felix Geisendorfer开发的node-formidable模块。</p>
+<ul>
+<li>在/start表单中添加一个文件上传元素</li>
+<li>将node-formidable整合到我们的upload请求处理程序中，用于将上传的图片保存到./test.png</li>
+<li>将上传的图片内嵌到/uploadURL输出的HTML中</li>
+</ul>
+<p>将request对象从服务器开始一路通过请求路由，在传递给请求处理程序。</p>
+<p>我们可以将postData从服务器以及请求处理程序中移除—对于我们处理文件上传来说不需要了，另一方面，Node.js不会对数据做缓存</p>
+<p>采用fs.renameSync(path1, path2)实现将文件保存到本地目录下</p>
+<h2 id="总结与展望">总结与展望</h2>
+<p>本书没有涉及到的：如何操作数据库，如何进行单元测试、如何开发Node.js的外部模块以及一些简单的诸如如何获取GET请求之类的方法。</p>
+]]></content>
+    
+    
+      <category term="node.js" scheme="http://www.abbeychenxi.net/tags/node-js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[大教堂与市集-开放源代码软件]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/18/%E5%A4%A7%E6%95%99%E5%A0%82%E4%B8%8E%E5%B8%82%E9%9B%86-%E5%BC%80%E6%94%BE%E6%BA%90%E4%BB%A3%E7%A0%81%E8%BD%AF%E4%BB%B6/"/>
+    <id>http://www.abbeychenxi.net/2014/09/18/大教堂与市集-开放源代码软件/</id>
+    <published>2014-09-18T06:25:54.000Z</published>
+    <updated>2015-04-29T03:04:29.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="《大教堂与市集》-开放源代码运动的《圣经》">《大教堂与市集》-开放源代码运动的《圣经》</h2>
+<ul>
+<li>并行的、点对点的、动态的开发模式（开源）</li>
+<li>封闭的、垂直的、集中式的开发模式（大教堂）</li>
+</ul>
+<h2 id="Linux">Linux</h2>
+<h2 id="problem">problem</h2>
+<ol>
+<li>opensource软件是不是免费的？</li>
+<li>买的软件到底是什么？-使用权</li>
+</ol>
+<h2 id="Fetchmail">Fetchmail</h2>
+<h2 id="拥有用户的重要性">拥有用户的重要性</h2>
+<ol>
+<li>每个好的软件工作都开始于搔到了开发者本人的痒处</li>
+<li>好程序员知道该写什么，伟大的程序员知道该重写什么</li>
+<li>“计划好抛弃，无论如何，你会的”</li>
+<li>如果你有正确的态度，有趣的问题会找上你的</li>
+<li>pass</li>
+<li>把用户当做协作开发者是快速改进代码和高效调试的无可争辩的方式</li>
+</ol>
+<h2 id="早发布、常发布">早发布、常发布</h2>
+<h2 id="Linus定律">Linus定律</h2>
+<ul>
+<li>如果有一个足够大的beta测试人员和协作开发人员的基础，几乎所有的问题都可以被快速的找出并被一些人纠正</li>
+</ul>
+<h2 id="Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠">Delphi效应—一群相同专业的观察者的平均观点比在其中随机挑选一个来得更加可靠</h2>
+<ul>
+<li>Delphi效应甚至可以战胜操作系统内核一级的复杂度</li>
+<li>Delphi估算法</li>
+</ul>
+<h2 id="现象">现象</h2>
+<ul>
+<li>现在高科技公司投入巨额资金发展开源软件，而通常开源软件本身免费。<ul>
+<li>google:Android, Chrome</li>
+<li>IMB:Eclipse</li>
+<li>Intel:Linux</li>
+</ul>
+</li>
+<li>这些公司并不是放弃资本主义，而是认为这是个好的商业策略</li>
+</ul>
+<h2 id="替代物品和互补物品">替代物品和互补物品</h2>
+<ul>
+<li>市场上所有的产品都有替代物品和互补物品<ul>
+<li>替代物品是首选商品太贵时会</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    
+    
+      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
+    
+      <category term="软件工程管理" scheme="http://www.abbeychenxi.net/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[No Silver Bullet]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/15/No-Silver-Bullet/"/>
+    <id>http://www.abbeychenxi.net/2014/09/15/No-Silver-Bullet/</id>
+    <published>2014-09-15T06:20:40.000Z</published>
+    <updated>2014-10-25T14:34:31.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="复杂度">复杂度</h2>
+<h2 id="一致性">一致性</h2>
+<ul>
+<li>物理学家面对异常复杂的事物，他们坚信必定存在着某种通用原理。物理学是研究上帝创造的东西</li>
+<li>软件开发面对的复杂度往往是随心所欲、毫无规则可言的，来自若干必须遵循的人为惯例和系统。软件开发面对的是人，不是上帝。</li>
+<li>很多复杂性来自保持与其它接口的一致</li>
+</ul>
+<h2 id="可变性">可变性</h2>
+<ul>
+<li>软件实体经常会遭受到持续的变更压力。<ul>
+<li>汽车、建筑可以修改，但是很少有人修改，大家都知道成本很高</li>
+<li>软件包含了很多功能</li>
+<li>软件可以很容易地进行修改—-它是纯粹思维活动的产物，可以无限扩展</li>
+</ul>
+</li>
+<li>软件变更<ul>
+<li>人们要求扩展，更改功能</li>
+<li>硬件的变化</li>
+</ul>
+</li>
+<li>软件与整个社会联成一体，后者在不断变动，它强迫软件也跟着变动</li>
+</ul>
+<h2 id="不可见性">不可见性</h2>
+<ul>
+<li>软件是不可见的和无法可视化的<ul>
+<li>抽象的功能：几何抽象、机械制图、化学分子模型</li>
+<li>pass</li>
+<li>这限制了个人的设计过程，也严重的阻碍了相互之间的交流</li>
+<li>UML</li>
+</ul>
+</li>
+</ul>
+<h2 id="没有银弹">没有银弹</h2>
+<ul>
+<li>相对必要任务而言，软件工程师在次要任务上花费了多少时间和精力？除非它占了所有工作的9/10，否则即使全部次要任务的时间缩减到0，也不会给生成率带来数量级上的提高</li>
+</ul>
+<h2 id="“自动”编程">“自动”编程</h2>
+<h2 id="图形化编程">图形化编程</h2>
+<ul>
+<li>流程图是一直非常差劲软件结构表达方法。</li>
+<li>现在的屏幕非常小，像素级别，无法同时表现软件图形的所有正式、详细的范围和细节。</li>
+<li>软件非常难以可视化。</li>
+</ul>
+<h2 id="程序验证">程序验证</h2>
+<ul>
+<li>是否有可能出现银弹，能够在系统设计级别、源代码级别消除bug呢？是否可以在大量工作被投入到实现和测试之前，通过采用证实设计正确性的“深奥”策略，彻底提高软件的生产率。</li>
+<li>不能保证节约劳动力</li>
+<li>程序验证不意味着0缺陷的程序</li>
+<li>完美的程序验证只能建立满足技术说明的程序，而这时，软件工作过程中最困难的部分已经接近完成，形成了完整的和一致的说明。</li>
+</ul>
+<h2 id="环境和工具">环境和工具</h2>
+<ul>
+<li>IDE</li>
+<li>这样的工作是非常有价值的，它能够带来软件生产率和可靠性上的一些提高。但是，由于它自身的特性，目前它的回报很有限。</li>
+</ul>
+<h2 id="工作站">工作站</h2>
+<ul>
+<li>硬件速度的加速</li>
+<li>编译速度，开发速度</li>
+<li>1986！</li>
+</ul>
+<h2 id="购买和自行开发">购买和自行开发</h2>
+<ul>
+<li>构建软件最可能的彻底解决方案是不开发任何软件</li>
+<li>通用软件</li>
+<li>1986！</li>
+</ul>
+<h2 id="需求精炼和快速原型">需求精炼和快速原型</h2>
+<ul>
+<li>概念性工作中。。。。</li>
+</ul>
+<h2 id="增量开发">增量开发</h2>
+<ul>
+<li>Grow not building</li>
+<li>客户</li>
+<li>士气</li>
+<li>迭代式开发</li>
+</ul>
+<h2 id="卓越的设计人员">卓越的设计人员</h2>
+<ul>
+<li>软件开发是一个创造性的过程</li>
+</ul>
+<h2 id="没有银弹的影响">没有银弹的影响</h2>
+<ul>
+<li>软件开发本质的认识</li>
+<li>软件过程</li>
+</ul>
+]]></content>
+    
+    
+      <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
+    
+      <category term="软件工程管理" scheme="http://www.abbeychenxi.net/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[MEAN.js]]></title>
+    <link href="http://www.abbeychenxi.net/2014/09/11/MEANjs/"/>
+    <id>http://www.abbeychenxi.net/2014/09/11/MEANjs/</id>
+    <published>2014-09-11T11:23:46.000Z</published>
+    <updated>2014-10-25T14:34:21.000Z</updated>
+    <content type="html"><![CDATA[<ul>
+<li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
+<li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
+<li>AngularJS - Angular’s Official Website is a great starting point. You can also use Thinkster Popular Guide, and the Egghead Videos.</li>
+<li>Node.js - Start by going through Node.js Official Website and this StackOverflow Thread, which should get you going with the Node.js platform in no time.</li>
+</ul>
+]]></content>
+    
+    
+      <category term="MEAN.js" scheme="http://www.abbeychenxi.net/tags/MEAN-js/"/>
+    
+      <category term="Full-Stack" scheme="http://www.abbeychenxi.net/tags/Full-Stack/"/>
+    
+  </entry>
+  
+</feed>
