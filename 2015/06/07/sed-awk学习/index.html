@@ -14,7 +14,7 @@ sream editor
 将文件/etc/passwd中，/bin/bash指定的登录shell全部替换成/usr/local/bin/bash
 d(删除) / p(数据输出) / y(替换1个字符) / w(文件输出) /n (数据输入)
 s命令(字符串替换)
-sed -e &amp;#39;s/">
+1234sed -e &#39;s/">
     
     
     
@@ -105,12 +105,14 @@ sed -e &amp;#39;s/">
 <p>将文件/etc/passwd中，/bin/bash指定的登录shell全部替换成/usr/local/bin/bash</p>
 <p>d(删除) / p(数据输出) / y(替换1个字符) / w(文件输出) /n (数据输入)</p>
 <h2 id="s命令(字符串替换)">s命令(字符串替换)</h2>
-<p><code>sed -e &#39;s/原字符串/[替换后的字符串]/[标志]&#39; 输入文件</code></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sed <span class="operator">-e</span> <span class="string">'s/aaa//g'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s/\//R/'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s!/usr/local!/user!g'</span> input.txt</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sed <span class="operator">-e</span> <span class="string">'s/原字符串/[替换后的字符串]/[标志]'</span> 输入文件</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s/aaa//g'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s/\//R/'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s!/usr/local!/user!g'</span> input.txt</div></pre></td></tr></table></figure>
 
-<p>替换字符串中出现&amp; 表示和查找字符串一样<br><code>sed -e &#39;s/aaa/+&amp;+/g&#39; input.txt</code><br>可以和正则表达式结合:<br><code>sed -e &#39;s/.*/output: &amp;/g&#39; input.txt</code></p>
+<p>替换字符串中出现&amp; 表示和查找字符串一样</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sed <span class="operator">-e</span> <span class="string">'s/aaa/+&+/g'</span> input.txt</div><div class="line">可以和正则表达式结合:</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s/.*/output: &/g'</span> input.txt</div></pre></td></tr></table></figure>
+
 <h2 id="y命令(替换一个字符)">y命令(替换一个字符)</h2>
-<p><code>sed -e &#39;y/替换前/替换后/&#39; 输入文件</code><br>同时替换多个字符a=&gt;x, b=&gt;y, c=&gt;z的替换<br><code>sed -e &#39;y/abc/xyz/&#39; input.txt</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sed -e <span class="string">'y/替换前/替换后/'</span> 输入文件</div><div class="line">同时替换多个字符a=&gt;x, b=&gt;y, c=&gt;z的替换</div><div class="line">sed -e <span class="string">'y/abc/xyz/'</span> input.txt</div></pre></td></tr></table></figure>
+
 <h2 id="d命令(删除)">d命令(删除)</h2>
 <p>d是删除指定行，并将剩余行进行输出的命令<br><code>sed -e &#39;1,2d&#39; input.txt</code></p>
 <h3 id="地址">地址</h3>
