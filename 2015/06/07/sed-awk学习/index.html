@@ -96,7 +96,7 @@ sed -e &amp;#39;s/">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sed"><span class="toc-number">1.</span> <span class="toc-text">sed</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#s命令(字符串替换)"><span class="toc-number">1.1.</span> <span class="toc-text">s命令(字符串替换)</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sed"><span class="toc-number">1.</span> <span class="toc-text">sed</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#s命令(字符串替换)"><span class="toc-number">1.1.</span> <span class="toc-text">s命令(字符串替换)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#y命令(替换一个字符)"><span class="toc-number">1.2.</span> <span class="toc-text">y命令(替换一个字符)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#d命令(删除)"><span class="toc-number">1.3.</span> <span class="toc-text">d命令(删除)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#地址"><span class="toc-number">1.3.1.</span> <span class="toc-text">地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定多个命令"><span class="toc-number">1.3.2.</span> <span class="toc-text">指定多个命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚本文件的读取和执行"><span class="toc-number">1.4.</span> <span class="toc-text">脚本文件的读取和执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令的组合"><span class="toc-number">1.5.</span> <span class="toc-text">命令的组合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标签/分支处理/循环处理"><span class="toc-number">1.5.1.</span> <span class="toc-text">标签/分支处理/循环处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk"><span class="toc-number">2.</span> <span class="toc-text">awk</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AWK可以使用的模式"><span class="toc-number">2.1.</span> <span class="toc-text">AWK可以使用的模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWK脚本"><span class="toc-number">2.2.</span> <span class="toc-text">AWK脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动作"><span class="toc-number">2.2.1.</span> <span class="toc-text">动作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊变量"><span class="toc-number">2.2.2.</span> <span class="toc-text">特殊变量</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -106,42 +106,157 @@ sed -e &amp;#39;s/">
 <p>d(删除) / p(数据输出) / y(替换1个字符) / w(文件输出) /n (数据输入)</p>
 <h2 id="s命令(字符串替换)">s命令(字符串替换)</h2>
 <p><code>sed -e &#39;s/原字符串/[替换后的字符串]/[标志]&#39; 输入文件</code></p>
-<figure class="highlight sed"><figcaption><span>-e 's/aaa//g' input.txt</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sed <span class="operator">-e</span> <span class="string">'s/\//R/'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s!/usr/local!/user!g'</span> input.txt</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sed <span class="operator">-e</span> <span class="string">'s/aaa//g'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s/\//R/'</span> input.txt</div><div class="line">sed <span class="operator">-e</span> <span class="string">'s!/usr/local!/user!g'</span> input.txt</div></pre></td></tr></table></figure>
 
-<p>替换字符串中出现&amp; 表示和查找字符串一样</p>
-<figure class="highlight sed"><figcaption><span>-e 's/aaa/+&+/g' input.txt```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">可以和正则表达式结合:</div></pre></td></tr></table></figure>
+<p>替换字符串中出现&amp; 表示和查找字符串一样<br><code>sed -e &#39;s/aaa/+&amp;+/g&#39; input.txt</code><br>可以和正则表达式结合:<br><code>sed -e &#39;s/.*/output: &amp;/g&#39; input.txt</code></p>
+<h2 id="y命令(替换一个字符)">y命令(替换一个字符)</h2>
+<p><code>sed -e &#39;y/替换前/替换后/&#39; 输入文件</code><br>同时替换多个字符a=&gt;x, b=&gt;y, c=&gt;z的替换<br><code>sed -e &#39;y/abc/xyz/&#39; input.txt</code></p>
+<h2 id="d命令(删除)">d命令(删除)</h2>
+<p>d是删除指定行，并将剩余行进行输出的命令<br><code>sed -e &#39;1,2d&#39; input.txt</code></p>
+<h3 id="地址">地址</h3>
+<p>只对特定行进行处理时。如果省略地址对所有行都会处理。start,end。 最后一行用$表示</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sed -n <span class="operator">-e</span> <span class="string">'1,3p'</span> input.txt</div><div class="line">sed -n <span class="operator">-e</span> <span class="string">'2,$p'</span> input.txt</div></pre></td></tr></table></figure>
 
-<p>sed -e ‘s/.*/output: &amp;/g’ input.txt</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">##y命令(替换一个字符)</div><div class="line"><span class="smartquote">`sed -e '</span>y/替换前/替换后/' 输入文件`</div><div class="line">同时替换多个字符a=&gt;x, b=&gt;y, c=&gt;z的替换</div><div class="line"><span class="smartquote">`sed -e '</span>y/abc/xyz/' input.txt`</div><div class="line"></div><div class="line">##d命令(删除)</div><div class="line">d是删除指定行，并将剩余行进行输出的命令</div><div class="line"><span class="smartquote">`sed -e '</span>1,2d' input.txt`</div><div class="line"></div><div class="line">###地址</div><div class="line">只对特定行进行处理时。如果省略地址对所有行都会处理。start,end。 最后一行用$表示</div></pre></td></tr></table></figure>
+<p>指定地址支持正则表达式</p>
+<table>
+<thead>
+<tr>
+<th>地址例</th>
+<th>表示的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(未指定的行</td>
+<td>所有数据</td>
+</tr>
+<tr>
+<td>3</td>
+<td>第三行</td>
+</tr>
+<tr>
+<td>20,$</td>
+<td>从20行开始到最后一行</td>
+</tr>
+<tr>
+<td>10, 5</td>
+<td>第10行(第2个数字比第1个数字小的情况)</td>
+</tr>
+<tr>
+<td>/^[0-9]/</td>
+<td>所有以数字开头的行</td>
+</tr>
+<tr>
+<td>15, /z$/</td>
+<td>从第15行开始到以z结尾的行</td>
+</tr>
+<tr>
+<td>5, 10!</td>
+<td>从第5行开始到第10行以外的行</td>
+</tr>
+</tbody>
+</table>
+<p><code>sed -n -e &#39;/^aaa/,/ddd$/p&#39; input.txt</code></p>
+<h3 id="指定多个命令">指定多个命令</h3>
+<p>命令之间以;分隔<br><code>sed -e &#39;2d;s/aaa/eee/g&#39; input.txt</code></p>
+<h2 id="脚本文件的读取和执行">脚本文件的读取和执行</h2>
+<p><code>sed -f 脚本文件 输入文件</code><br>可以指定多个脚本文件，也可以同时使用-e 和 -f 选项<br>在脚本文件中一行记述一个处理</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>,3s/<span class="keyword">aaa</span>/eee/g</div><div class="line"><span class="number">3d</span></div></pre></td></tr></table></figure>
 
-<p>sed -n -e ‘1,3p’ input.txt<br>sed -n -e ‘2,$p’ input.txt</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">指定地址支持正则表达式</div><div class="line"></div><div class="line">|地址例|表示的含义|</div><div class="line">|------|----------|</div><div class="line">|(未指定的行|所有数据|</div><div class="line">|3|第三行|</div><div class="line">|20,$|从20行开始到最后一行|</div><div class="line">|10, 5| 第10行(第2个数字比第1个数字小的情况)|</div><div class="line">|/^[0-9]/|所有以数字开头的行|</div><div class="line">|15, /z$/| 从第15行开始到以z结尾的行|</div><div class="line">|5, 10!| 从第5行开始到第10行以外的行|</div><div class="line"></div><div class="line"></div><div class="line"><span class="smartquote">`sed -n -e '</span>/^aaa/,/ddd$/p' input.txt`</div><div class="line">###指定多个命令</div><div class="line">命令之间以;分隔</div><div class="line"><span class="smartquote">`sed -e '</span>2d;s/aaa/eee/g' input.txt`</div><div class="line"></div><div class="line">##脚本文件的读取和执行</div><div class="line"><span class="code">`sed -f 脚本文件 输入文件`</span></div><div class="line">可以指定多个脚本文件，也可以同时使用-e 和 -f 选项</div><div class="line">在脚本文件中一行记述一个处理</div></pre></td></tr></table></figure>
+<p><code>sed -f xxx.sed input.txt</code></p>
+<h2 id="命令的组合">命令的组合</h2>
+<p>‘{…}’对命令进行组合</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>,<span class="number">3</span>{</div><div class="line">    <span class="regexp">s/aaa/eee/g</span></div><div class="line">    <span class="keyword">y</span>/abc/xyz/</div><div class="line">    p</div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>shell<br>1,3s/aaa/eee/g<br>3d</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">`sed -f xxx.sed input.txt`</div><div class="line"><span class="comment">##命令的组合</span></div><div class="line">'<span class="decorator">{...}</span>'对命令进行组合</div></pre></td></tr></table></figure>
+<h3 id="标签/分支处理/循环处理">标签/分支处理/循环处理</h3>
+<p>可以在脚本中设置标签进行循环处理，还可以将是否执行了s命令的替换处理作为判断条件对处理进行分支</p>
+<table>
+<thead>
+<tr>
+<th>指定方法</th>
+<th>所表示的内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:label名</td>
+<td>指定标签,label名在脚本中是唯一的</td>
+</tr>
+<tr>
+<td>b label名</td>
+<td>无条件跳转到label名指定的命令进行执行</td>
+</tr>
+<tr>
+<td>条件b label名</td>
+<td>输入行满足条件时，跳转到label名指定的命令进行执行如果指定”/模式/b 标签”，输入行和模式匹配时，跳转到label名指定的命令进行执行</td>
+</tr>
+<tr>
+<td>条件 !b label名</td>
+<td>输入行不满足条件时，跳转到label名指定的命令进行执行 如果指定”/模式/!b标签”,输入行和模式不匹配时，跳转到label名指定的命令进行执行</td>
+</tr>
+<tr>
+<td>t label名</td>
+<td>读入输入行执行命令，只有在使用s命令替换成功时才会跳转到label名指定的命令进行执行</td>
+</tr>
+<tr>
+<td>T label名</td>
+<td>读入输入行执行命令，在使用s命令替换不成功时才会跳转到label名指定的命令进行执行</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">: 标签</div><div class="line">命令<span class="number">1</span></div><div class="line">命令<span class="number">2</span></div><div class="line"><span class="regexp">/模式/</span>b 标签</div><div class="line">命令<span class="number">3</span></div></pre></td></tr></table></figure>
 
-<p>shell<br>1,3{<br>    s/aaa/eee/g<br>    y/abc/xyz/<br>    p<br>}</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">###标签/分支处理/循环处理</div><div class="line">可以在脚本中设置标签进行循环处理，还可以将是否执行了s命令的替换处理作为判断条件对处理进行分支</div><div class="line"></div><div class="line">|指定方法|所表示的内容|</div><div class="line">|<span class="comment">-------|---------|</span></div><div class="line">|:<span class="keyword">label</span>名|指定标签,<span class="keyword">label</span>名在脚本中是唯一的|</div><div class="line">|b <span class="keyword">label</span>名|无条件跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|条件b <span class="keyword">label</span>名|输入行满足条件时，跳转到<span class="keyword">label</span>名指定的命令进行执行如果指定<span class="string">"/模式/b 标签"</span>，输入行和模式匹配时，跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|条件 !b <span class="keyword">label</span>名|输入行不满足条件时，跳转到<span class="keyword">label</span>名指定的命令进行执行 如果指定<span class="string">"/模式/!b标签"</span>,输入行和模式不匹配时，跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|t <span class="keyword">label</span>名|读入输入行执行命令，只有在使用s命令替换成功时才会跳转到<span class="keyword">label</span>名指定的命令进行执行|</div><div class="line">|T <span class="keyword">label</span>名|读入输入行执行命令，在使用s命令替换不成功时才会跳转到<span class="keyword">label</span>名指定的命令进行执行|</div></pre></td></tr></table></figure>
 
-<p>shell<br>: 标签<br>命令1<br>命令2<br>/模式/b 标签<br>命令3</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
 
-<p>:loop<br>N<br>$!b loop<br>s/\n//g</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">#awk</span></div><div class="line">awk会事先把输入的数据根据字段单位进行分割。</div><div class="line">awk的pattern和动作action</div><div class="line">模式<span class="number">1</span> {动作<span class="number">1</span>}</div><div class="line">模式<span class="number">2</span> {动作<span class="number">2</span>}</div><div class="line"><span class="keyword">...</span></div><div class="line">模式n {动作n}</div><div class="line"></div><div class="line">`awk '脚本' inputfile`</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">:<span class="keyword">loop</span></div><div class="line">N</div><div class="line">$!b <span class="keyword">loop</span></div><div class="line">s/\n<span class="comment">//g</span></div></pre></td></tr></table></figure>
 
-<p>awk<br>awk ‘length&gt;30’ inputfile #长度超过半角30个字符的行<br>awk ‘NF &gt;= 5 &amp;&amp; NF &lt;= 10’ inputfile #字段数在5个以上10以下的行<br>awk ‘NR &lt;= 5’ inputfile #只表示最开始的5行<br>awk ‘NR%2 == 0’ inputfile #只表示偶数行<br>awk ‘$1 &lt; 100’ inputfile #表示第一个字段的值比100小的行<br>awk ‘/问题|答案/‘ inputfile #包含”问题”或者”答案”的行<br>awk ‘/^#/‘ inputfile #以”#”开头的行</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">内置函数length</div><div class="line">$N(第N个字段)</div><div class="line">NF(字段数)</div><div class="line">NR(行号)</div><div class="line"></div><div class="line">##AWK可以使用的模式</div><div class="line">-<span class="ruby"> 空模式<span class="symbol">:</span> 如果省略模式,所有的行都会匹配</span></div><div class="line">-<span class="ruby"> 正则表达式<span class="symbol">:</span> 和sed一样</span></div><div class="line">-<span class="ruby"> 比较表达式和逻辑表达式<span class="symbol">:</span> 比较运算是关于大小关系,是否匹配等的运算`<span class="variable">$1</span> &lt; <span class="number">100</span> && <span class="variable">$2</span> == <span class="string">"ABC"</span>`</span></div><div class="line">-<span class="ruby"> <span class="constant">BEGIN</span>和<span class="constant">END</span></span></div><div class="line">-<span class="ruby"> 模式范围 `pattern1, pattern2` `/^<span class="keyword">begin</span><span class="variable">$/</span>,<span class="regexp">/^end$/</span>` `awk <span class="string">'/^begin$/, /^end$/'</span> inputfile`</span></div><div class="line"></div><div class="line">删除空白行</div></pre></td></tr></table></figure>
+<h1 id="awk">awk</h1>
+<p>awk会事先把输入的数据根据字段单位进行分割。<br>awk的pattern和动作action<br>模式1 {动作1}<br>模式2 {动作2}<br>…<br>模式n {动作n}</p>
+<p><code>awk &#39;脚本&#39; inputfile</code></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="title">awk</span> <span class="string">'length&gt;30'</span> inputfile <span class="comment">#长度超过半角30个字符的行</span></div><div class="line">awk <span class="string">'NF &gt;= 5 && NF &lt;= 10'</span> inputfile <span class="comment">#字段数在5个以上10以下的行</span></div><div class="line">awk <span class="string">'NR &lt;= 5'</span> inputfile <span class="comment">#只表示最开始的5行</span></div><div class="line">awk <span class="string">'NR%2 == 0'</span> inputfile <span class="comment">#只表示偶数行</span></div><div class="line">awk <span class="string">'<span class="variable">$1</span> &lt; 100'</span> inputfile <span class="comment">#表示第一个字段的值比100小的行</span></div><div class="line">awk <span class="string">'/问题|答案/'</span> inputfile <span class="comment">#包含"问题"或者"答案"的行</span></div><div class="line">awk <span class="string">'/^#/'</span> inputfile <span class="comment">#以"#"开头的行</span></div></pre></td></tr></table></figure>
 
-<p>awk ‘length != 0’ inputfile<br>awk ‘NF != 0’ inputfile<br>awk ‘before != $0 { print; before = $0 }’ inputfile<br>awk ‘NF != 0 || bf != 0 { print; bf=NF }’ inputfile<br>awk ‘{ id[$1] = id[$1] “ “ NR } END { for (elm in id) print elm “ “ id[elm]}’ inputfile</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="header">##AWK脚本</span></div><div class="line"><span class="code">`awk -f scriptfile inputfile`</span></div><div class="line"><span class="header">###动作</span></div><div class="line"><span class="bullet">- </span>在动作中可以使用的语句</div></pre></td></tr></table></figure>
+<p>内置函数length<br>$N(第N个字段)<br>NF(字段数)<br>NR(行号)</p>
+<h2 id="AWK可以使用的模式">AWK可以使用的模式</h2>
+<ul>
+<li>空模式: 如果省略模式,所有的行都会匹配</li>
+<li>正则表达式: 和sed一样</li>
+<li>比较表达式和逻辑表达式: 比较运算是关于大小关系,是否匹配等的运算<code>$1 &lt; 100 &amp;&amp; $2 == &quot;ABC&quot;</code></li>
+<li>BEGIN和END</li>
+<li>模式范围 <code>pattern1, pattern2</code> <code>/^begin$/,/^end$/</code> <code>awk &#39;/^begin$/, /^end$/&#39; inputfile</code></li>
+</ul>
+<p>删除空白行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">awk '<span class="property">length</span> != <span class="number">0</span>' inputfile</div><div class="line">awk 'NF != <span class="number">0</span>' inputfile</div><div class="line">awk '<span class="keyword">before</span> != $<span class="number">0</span> { print; <span class="keyword">before</span> = $<span class="number">0</span> }' inputfile</div><div class="line">awk 'NF != <span class="number">0</span> || bf != <span class="number">0</span> { print; bf=NF }' inputfile</div><div class="line">awk '{ <span class="property">id</span>[$<span class="number">1</span>] = <span class="property">id</span>[$<span class="number">1</span>] <span class="string">" "</span> NR } END { <span class="keyword">for</span> (elm <span class="keyword">in</span> <span class="property">id</span>) print elm <span class="string">" "</span> <span class="property">id</span>[elm]}' inputfile</div></pre></td></tr></table></figure>
 
-<p>表达式：常量，变量，代入，函数调用<br>print 表达式的排列<br>printf 格式，表达式的排列<br>if (表达式) 语句<br>if (表达式: 语句 else 语句)<br>while(表达式) 语句<br>do 语句 while (表达式)<br>for (表达式; 表达式; 表达式) 语句<br>for (变量 in 数组) 语句<br>continue<br>break<br>next<br>exit<br>exit 表达式<br>{ 表达式的排列 }</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">###特殊变量</span></div><div class="line">- $<span class="number">1</span>, $<span class="number">2</span>,<span class="keyword">...</span>,$n 和 $<span class="number">0</span></div><div class="line">$<span class="number">0</span> 输入行全体</div><div class="line">- ARGC， ARGV</div><div class="line">ARGC 命令行参数的个数</div><div class="line">ARGV 命令行参数的数组</div></pre></td></tr></table></figure>
+<h2 id="AWK脚本">AWK脚本</h2>
+<p><code>awk -f scriptfile inputfile</code></p>
+<h3 id="动作">动作</h3>
+<ul>
+<li>在动作中可以使用的语句</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">表达式：常量，变量，代入，函数调用</div><div class="line"><span class="keyword">print</span> 表达式的排列</div><div class="line"><span class="keyword">printf</span> 格式，表达式的排列</div><div class="line"><span class="keyword">if</span> (表达式) 语句</div><div class="line"><span class="keyword">if</span> (表达式: 语句 <span class="keyword">else</span> 语句)</div><div class="line"><span class="keyword">while</span>(表达式) 语句</div><div class="line"><span class="keyword">do</span> 语句 <span class="keyword">while</span> (表达式)</div><div class="line"><span class="keyword">for</span> (表达式; 表达式; 表达式) 语句</div><div class="line"><span class="keyword">for</span> (变量 in 数组) 语句</div><div class="line"><span class="keyword">continue</span></div><div class="line"><span class="keyword">break</span></div><div class="line"><span class="keyword">next</span></div><div class="line"><span class="keyword">exit</span></div><div class="line"><span class="keyword">exit</span> 表达式</div><div class="line">{ 表达式的排列 }</div></pre></td></tr></table></figure>
 
-<p>BEGIN {<br>    for (i=0; i &lt; ARGC; ++i)<br>    print ARGV[i]<br>}</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-<span class="ruby"> <span class="constant">FILENAME</span> 保存当前输入文件的文件名</span></div><div class="line">-<span class="ruby"> <span class="constant">FNR</span> 当前文件的行号</span></div><div class="line">-<span class="ruby"> <span class="constant">FS</span> 输入字段分隔符的变量</span></div><div class="line">-<span class="ruby"> <span class="constant">NF</span> 当前行的字段数</span></div><div class="line">-<span class="ruby"> <span class="constant">NR</span> 读入的行数</span></div><div class="line">-<span class="ruby"> <span class="constant">OFS</span> 输出字段分隔符的变量</span></div><div class="line">-<span class="ruby"> <span class="constant">ORS</span> 输出行的分隔符变量</span></div><div class="line">-<span class="ruby"> <span class="constant">RS</span> 输入行的分隔符变量</span></div><div class="line"></div><div class="line">-<span class="ruby"> 数组</span></div><div class="line">awk数组是关联数组 下标不仅可以是数字还可以是字符串</div></pre></td></tr></table></figure>
+<h3 id="特殊变量">特殊变量</h3>
+<ul>
+<li>$1, $2,…,$n 和 $0<br>$0 输入行全体</li>
+<li>ARGC， ARGV<br>ARGC 命令行参数的个数<br>ARGV 命令行参数的数组</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">BEGIN {</div><div class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; ARGC; ++i)</div><div class="line">    <span class="built_in">print</span> ARGV[i]</div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>a[n] = 10<br>b[“印度”] = “India”<br>c[x, y] 多元数组<br>delete a[n]<br>```</p>
+<ul>
+<li>FILENAME 保存当前输入文件的文件名</li>
+<li>FNR 当前文件的行号</li>
+<li>FS 输入字段分隔符的变量</li>
+<li>NF 当前行的字段数</li>
+<li>NR 读入的行数</li>
+<li>OFS 输出字段分隔符的变量</li>
+<li>ORS 输出行的分隔符变量</li>
+<li><p>RS 输入行的分隔符变量</p>
+</li>
+<li><p>数组<br>awk数组是关联数组 下标不仅可以是数字还可以是字符串</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="operator">a</span>[n] = <span class="number">10</span></div><div class="line">b[<span class="string">"印度"</span>] = <span class="string">"India"</span></div><div class="line">c[x, y] 多元数组</div><div class="line"><span class="built_in">delete</span> <span class="operator">a</span>[n]</div></pre></td></tr></table></figure>
+
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -203,7 +318,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sed"><span class="toc-number">1.</span> <span class="toc-text">sed</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#s命令(字符串替换)"><span class="toc-number">1.1.</span> <span class="toc-text">s命令(字符串替换)</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sed"><span class="toc-number">1.</span> <span class="toc-text">sed</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#s命令(字符串替换)"><span class="toc-number">1.1.</span> <span class="toc-text">s命令(字符串替换)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#y命令(替换一个字符)"><span class="toc-number">1.2.</span> <span class="toc-text">y命令(替换一个字符)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#d命令(删除)"><span class="toc-number">1.3.</span> <span class="toc-text">d命令(删除)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#地址"><span class="toc-number">1.3.1.</span> <span class="toc-text">地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定多个命令"><span class="toc-number">1.3.2.</span> <span class="toc-text">指定多个命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#脚本文件的读取和执行"><span class="toc-number">1.4.</span> <span class="toc-text">脚本文件的读取和执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令的组合"><span class="toc-number">1.5.</span> <span class="toc-text">命令的组合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标签/分支处理/循环处理"><span class="toc-number">1.5.1.</span> <span class="toc-text">标签/分支处理/循环处理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#awk"><span class="toc-number">2.</span> <span class="toc-text">awk</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#AWK可以使用的模式"><span class="toc-number">2.1.</span> <span class="toc-text">AWK可以使用的模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AWK脚本"><span class="toc-number">2.2.</span> <span class="toc-text">AWK脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#动作"><span class="toc-number">2.2.1.</span> <span class="toc-text">动作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特殊变量"><span class="toc-number">2.2.2.</span> <span class="toc-text">特殊变量</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
