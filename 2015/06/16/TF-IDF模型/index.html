@@ -4,15 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python 数据结构 | Abbey in Cradle Studio</title>
+    <title>TF-IDF模型 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="对象与参考
-12345678shoplist = [&#39;apple&#39;, &#39;mango&#39;, &#39;carrot&#39;, &#39;banana&#39;]mylist = shoplistdel shoplist[0]mylist = shoplist[:]del mylist[0]
-
-如果要复制一个列表或者类似的序列或者其他">
+    <meta name="description" content="词频因此(tf)
+Tf计算因子代表了词频，即一个单词在文档中出现的次数。
+变体1: $W{tf} = 1 + log(Tf)$变体2: $W{tf} = a + (1-a)\times{Tf\over Max(Tf)}$(a=0.4)同一个文档内单词之间的相对重要性。
+逆文档频率因子(IDF)
+表示">
     
     
     
@@ -77,14 +78,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/29/Python-数据结构/" title="Python 数据结构" itemprop="url">Python 数据结构</a>
+      <a href="/2015/06/16/TF-IDF模型/" title="TF-IDF模型" itemprop="url">TF-IDF模型</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-29T04:02:43.000Z" itemprop="datePublished"> 发表于 2014-09-29</time>
+    <time datetime="2015-06-16T09:58:48.000Z" itemprop="datePublished"> 发表于 2015-06-16</time>
     
   </p>
 </header>
@@ -94,27 +95,17 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与参考"><span class="toc-number">1.</span> <span class="toc-text">对象与参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多字符串的内容"><span class="toc-number">2.</span> <span class="toc-text">更多字符串的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件开发过程"><span class="toc-number">3.</span> <span class="toc-text">软件开发过程</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#词频因此(tf)"><span class="toc-number">1.</span> <span class="toc-text">词频因此(tf)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逆文档频率因子(IDF)"><span class="toc-number">2.</span> <span class="toc-text">逆文档频率因子(IDF)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TF-IDF框架"><span class="toc-number">3.</span> <span class="toc-text">TF-IDF框架</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="对象与参考">对象与参考</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</div><div class="line">mylist = shoplist</div><div class="line"></div><div class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</div><div class="line"></div><div class="line">mylist = shoplist[:]</div><div class="line"></div><div class="line"><span class="keyword">del</span> mylist[<span class="number">0</span>]</div></pre></td></tr></table></figure>
-
-<p>如果要复制一个列表或者类似的序列或者其他复杂的对象，必须使用切片操作符来取得拷贝。如果只是想要使用另外一个变量名，两个变量名称都参考同一个对象，那么如果不小心，会引来各种麻烦。</p>
-<h2 id="更多字符串的内容">更多字符串的内容</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">name = <span class="string">'Swaroop'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.startwith(<span class="string">'Swa'</span>):</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="string">'a'</span> <span class="keyword">in</span> name:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.find(<span class="string">'war'</span>) != -<span class="number">1</span>:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line">delimiter = <span class="string">'_*_'</span></div><div class="line">mylist = [<span class="string">'russia'</span>, <span class="string">'india'</span>]</div><div class="line">delimter.join(mylist)</div></pre></td></tr></table></figure>
-
-<p>str类也有以一个作为分隔符的字符串join序列的项目的整洁的方法，它返回一个生成的大字符串。</p>
-<h2 id="软件开发过程">软件开发过程</h2>
-<ol>
-<li>分析</li>
-<li>设计</li>
-<li>实施</li>
-<li>测试与调试</li>
-<li>实施或开发</li>
-<li>优化</li>
-</ol>
+		<h2 id="词频因此(tf)">词频因此(tf)</h2>
+<p>Tf计算因子代表了词频，即一个单词在文档中出现的次数。</p>
+<p>变体1: $W<em>{tf} = 1 + log(Tf)$<br>变体2: $W</em>{tf} = a + (1-a)\times{Tf\over Max(Tf)}$<br>(a=0.4)<br>同一个文档内单词之间的相对重要性。</p>
+<h2 id="逆文档频率因子(IDF)">逆文档频率因子(IDF)</h2>
+<p>表示文档集合范围的一种全局因子。给定一个文档集合，那么每个单词的IDF值就唯一确定，跟具体的文档无关。所以IDF考虑的不是文档本身的特性，而是特征单词之间的相对重要性。<br>$IDF_k = log{N \over n_k}$<br>N: 文档数目<br>$n_k$: 文档频率  </p>
+<h2 id="TF-IDF框架">TF-IDF框架</h2>
+<p>$Weight_{word} = TF \times IDF$</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -123,7 +114,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/python/">python</a>
+  <span></span> <a href="/tags/搜索引擎/">搜索引擎</a>
   </div>
 
 </div>
@@ -131,7 +122,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/29/Python-数据结构/" data-title="Python 数据结构 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2015/06/16/TF-IDF模型/" data-title="TF-IDF模型 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -140,19 +131,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/29/Python-储存器/" title="Python 储存器">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Python 储存器</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/23/Node-js-入门/"  title="Node.js 入门">
+<a href="/2015/06/07/sed-awk学习/"  title="sed awk学习">
  <strong>下一篇：</strong><br/> 
- <span>Node.js 入门
+ <span>sed awk学习
 </span>
 </a>
 </div>
@@ -161,7 +144,7 @@
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/29/Python-数据结构/" data-title="Python 数据结构" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2015/06/16/TF-IDF模型/" data-title="TF-IDF模型" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -184,7 +167,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#对象与参考"><span class="toc-number">1.</span> <span class="toc-text">对象与参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多字符串的内容"><span class="toc-number">2.</span> <span class="toc-text">更多字符串的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件开发过程"><span class="toc-number">3.</span> <span class="toc-text">软件开发过程</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#词频因此(tf)"><span class="toc-number">1.</span> <span class="toc-text">词频因此(tf)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逆文档频率因子(IDF)"><span class="toc-number">2.</span> <span class="toc-text">逆文档频率因子(IDF)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TF-IDF框架"><span class="toc-number">3.</span> <span class="toc-text">TF-IDF框架</span></a></li></ol>
  
   </div>
 

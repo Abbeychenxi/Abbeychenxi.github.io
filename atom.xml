@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2015-06-07T05:48:32.145Z</updated>
+  <updated>2015-06-16T10:00:36.969Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,26 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[TF-IDF模型]]></title>
+    <link href="http://www.abbeychenxi.net/2015/06/16/TF-IDF%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://www.abbeychenxi.net/2015/06/16/TF-IDF模型/</id>
+    <published>2015-06-16T09:58:48.000Z</published>
+    <updated>2015-06-16T10:00:08.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="词频因此(tf)">词频因此(tf)</h2>
+<p>Tf计算因子代表了词频，即一个单词在文档中出现的次数。</p>
+<p>变体1: $W<em>{tf} = 1 + log(Tf)$<br>变体2: $W</em>{tf} = a + (1-a)\times{Tf\over Max(Tf)}$<br>(a=0.4)<br>同一个文档内单词之间的相对重要性。</p>
+<h2 id="逆文档频率因子(IDF)">逆文档频率因子(IDF)</h2>
+<p>表示文档集合范围的一种全局因子。给定一个文档集合，那么每个单词的IDF值就唯一确定，跟具体的文档无关。所以IDF考虑的不是文档本身的特性，而是特征单词之间的相对重要性。<br>$IDF_k = log{N \over n_k}$<br>N: 文档数目<br>$n_k$: 文档频率  </p>
+<h2 id="TF-IDF框架">TF-IDF框架</h2>
+<p>$Weight_{word} = TF \times IDF$</p>
+]]></content>
+    
+    
+      <category term="搜索引擎" scheme="http://www.abbeychenxi.net/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[sed awk学习]]></title>
@@ -1295,27 +1315,6 @@ http:<span class="comment">//localhost:8888/start?foo=bar&amp;hello=world</span>
       <category term="NJU" scheme="http://www.abbeychenxi.net/tags/NJU/"/>
     
       <category term="软件工程管理" scheme="http://www.abbeychenxi.net/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[MEAN.js]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/11/MEANjs/"/>
-    <id>http://www.abbeychenxi.net/2014/09/11/MEANjs/</id>
-    <published>2014-09-11T11:23:46.000Z</published>
-    <updated>2014-10-25T14:34:21.000Z</updated>
-    <content type="html"><![CDATA[<ul>
-<li>MongoDB - Go through MongoDB Official Website and proceed to their Official Manual, which should help you understand NoSQL and MongoDB better.</li>
-<li>Express - The best way to understand express is through its Official Website, particularly The Express Guide; you can also go through this StackOverflow Thread for more resources.</li>
-<li>AngularJS - Angular’s Official Website is a great starting point. You can also use Thinkster Popular Guide, and the Egghead Videos.</li>
-<li>Node.js - Start by going through Node.js Official Website and this StackOverflow Thread, which should get you going with the Node.js platform in no time.</li>
-</ul>
-]]></content>
-    
-    
-      <category term="MEAN.js" scheme="http://www.abbeychenxi.net/tags/MEAN-js/"/>
-    
-      <category term="Full-Stack" scheme="http://www.abbeychenxi.net/tags/Full-Stack/"/>
     
   </entry>
   
