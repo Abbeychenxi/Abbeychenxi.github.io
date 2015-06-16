@@ -1,0 +1,524 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Abbey in Cradle Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Abbey">
+    
+    <meta name="description" content="title: 大规模批处理系统date: 2015-06-16 23:01:27
+tags:[大数据]
+背景:Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结">
+    
+    
+    
+    
+    <link rel="alternative" href="/atom.xml" title="Abbey in Cradle Studio" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Abbey in Cradle Studio" title="Abbey in Cradle Studio"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Abbey in Cradle Studio">Abbey in Cradle Studio</a></h1>
+				<h2 class="blog-motto">年少轻狂 | 立志成为一名游戏开发极客</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/oos">软件工程管理</a></li>
+					
+						<li><a href="/resume">Resume</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="Search" />
+						<input type="hidden" name="q" value="site:www.abbeychenxi.net">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/06/16/大规模批处理系统/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-16T15:04:37.000Z" itemprop="datePublished"> 发表于 2015-06-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:[大数据]"><span class="toc-number">1.</span> <span class="toc-text">tags:[大数据]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MapReduce计算模型与架构"><span class="toc-number"></span> <span class="toc-text">MapReduce计算模型与架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算模型"><span class="toc-number">1.</span> <span class="toc-text">计算模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统架构"><span class="toc-number">2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce不足"><span class="toc-number">3.</span> <span class="toc-text">MapReduce不足</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DAG计算模型"><span class="toc-number"></span> <span class="toc-text">DAG计算模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DAG计算系统三层结构"><span class="toc-number">1.</span> <span class="toc-text">DAG计算系统三层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dryad"><span class="toc-number">2.</span> <span class="toc-text">Dryad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad整体架构"><span class="toc-number">2.1.</span> <span class="toc-text">Dryad整体架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlumeJava和Tez"><span class="toc-number">3.</span> <span class="toc-text">FlumeJava和Tez</span></a></li></ol>
+		
+		</div>
+		
+		<p>title: 大规模批处理系统<br>date: 2015-06-16 23:01:27</p>
+<h2 id="tags:[大数据]">tags:[大数据]</h2>
+<p>背景:<br>Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结构化数据的ETL处理类操作，并且可扩展性和容错性占优，但是单机处理效率较低。<br>DAG计算模型是MapReduce计算机制的一种扩展。MapReduce对于子任务之间复杂的交互和依赖关系缺乏表达能力，DAG计算模型可以表达复杂的并发任务之间的依赖关系。<br>Spark本质上是DAG批处理系统，其最能发挥特长的领域是迭代式机器学习。</p>
+<h1 id="MapReduce计算模型与架构">MapReduce计算模型与架构</h1>
+<h2 id="计算模型">计算模型</h2>
+<p>MapReduce计算任务的输入是Key/Value数据对，输出也以Key/Value数据对方式表示。开发者要根据业务逻辑实现Map和Reduce两个接口函数内的具体操作内容，即可完成大规模数据的并行批处理任务。</p>
+<p>实例一:单词统计  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">map(<span class="type">String</span> key, <span class="type">String</span> value):</div><div class="line">    //key: 文档名</div><div class="line">    //value: 文档内容</div><div class="line">    <span class="keyword">for</span> each word <span class="keyword">in</span> value:</div><div class="line">        <span class="type">Emit</span> <span class="type">Intermedia</span>(w, <span class="string">"1"</span>);</div><div class="line"></div><div class="line">reduce(<span class="type">String</span> key, <span class="type">Iterator</span> values):</div><div class="line">    //key: 单词</div><div class="line">    //value: 出现次数列表</div><div class="line">    <span class="type">int</span> <span class="literal">result</span> = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> each v <span class="keyword">in</span> values:</div><div class="line">        <span class="literal">result</span> += <span class="type">ParseInt</span>(v);//累加values值</div><div class="line">    <span class="type">Emit</span>(<span class="type">AsString</span>(<span class="literal">result</span>));</div></pre></td></tr></table></figure>
+
+<p>实例二: 链表反转</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">map(<span class="type">String</span> source_url, <span class="type">Iterator</span> outlinks):</div><div class="line">    //key: 网页url</div><div class="line">    //value: 出链列表</div><div class="line">    <span class="keyword">for</span> each outlink o <span class="keyword">in</span> outlinks:</div><div class="line">        <span class="type">Emit</span> <span class="type">Intermedia</span>(o, source_url)</div><div class="line"></div><div class="line">reduce(<span class="type">String</span> target_url, <span class="type">Iterator</span> source_urls):</div><div class="line">    //key: target网页url</div><div class="line">    //values: source网页url</div><div class="line">    list <span class="literal">result</span> = [];</div><div class="line">    <span class="keyword">for</span> each v <span class="keyword">in</span> source_urls:</div><div class="line">        <span class="type">Result</span>.append(v);</div><div class="line">    <span class="type">Emit</span>(<span class="type">AsString</span>(<span class="literal">result</span>));</div></pre></td></tr></table></figure>
+
+<p>实例三: 页面点击统计</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">map(<span class="type">String</span> tuple_id, <span class="type">String</span> <span class="keyword">tuple</span>):</div><div class="line">    <span class="type">Emit</span> <span class="type">Intermedia</span>(url, <span class="string">"1"</span>);</div><div class="line"></div><div class="line">reduce(<span class="type">String</span> url, <span class="type">Iterator</span> list_tuples):</div><div class="line">    <span class="type">int</span> <span class="literal">result</span> = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> each v <span class="keyword">in</span> list_tuples:</div><div class="line">        <span class="literal">result</span> += <span class="type">ParseInt</span>(v);</div><div class="line">    <span class="type">Emit</span>(<span class="type">AsString</span>(<span class="literal">result</span>));</div></pre></td></tr></table></figure>
+
+<h2 id="系统架构">系统架构</h2>
+<p><img src="http://ww4.sinaimg.cn/mw690/b34f7e8bgw1et6a2h93grj207505gq2v.jpg" alt="MapReduce计算框架架构"></p>
+<p>处理流程:  </p>
+<ol>
+<li>MapReduce框架将应用的输入数据切分成M个模块，典型的数据块大小为64MB，然后可以启动位于集群中不同机器上若干程序。</li>
+<li>全局唯一的主控Master以及若干个Worker，Master负责为Worker分配具体的Map任务或Reduce任务并做一些全局管理。</li>
+<li>Map任务的Worker读取对应的数据块内容，从数据块中解析一个个Key/Value记录数据并将其传给用户自定义的Map函数，Map函数输出的中间结果Key/Value数据在内存中缓存</li>
+<li>缓存的Map函数产生的中间结果周期性写入磁盘，每个Map函数中间结果在写入磁盘前被分割函数切割成R份，R是Reduce个数。一般用key对R进行哈希取模。Map函数完成对应数据块处理后将R个临时文件位置通知Master，Master再转交给Reduce任务的Worker</li>
+<li>Reduce任务Worker接到通知时，通过RPC远程调用将Map产生的M份数据文件pull到本地。(只有所有Map函数完成，Reduce才能执行)。Reduce任务根据中间数据的Key对记录进行排序，相同key的记录聚合在一起</li>
+<li>Reduce任务Worker遍历有序数据，将同一个Key及其对应的多个Value传递给用户定义的Reduce函数，reduce函数执行业务逻辑后将结果追加到Reduce对应的结果文件末尾</li>
+<li>所有Map、Reduce任务完成，Master唤醒用户应用程序</li>
+</ol>
+<p>为了优化执行效率，MapReduce计算框架在Map阶段还可以执行Combiner操作。</p>
+<p>hadoop的MapReduce运行机制基本与google的类似。<br><img src="http://ww3.sinaimg.cn/mw690/b34f7e8bgw1et6akb0hakj20fg08q3zb.jpg" alt="hadoop的MapReduce运行机制"><br>不同的是，hadoop采用https协议来进行数据传输，并采用归并排序对中间结果进行排序。<br>Google的MapReduce框架支持细粒度的容错机制。Master周期性Ping各个Worker，如果Worker没有响应，则认为其已经发生故障。<br>如果Master故障则单点失效，重新提交任务。</p>
+<h2 id="MapReduce不足">MapReduce不足</h2>
+<ol>
+<li>无高层抽象数据操作语言</li>
+<li>数据无Schema及索引</li>
+<li>单节点效率低下</li>
+<li>任务流描述方法单一</li>
+</ol>
+<p>优势:  </p>
+<ol>
+<li>数据吞吐量高</li>
+<li>支持海量数据处理的大规模并行处理</li>
+<li>细粒度容错<br>但是不适合对时效性高的应用场景，比如交互查询或流处理，也不适合迭代计算类的机器学习及数据挖掘类应用。</li>
+</ol>
+<p>由于:  </p>
+<ol>
+<li>启动时间长</li>
+<li>多处读写磁盘及网络传输</li>
+</ol>
+<h1 id="DAG计算模型">DAG计算模型</h1>
+<p>有向无环图的简称。在大数据处理领域,DAG计算模型是将计算任务在内部分解成若干子任务，这些子任务之间由逻辑关系或运行先后顺序等因素被构建成有向无环图结构。</p>
+<h2 id="DAG计算系统三层结构">DAG计算系统三层结构</h2>
+<ul>
+<li>最上层是应用表达层，通过一定手段将计算任务分解成若干子任务形成的DAG结构</li>
+<li>最下层是物理机集群，由大量物理机器搭建的分布式计算环境</li>
+<li>中间层是DAG执行引擎层，将上层以特殊方式表达的DAG计算任务通过转换和映射，将其部署到下层的物理机集群中运行</li>
+</ul>
+<h2 id="Dryad">Dryad</h2>
+<p>微软DAG计算系统，dryad在实现时以共享内存、TCP连接以及临时文件的方式进行数据传输</p>
+<h3 id="Dryad整体架构">Dryad整体架构</h3>
+<p><img src="http://ww3.sinaimg.cn/mw690/b34f7e8bgw1et6b3zh4plj20dw07xq49.jpg" alt="Dryad整体架构"></p>
+<p>job manager负责将逻辑形式存在的DAG描述映射到物理机。NS负责维护集群中当前可以的机器资源。Daemon守护进程作为JM在计算节点上的代理，具体负责子任务的执行和监控。</p>
+<h2 id="FlumeJava和Tez">FlumeJava和Tez</h2>
+<ul>
+<li>FlumeJava构建了java库，本质上是在MapReduce基础上的DAG计算系统，图中每个节点可以看作单个MapReduce子任务。</li>
+<li>Tez使用Map任务或者Reduce任务作为DAG的图节点，图节点的有向边是数据传输通道。Tez消除Map阶段中间文件输出到磁盘过程以及引入Reduce-Reduce结构改进措施提升执行效率</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://www.abbeychenxi.net/2015/06/16/大规模批处理系统/" data-title="Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/06/16/TF-IDF模型/"  title="TF-IDF模型">
+ <strong>下一篇：</strong><br/> 
+ <span>TF-IDF模型
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2015/06/16/大规模批处理系统/" data-title="" data-url=""></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"abbeychenxi"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:[大数据]"><span class="toc-number">1.</span> <span class="toc-text">tags:[大数据]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MapReduce计算模型与架构"><span class="toc-number"></span> <span class="toc-text">MapReduce计算模型与架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算模型"><span class="toc-number">1.</span> <span class="toc-text">计算模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统架构"><span class="toc-number">2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce不足"><span class="toc-number">3.</span> <span class="toc-text">MapReduce不足</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DAG计算模型"><span class="toc-number"></span> <span class="toc-text">DAG计算模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DAG计算系统三层结构"><span class="toc-number">1.</span> <span class="toc-text">DAG计算系统三层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dryad"><span class="toc-number">2.</span> <span class="toc-text">Dryad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad整体架构"><span class="toc-number">2.1.</span> <span class="toc-text">Dryad整体架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlumeJava和Tez"><span class="toc-number">3.</span> <span class="toc-text">FlumeJava和Tez</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/IOS/" title="IOS">IOS<sup>1</sup></a></li>
+		
+			<li><a href="/categories/LeetCode/" title="LeetCode">LeetCode<sup>1</sup></a></li>
+		
+			<li><a href="/categories/NJUStudying/" title="NJUStudying">NJUStudying<sup>2</sup></a></li>
+		
+			<li><a href="/categories/cosjy/" title="cosjy">cosjy<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/python/" title="python">python<sup>11</sup></a></li>
+		
+			<li><a href="/tags/爬虫/" title="爬虫">爬虫<sup>6</sup></a></li>
+		
+			<li><a href="/tags/NJU/" title="NJU">NJU<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Scrapy/" title="Scrapy">Scrapy<sup>3</sup></a></li>
+		
+			<li><a href="/tags/搜索引擎/" title="搜索引擎">搜索引擎<sup>2</sup></a></li>
+		
+			<li><a href="/tags/软件工程管理/" title="软件工程管理">软件工程管理<sup>2</sup></a></li>
+		
+			<li><a href="/tags/node-js/" title="node.js">node.js<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Full-Stack/" title="Full-Stack">Full-Stack<sup>1</sup></a></li>
+		
+			<li><a href="/tags/data-mining/" title="data mining">data mining<sup>1</sup></a></li>
+		
+			<li><a href="/tags/分布式/" title="分布式">分布式<sup>1</sup></a></li>
+		
+			<li><a href="/tags/networking-program/" title="networking program">networking program<sup>1</sup></a></li>
+		
+			<li><a href="/tags/MEAN-js/" title="MEAN.js">MEAN.js<sup>1</sup></a></li>
+		
+			<li><a href="/tags/supervisord/" title="supervisord">supervisord<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">14</span></li></ul>
+  </div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/Full-Stack/" style="font-size: 10.00px;">Full-Stack</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MEAN-js/" style="font-size: 10.00px;">MEAN.js</a><a href="/tags/NJU/" style="font-size: 15.00px;">NJU</a><a href="/tags/Scrapy/" style="font-size: 15.00px;">Scrapy</a><a href="/tags/data-mining/" style="font-size: 10.00px;">data mining</a><a href="/tags/networking-program/" style="font-size: 10.00px;">networking program</a><a href="/tags/node-js/" style="font-size: 12.50px;">node.js</a><a href="/tags/python/" style="font-size: 20.00px;">python</a><a href="/tags/supervisord/" style="font-size: 10.00px;">supervisord</a><a href="/tags/分布式/" style="font-size: 10.00px;">分布式</a><a href="/tags/搜索引擎/" style="font-size: 12.50px;">搜索引擎</a><a href="/tags/爬虫/" style="font-size: 17.50px;">爬虫</a><a href="/tags/软件工程管理/" style="font-size: 12.50px;">软件工程管理</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://misok.github.io/">小马的博客</a></li>
+      <li><a href="http://blog.gongshw.com/">Gongshw's Blog</a></li>
+      <li><a href="http://andrewliu.tk">Andrewliu</a></li>
+      <li><a href="http://jas923.tk">Jas's Blog</a></li>
+      <li><a href="http://sqing.tk">Suqing's Blog</a></li>
+      <li><a href="http://rulerstorm.github.io">Ruler's Blog</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Hello, I&#39;m Chen Xi in NJU. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/3008331403" target="_blank" class="icon-weibo" title="weibo"></a>
+		
+		
+		<a href="https://github.com/Abbeychenxi" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		<a href="http://stackoverflow.com/users/4008337" target="_blank" class="icon-stack-overflow" title="stackoverflow"></a>
+		
+		
+		
+		
+		<a href="https://www.douban.com/people/54888789" target="_blank" class="icon-douban" title="豆瓣"></a>
+		
+		
+		
+		<a href="mailto:abbeychenx@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2015 
+		
+		<a href="http://www.abbeychenxi.net/about" target="_blank" title="Abbey">Abbey</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"Abbey_ama"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+
+
+<div id="totop">
+<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+</div>
+
+<script src="/js/totop.js"></script>
+
+
+
+
+  </body>
+</html>
