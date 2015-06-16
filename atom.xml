@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 立志成为一名游戏开发极客]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2015-06-16T15:24:36.389Z</updated>
+  <updated>2015-06-16T15:27:45.783Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -15,14 +15,13 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[]]></title>
+    <title><![CDATA[大规模批处理系统]]></title>
     <link href="http://www.abbeychenxi.net/2015/06/16/%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F/"/>
     <id>http://www.abbeychenxi.net/2015/06/16/大规模批处理系统/</id>
-    <published>2015-06-16T15:23:32.000Z</published>
-    <updated>2015-06-16T15:23:32.000Z</updated>
-    <content type="html"><![CDATA[<p>title: 大规模批处理系统<br>date: 2015-06-16 23:01:27</p>
-<h2 id="tags:[大数据]">tags:[大数据]</h2>
-<p>背景:<br>Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结构化数据的ETL处理类操作，并且可扩展性和容错性占优，但是单机处理效率较低。<br>DAG计算模型是MapReduce计算机制的一种扩展。MapReduce对于子任务之间复杂的交互和依赖关系缺乏表达能力，DAG计算模型可以表达复杂的并发任务之间的依赖关系。<br>Spark本质上是DAG批处理系统，其最能发挥特长的领域是迭代式机器学习。</p>
+    <published>2015-06-16T15:01:27.000Z</published>
+    <updated>2015-06-16T15:27:15.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="背景:">背景:</h1>
+<p>Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结构化数据的ETL处理类操作，并且可扩展性和容错性占优，但是单机处理效率较低。<br>DAG计算模型是MapReduce计算机制的一种扩展。MapReduce对于子任务之间复杂的交互和依赖关系缺乏表达能力，DAG计算模型可以表达复杂的并发任务之间的依赖关系。<br>Spark本质上是DAG批处理系统，其最能发挥特长的领域是迭代式机器学习。</p>
 <h1 id="MapReduce计算模型与架构">MapReduce计算模型与架构</h1>
 <h2 id="计算模型">计算模型</h2>
 <p>MapReduce计算任务的输入是Key/Value数据对，输出也以Key/Value数据对方式表示。开发者要根据业务逻辑实现Map和Reduce两个接口函数内的具体操作内容，即可完成大规模数据的并行批处理任务。</p>
@@ -87,6 +86,8 @@
 </ul>
 ]]></content>
     
+    
+      <category term="大数据" scheme="http://www.abbeychenxi.net/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
   </entry>
   

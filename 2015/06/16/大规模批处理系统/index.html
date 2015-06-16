@@ -4,14 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Abbey in Cradle Studio</title>
+    <title>大规模批处理系统 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="title: 大规模批处理系统date: 2015-06-16 23:01:27
-tags:[大数据]
-背景:Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结">
+    <meta name="description" content="背景:
+Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结构化数据的ETL处理类操作，并且可扩展性和容错性占优，但是单机处理效率较低。DAG计算模型是MapRe">
     
     
     
@@ -76,14 +75,14 @@ tags:[大数据]
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/16/大规模批处理系统/" title="" itemprop="url"></a>
+      <a href="/2015/06/16/大规模批处理系统/" title="大规模批处理系统" itemprop="url">大规模批处理系统</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-16T15:23:32.000Z" itemprop="datePublished"> 发表于 2015-06-16</time>
+    <time datetime="2015-06-16T15:01:27.000Z" itemprop="datePublished"> 发表于 2015-06-16</time>
     
   </p>
 </header>
@@ -93,13 +92,12 @@ tags:[大数据]
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:[大数据]"><span class="toc-number">1.</span> <span class="toc-text">tags:[大数据]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MapReduce计算模型与架构"><span class="toc-number"></span> <span class="toc-text">MapReduce计算模型与架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算模型"><span class="toc-number">1.</span> <span class="toc-text">计算模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统架构"><span class="toc-number">2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce不足"><span class="toc-number">3.</span> <span class="toc-text">MapReduce不足</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DAG计算模型"><span class="toc-number"></span> <span class="toc-text">DAG计算模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DAG计算系统三层结构"><span class="toc-number">1.</span> <span class="toc-text">DAG计算系统三层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dryad"><span class="toc-number">2.</span> <span class="toc-text">Dryad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad整体架构"><span class="toc-number">2.1.</span> <span class="toc-text">Dryad整体架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlumeJava和Tez"><span class="toc-number">3.</span> <span class="toc-text">FlumeJava和Tez</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景:"><span class="toc-number">1.</span> <span class="toc-text">背景:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MapReduce计算模型与架构"><span class="toc-number">2.</span> <span class="toc-text">MapReduce计算模型与架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算模型"><span class="toc-number">2.1.</span> <span class="toc-text">计算模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统架构"><span class="toc-number">2.2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce不足"><span class="toc-number">2.3.</span> <span class="toc-text">MapReduce不足</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DAG计算模型"><span class="toc-number">3.</span> <span class="toc-text">DAG计算模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DAG计算系统三层结构"><span class="toc-number">3.1.</span> <span class="toc-text">DAG计算系统三层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dryad"><span class="toc-number">3.2.</span> <span class="toc-text">Dryad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad整体架构"><span class="toc-number">3.2.1.</span> <span class="toc-text">Dryad整体架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlumeJava和Tez"><span class="toc-number">3.3.</span> <span class="toc-text">FlumeJava和Tez</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>title: 大规模批处理系统<br>date: 2015-06-16 23:01:27</p>
-<h2 id="tags:[大数据]">tags:[大数据]</h2>
-<p>背景:<br>Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结构化数据的ETL处理类操作，并且可扩展性和容错性占优，但是单机处理效率较低。<br>DAG计算模型是MapReduce计算机制的一种扩展。MapReduce对于子任务之间复杂的交互和依赖关系缺乏表达能力，DAG计算模型可以表达复杂的并发任务之间的依赖关系。<br>Spark本质上是DAG批处理系统，其最能发挥特长的领域是迭代式机器学习。</p>
+		<h1 id="背景:">背景:</h1>
+<p>Google发表了MapReduce计算范型及其框架的论文。MapReduce和并行数据库系统(MPP)各有优劣并且两者有一定的互补和学习。与传统MPP架构相比，MapReduce更适合非结构化数据的ETL处理类操作，并且可扩展性和容错性占优，但是单机处理效率较低。<br>DAG计算模型是MapReduce计算机制的一种扩展。MapReduce对于子任务之间复杂的交互和依赖关系缺乏表达能力，DAG计算模型可以表达复杂的并发任务之间的依赖关系。<br>Spark本质上是DAG批处理系统，其最能发挥特长的领域是迭代式机器学习。</p>
 <h1 id="MapReduce计算模型与架构">MapReduce计算模型与架构</h1>
 <h2 id="计算模型">计算模型</h2>
 <p>MapReduce计算任务的输入是Key/Value数据对，输出也以Key/Value数据对方式表示。开发者要根据业务逻辑实现Map和Reduce两个接口函数内的具体操作内容，即可完成大规模数据的并行批处理任务。</p>
@@ -168,12 +166,17 @@ tags:[大数据]
 <div class="article-catetags">
 
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/大数据/">大数据</a>
+  </div>
+
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2015/06/16/大规模批处理系统/" data-title="Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2015/06/16/大规模批处理系统/" data-title="大规模批处理系统 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -195,7 +198,7 @@ tags:[大数据]
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2015/06/16/大规模批处理系统/" data-title="" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2015/06/16/大规模批处理系统/" data-title="大规模批处理系统" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -218,7 +221,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#tags:[大数据]"><span class="toc-number">1.</span> <span class="toc-text">tags:[大数据]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MapReduce计算模型与架构"><span class="toc-number"></span> <span class="toc-text">MapReduce计算模型与架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算模型"><span class="toc-number">1.</span> <span class="toc-text">计算模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统架构"><span class="toc-number">2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce不足"><span class="toc-number">3.</span> <span class="toc-text">MapReduce不足</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DAG计算模型"><span class="toc-number"></span> <span class="toc-text">DAG计算模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DAG计算系统三层结构"><span class="toc-number">1.</span> <span class="toc-text">DAG计算系统三层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dryad"><span class="toc-number">2.</span> <span class="toc-text">Dryad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad整体架构"><span class="toc-number">2.1.</span> <span class="toc-text">Dryad整体架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlumeJava和Tez"><span class="toc-number">3.</span> <span class="toc-text">FlumeJava和Tez</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#背景:"><span class="toc-number">1.</span> <span class="toc-text">背景:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MapReduce计算模型与架构"><span class="toc-number">2.</span> <span class="toc-text">MapReduce计算模型与架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#计算模型"><span class="toc-number">2.1.</span> <span class="toc-text">计算模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统架构"><span class="toc-number">2.2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MapReduce不足"><span class="toc-number">2.3.</span> <span class="toc-text">MapReduce不足</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DAG计算模型"><span class="toc-number">3.</span> <span class="toc-text">DAG计算模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DAG计算系统三层结构"><span class="toc-number">3.1.</span> <span class="toc-text">DAG计算系统三层结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dryad"><span class="toc-number">3.2.</span> <span class="toc-text">Dryad</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dryad整体架构"><span class="toc-number">3.2.1.</span> <span class="toc-text">Dryad整体架构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FlumeJava和Tez"><span class="toc-number">3.3.</span> <span class="toc-text">FlumeJava和Tez</span></a></li></ol></li></ol>
  
   </div>
 
@@ -262,7 +265,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
 		
 			<li><a href="/tags/node-js/" title="node.js">node.js<sup>2</sup></a></li>
 		
-			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
+			<li><a href="/tags/大数据/" title="大数据">大数据<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Full-Stack/" title="Full-Stack">Full-Stack<sup>1</sup></a></li>
 		
@@ -271,6 +274,8 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
 			<li><a href="/tags/分布式/" title="分布式">分布式<sup>1</sup></a></li>
 		
 			<li><a href="/tags/networking-program/" title="networking program">networking program<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>1</sup></a></li>
 		
 			<li><a href="/tags/MEAN-js/" title="MEAN.js">MEAN.js<sup>1</sup></a></li>
 		
@@ -291,7 +296,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/Full-Stack/" style="font-size: 10.00px;">Full-Stack</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MEAN-js/" style="font-size: 10.00px;">MEAN.js</a><a href="/tags/NJU/" style="font-size: 15.00px;">NJU</a><a href="/tags/Scrapy/" style="font-size: 15.00px;">Scrapy</a><a href="/tags/data-mining/" style="font-size: 10.00px;">data mining</a><a href="/tags/networking-program/" style="font-size: 10.00px;">networking program</a><a href="/tags/node-js/" style="font-size: 12.50px;">node.js</a><a href="/tags/python/" style="font-size: 20.00px;">python</a><a href="/tags/supervisord/" style="font-size: 10.00px;">supervisord</a><a href="/tags/分布式/" style="font-size: 10.00px;">分布式</a><a href="/tags/搜索引擎/" style="font-size: 12.50px;">搜索引擎</a><a href="/tags/爬虫/" style="font-size: 17.50px;">爬虫</a><a href="/tags/软件工程管理/" style="font-size: 12.50px;">软件工程管理</a>
+       <a href="/tags/Full-Stack/" style="font-size: 10.00px;">Full-Stack</a><a href="/tags/Linux/" style="font-size: 10.00px;">Linux</a><a href="/tags/MEAN-js/" style="font-size: 10.00px;">MEAN.js</a><a href="/tags/NJU/" style="font-size: 15.00px;">NJU</a><a href="/tags/Scrapy/" style="font-size: 15.00px;">Scrapy</a><a href="/tags/data-mining/" style="font-size: 10.00px;">data mining</a><a href="/tags/networking-program/" style="font-size: 10.00px;">networking program</a><a href="/tags/node-js/" style="font-size: 12.50px;">node.js</a><a href="/tags/python/" style="font-size: 20.00px;">python</a><a href="/tags/supervisord/" style="font-size: 10.00px;">supervisord</a><a href="/tags/分布式/" style="font-size: 10.00px;">分布式</a><a href="/tags/大数据/" style="font-size: 10.00px;">大数据</a><a href="/tags/搜索引擎/" style="font-size: 12.50px;">搜索引擎</a><a href="/tags/爬虫/" style="font-size: 17.50px;">爬虫</a><a href="/tags/软件工程管理/" style="font-size: 12.50px;">软件工程管理</a>
     </div>
   </div>
 
