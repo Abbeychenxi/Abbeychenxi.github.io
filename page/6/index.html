@@ -73,97 +73,78 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2014/12/23/Supervisord-一个简单方便的守护进程/" title="Supervisord 一个简单方便的守护进程" itemprop="url">
+    <a href="/2014/09/06/Python网络爬虫[三]/" title="Python网络爬虫[三]" itemprop="url">
   
-    <h1 itemprop="name">Supervisord 一个简单方便的守护进程</h1>
+    <h1 itemprop="name">Python网络爬虫[三]</h1>
     
      
-           <p itemprop="description" >生成配置文件
-echo_supervisord_conf &amp;gt; /etc/supervisord.conf
-配置
-[program: my_app]command = python /path/to/your/app.py 启动项目的命令startsecs = 0stopwa</p>
+           <p itemprop="description" >HTTP异常处理
+urlopen不能处理一个response时，产生urlError。
+不过通常的Python APIs异常也会同时产生。
+HTTPError是urlError的子类，通常在特定HTTP URLs中产生。
+URLError
+12345678import urlli</p>
         
     
-    <time datetime="2014-12-22T16:08:12.000Z" itemprop="datePublished">2014-12-23</time>
+    <time datetime="2014-09-06T09:51:23.000Z" itemprop="datePublished">2014-09-06</time>
   </a>
 </section>
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2014/12/16/Scrapy中的Xpath/" title="Scrapy中的Xpath" itemprop="url">
+    <a href="/2014/09/06/Python网络爬虫[二]/" title="Python网络爬虫[二]" itemprop="url">
   
-    <h1 itemprop="name">Scrapy中的Xpath</h1>
+    <h1 itemprop="name">Python网络爬虫[二]</h1>
     
      
-           <p itemprop="description" >如何在Scrapy的Xpath中使用正则？
-需求
-html中的部分a标签需要爬，很多脏数据可以通过a标签的 href 的指向的链接 去判别
-ok 进入正题
-Scrapy 的EXSLT扩展
-re
-例如在XPath的 starts-with() 或 contains() 无法满足需求</p>
+           <p itemprop="description" >urllib2
+urllib2组件来抓取网页。urllib2是python的一个获取URLs的组件。它以urlopen函数的形式提供了一个简单的接口。
+1234import urllib2response = urllib2.urlopen(&#39;http://www.baidu.c</p>
         
     
-    <time datetime="2014-12-16T13:50:26.000Z" itemprop="datePublished">2014-12-16</time>
+    <time datetime="2014-09-06T05:40:00.000Z" itemprop="datePublished">2014-09-06</time>
   </a>
 </section>
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2014/12/14/Rust/" title="Rust" itemprop="url">
+    <a href="/2014/09/04/Python网络爬虫[一]/" title="Python网络爬虫[一]" itemprop="url">
   
-    <h1 itemprop="name">Rust</h1>
+    <h1 itemprop="name">Python网络爬虫[一]</h1>
     
      
-           <p itemprop="description" >Rust 1.0 发布了。这个看上去比Go的语法优美，简洁的静态编译型语言。
-大致看了一下语法。和Swift很类似。
-决定入坑Rust。</p>
+           <p itemprop="description" >URI
+URI通常由三部分组成：
+
+访问资源的命名机制；
+存放资源的主机名
+资源自身的名称，由路径表示
+
+URI定义:统一资源标识符URL定义:统一资源定位符
+爬虫最主要的处理对象就是URL，它根据URL地址取得所需要的文件内容，然后对它进行进一步的处理。</p>
         
     
-    <time datetime="2014-12-14T04:06:08.000Z" itemprop="datePublished">2014-12-14</time>
+    <time datetime="2014-09-04T15:39:08.000Z" itemprop="datePublished">2014-09-04</time>
   </a>
 </section>
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2014/12/05/IOS之协议和委托/" title="IOS之协议和委托" itemprop="url">
+    <a href="/2014/09/04/today/" title="today" itemprop="url">
   
-    <h1 itemprop="name">IOS之协议和委托</h1>
+    <h1 itemprop="name">today</h1>
     
      
-           <p itemprop="description" >protocol
-
-一个协议不实现任何它定义的方法。它的作用是：当一个对象遵从这个协议时，这个对象必须实现协议的所有方法。
-
-1234protocol AddItemViewControllerDelegate: class {    func addItemViewContro</p>
+           <p itemprop="description" >今天入学教育，正式成为了NJU的一名学生。晚上成功搭建了自己的个人博客！I’m so happy!Thanks everyone!</p>
         
     
-    <time datetime="2014-12-04T16:06:53.000Z" itemprop="datePublished">2014-12-05</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/12/02/最长回文子串/" title="最长回文子串" itemprop="url">
-  
-    <h1 itemprop="name">最长回文子串</h1>
-    
-     
-           <p itemprop="description" >转载自july
-最长回文子串
-给定一个字符串，求它的最长回文子串的长度。
-分析与解法
-最容易想到的办法是枚举所有的子串，分别判断其是否为回文。这个思路初看起来是正确的，但却做了很多无用功，如果一个长的子串包含另一个短一些的子串，那么对子串的回文判断其实是不需要的。
-那么如何高效的</p>
-        
-    
-    <time datetime="2014-12-01T16:46:34.000Z" itemprop="datePublished">2014-12-02</time>
+    <time datetime="2014-09-03T20:09:48.000Z" itemprop="datePublished">2014-09-04</time>
   </a>
 </section>
 
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
   </nav>
 
 </div>
