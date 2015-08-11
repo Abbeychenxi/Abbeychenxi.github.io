@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>today | Abbey in Cradle Studio</title>
+    <title>folly-SyncPtr | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="今天入学教育，正式成为了NJU的一名学生。晚上成功搭建了自己的个人博客！I’m so happy!Thanks everyone!">
+    <meta name="description" content="PackedSyncPtr不是一个智能指针，Lock提升到用户层面。资源的释放也由用户控制。除非显式的调用lock(), unlock()，不会获取以及释放锁。
+通过set()接口改变原始指针的值，但是当多线程环境下，调用该方法必须持有锁。
+12345678910111213141516171819">
     
     
     
@@ -74,14 +76,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/04/today/" title="today" itemprop="url">today</a>
+      <a href="/2015/08/11/folly-SyncPtr/" title="folly-SyncPtr" itemprop="url">folly-SyncPtr</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-03T20:09:48.000Z" itemprop="datePublished"> 发表于 2014-09-04</time>
+    <time datetime="2015-08-11T08:09:47.000Z" itemprop="datePublished"> 发表于 2015-08-11</time>
     
   </p>
 </header>
@@ -95,7 +97,12 @@
 		
 		</div>
 		
-		<p>今天入学教育，正式成为了NJU的一名学生。<br>晚上成功搭建了自己的个人博客！<br>I’m so happy!<br>Thanks everyone!</p>
+		<p>PackedSyncPtr不是一个智能指针，Lock提升到用户层面。资源的释放也由用户控制。除非显式的调用lock(), unlock()，不会获取以及释放锁。</p>
+<p>通过set()接口改变原始指针的值，但是当多线程环境下，调用该方法必须持有锁。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> T&gt;</div><div class="line"><span class="keyword">class</span> PackedSyncPtr {</div><div class="line"><span class="comment">//允许当T为void的时候使用该类， 当对PackedSyncPtr&lt;void&gt;使用*或者[]操作符的时候，将产生编译错误</span></div><div class="line">    <span class="keyword">typedef</span> <span class="keyword">typename</span> std::add_lvalue_reference&lt;T&gt;::type reference;</div><div class="line">    </div><div class="line"><span class="keyword">public</span>:</div><div class="line"><span class="comment">//初始化动作</span></div><div class="line">    <span class="keyword">void</span> init(T* initialPtr = <span class="number">0</span>, uint16_t initialExtra = <span class="number">0</span>) {</div><div class="line">        <span class="keyword">auto</span> intPtr = <span class="keyword">reinterpret_cast</span>&lt;uintptr_t&gt;(initialPtr);</div><div class="line">        CHECK(!(intPtr &gt;&gt; <span class="number">48</span>));</div><div class="line">        data_.init(inntPtr);</div><div class="line">        setExtra(initialExtra);</div><div class="line">    }</div><div class="line">    </div><div class="line"><span class="comment">//设置一个新指针，多线程环境下应当持有锁，或者不与其他线程共享PackedSyncPtr</span></div><div class="line">    <span class="keyword">void</span> <span class="built_in">set</span>(T* t) {</div><div class="line">        <span class="keyword">auto</span> intPtr = <span class="keyword">reinterpret_cast</span>&lt;uintptr_t&gt;(t);</div><div class="line">        <span class="keyword">auto</span> shiftedExtra = uintptr_t(extra()) &lt;&lt; <span class="number">48</span>;</div><div class="line">        CHECK(!(intPtr &gt;&gt; <span class="number">48</span>));</div><div class="line">        data_.setData(intPtr | shiftedExtra);</div><div class="line">    }</div><div class="line">    </div><div class="line"><span class="comment">//获取指针</span></div><div class="line"><span class="comment">//该方法不需要持有锁</span></div><div class="line">    T* get() <span class="keyword">const</span> {</div><div class="line">        <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;T*&gt;(data_.getData() & (-<span class="number">1u</span>ll &gt;&gt; <span class="number">16</span>));</div><div class="line">    }</div><div class="line">    T* <span class="keyword">operator</span>-&gt;() <span class="keyword">const</span> { <span class="keyword">return</span> get(); }</div><div class="line">    reference <span class="keyword">operator</span>*() <span class="keyword">const</span> { <span class="keyword">return</span> *get(); }</div><div class="line">    reference <span class="keyword">operator</span>[](std::ptrdiff_t i) <span class="keyword">const</span> { <span class="keyword">return</span> get()[i]; }</div><div class="line">    </div><div class="line">    <span class="keyword">void</span> lock() <span class="keyword">const</span> { data_.lock(); }</div><div class="line">    <span class="keyword">void</span> unlock() <span class="keyword">const</span> { data_.unlock(); }</div><div class="line">    <span class="keyword">bool</span> try_lock() <span class="keyword">const</span> { <span class="keyword">return</span> data_.try_lock(); }</div><div class="line">    </div><div class="line"><span class="comment">//储存在指针内未使用的bytes的入口</span></div><div class="line">    uint_t extra() <span class="keyword">const</span> {</div><div class="line">        <span class="keyword">return</span> data_.getData() &gt;&gt; <span class="number">48</span>;</div><div class="line">    }</div><div class="line">    </div><div class="line">    <span class="keyword">void</span> setExtra(uint16_t extra) {</div><div class="line">        CHECK(!(extra & <span class="number">0x8000</span>));</div><div class="line">        <span class="keyword">auto</span> ptr = data_.getData() & (-<span class="number">1u</span>ll &gt;&gt; <span class="number">16</span>);</div><div class="line">        data_.setData((uintptr_t(extra) &lt;&lt; <span class="number">48</span>) | ptr);</div><div class="line">    }</div><div class="line">    </div><div class="line">    PicoSpinLcok&lt;uintptr_t&gt; data_;</div><div class="line">};</div></pre></td></tr></table></figure>
+
+<p>高度专业化的数据结构组成的一个指针,1比特自旋锁,和15位整形数,都储存在一个64位word中。</p>
+<p>主要对自旋锁的封装<br>folly组件中有smallLock是对spinLock的实现。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -104,7 +111,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/NJU/">NJU</a>
+  <span></span> <a href="/tags/folly/">folly</a>
   </div>
 
 </div>
@@ -112,7 +119,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/04/today/" data-title="today | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2015/08/11/folly-SyncPtr/" data-title="folly-SyncPtr | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -121,20 +128,20 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/04/Python网络爬虫[一]/" title="Python网络爬虫[一]">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Python网络爬虫[一]</span>
+
+<div class="next">
+<a href="/2015/06/16/大规模批处理系统/"  title="大规模批处理系统">
+ <strong>下一篇：</strong><br/> 
+ <span>大规模批处理系统
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/04/today/" data-title="today" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2015/08/11/folly-SyncPtr/" data-title="folly-SyncPtr" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
