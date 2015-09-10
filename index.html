@@ -78,7 +78,10 @@
     <h1 itemprop="name">folly-PicoSpinLock</h1>
     
      
-           <p itemprop="description" ></p>
+           <p itemprop="description" >folly中实现的自旋锁
+占一个比特的自旋锁实现，可以在16 32 64位integral 类型中使用。
+当想要用一个很小的锁 并且 已经存在一个int值而且保证有一位没有使用的情况下，folly的spinLock非常有用。
+在SpinLock的实现中，没有一个真正的构造器，因为</p>
         
     
     <time datetime="2015-08-11T08:51:02.000Z" itemprop="datePublished">2015-08-11</time>
