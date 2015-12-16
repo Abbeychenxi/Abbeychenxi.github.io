@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 关注Spark、R]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2015-12-16T11:55:06.582Z</updated>
+  <updated>2015-12-16T12:00:18.618Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[]]></title>
+    <title><![CDATA[由一个STOP命令挖出Ambari如何下发任务]]></title>
     <link href="http://www.abbeychenxi.net/2015/12/16/%E7%94%B1%E4%B8%80%E4%B8%AASTOP%E5%91%BD%E4%BB%A4%E6%8C%96%E5%87%BAAmbari%E5%A6%82%E4%BD%95%E4%B8%8B%E5%8F%91%E4%BB%BB%E5%8A%A1/"/>
     <id>http://www.abbeychenxi.net/2015/12/16/由一个STOP命令挖出Ambari如何下发任务/</id>
-    <published>2015-12-16T11:54:58.000Z</published>
-    <updated>2015-12-16T11:54:58.000Z</updated>
+    <published>2015-12-16T12:00:10.000Z</published>
+    <updated>2015-12-16T12:00:13.000Z</updated>
     <content type="html"><![CDATA[<p>天龙系统部署MINIRDS失败，重试时，Ambari会对所有已经安装成功的组件下发一个STOP命令。对这个STOP，处女座的@风煜表示不能忍，so。。。开始啃Ambari源码之路。。。</p>
 <p><img src="http://ww4.sinaimg.cn/large/b34f7e8bgw1ez1miuxo0vj217g0t87b1.jpg" alt=""></p>
 <p><img src="http://ww3.sinaimg.cn/large/b34f7e8bgw1ez1mjpt1bbj21600jewgu.jpg" alt=""></p>
@@ -40,6 +40,8 @@
 <p>这是Ambari Controller的策略。在ambari server中，每个component都有一个状态机，当重试时，component状态为INSTALLED时，controller会向对应状态机执行STOP命令对应的HOST_SERVICE_COMPONENT_EVENT。</p>
 ]]></content>
     
+    
+      <category term="Ambari" scheme="http://www.abbeychenxi.net/categories/Ambari/"/>
     
   </entry>
   
