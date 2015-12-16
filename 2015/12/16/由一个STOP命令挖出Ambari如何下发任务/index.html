@@ -4,17 +4,16 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Python网络爬虫[三] | Abbey in Cradle Studio</title>
+    <title>Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="HTTP异常处理
-urlopen不能处理一个response时，产生urlError。
-不过通常的Python APIs异常也会同时产生。
-HTTPError是urlError的子类，通常在特定HTTP URLs中产生。
-URLError
-12345678import urllib2req = ur">
+    <meta name="description" content="天龙系统部署MINIRDS失败，重试时，Ambari会对所有已经安装成功的组件下发一个STOP命令。对这个STOP，处女座的@风煜表示不能忍，so。。。开始啃Ambari源码之路。。。
+
+
+抓包发现重试时，前端向server发送了一个PUT请求
+ok，这个PUT请求到server端之后，server">
     
     
     
@@ -79,14 +78,14 @@ URLError
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/06/Python网络爬虫[三]/" title="Python网络爬虫[三]" itemprop="url">Python网络爬虫[三]</a>
+      <a href="/2015/12/16/由一个STOP命令挖出Ambari如何下发任务/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-06T09:51:23.000Z" itemprop="datePublished"> 发表于 2014-09-06</time>
+    <time datetime="2015-12-16T11:54:58.000Z" itemprop="datePublished"> 发表于 2015-12-16</time>
     
   </p>
 </header>
@@ -96,42 +95,40 @@ URLError
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP异常处理"><span class="toc-number">1.</span> <span class="toc-text">HTTP异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URLError"><span class="toc-number"></span> <span class="toc-text">URLError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPError"><span class="toc-number"></span> <span class="toc-text">HTTPError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wrapping"><span class="toc-number"></span> <span class="toc-text">Wrapping</span></a>
+			
 		
 		</div>
 		
-		<h2 id="HTTP异常处理">HTTP异常处理</h2>
-<p>urlopen不能处理一个response时，产生urlError。</p>
-<p>不过通常的Python APIs异常也会同时产生。</p>
-<p>HTTPError是urlError的子类，通常在特定HTTP URLs中产生。</p>
-<h1 id="URLError">URLError</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line"></div><div class="line">req = urllib2.Request(<span class="string">'http://www.baidu.com'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.ereason</div></pre></td></tr></table></figure>
-
-<h1 id="HTTPError">HTTPError</h1>
-<p>服务器上每一个HTTP应答对象response包含一个数字“状态码”。</p>
-<p>有时状态码指出服务器无法完成请求。默认的处理器会为你处理一部分这种应答。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> urllib2</div><div class="line">req = urllib2.Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	urllib2.urlopen(req)</div><div class="line">	</div><div class="line"><span class="keyword">except</span> urllib2.URLError, e:</div><div class="line">	<span class="keyword">print</span> e.code</div></pre></td></tr></table></figure>
-
-<h1 id="Wrapping">Wrapping</h1>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib2 <span class="keyword">import</span> Request, urlopen, URLError, HTTPError</div><div class="line"></div><div class="line">req = Request(<span class="string">'http://bbs.csdn.net/callmewhy'</span>)</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	response = urlopen(req)</div><div class="line"></div><div class="line"><span class="keyword">except</span> URLError, e:</div><div class="line">	<span class="keyword">if</span> hasattr(e, <span class="string">'code'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'The server couldn\'t fulfill the request.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Error code: '</span>, e.code</div><div class="line">	<span class="keyword">elif</span> has attr(e, <span class="string">'reason'</span>):</div><div class="line">		<span class="keyword">print</span> <span class="string">'We failed to reach a server.'</span></div><div class="line">		</div><div class="line">		<span class="keyword">print</span> <span class="string">'Reason:'</span>, e.reason</div><div class="line">		</div><div class="line"><span class="keyword">else</span>:</div><div class="line">	<span class="keyword">print</span> <span class="string">'No exception was raised.'</span></div></pre></td></tr></table></figure>
-
+		<p>天龙系统部署MINIRDS失败，重试时，Ambari会对所有已经安装成功的组件下发一个STOP命令。对这个STOP，处女座的@风煜表示不能忍，so。。。开始啃Ambari源码之路。。。</p>
+<p><img src="http://ww4.sinaimg.cn/large/b34f7e8bgw1ez1miuxo0vj217g0t87b1.jpg" alt=""></p>
+<p><img src="http://ww3.sinaimg.cn/large/b34f7e8bgw1ez1mjpt1bbj21600jewgu.jpg" alt=""></p>
+<p>抓包发现重试时，前端向server发送了一个PUT请求<br><img src="http://ww4.sinaimg.cn/large/b34f7e8bgw1ez1mlve9r1j21j20i8afu.jpg" alt=""></p>
+<p>ok，这个PUT请求到server端之后，server到底做了什么呢？？</p>
+<p>如下图所示，一个API如何产生部署阶段-&gt;stage<br><img src="http://ww1.sinaimg.cn/large/b34f7e8bgw1ez1nl6urk5j20tq0psaf6.jpg" alt=""></p>
+<p>在Ambari中什么是stage呢，以部署MINIRDS为例，需要部署GLOBALCONFIG，METADB，BAKDB，PERFDB…..等等等等。</p>
+<p>这些任务如PERFDB,BAKDB必须依赖METADB，所以部署PERFDB时必须保证METADB部署完成，所以GLOBALCOONFIG、METADB为第一阶段，PERFDB，BAKDB为第二阶段。</p>
+<p>总体来讲，stage的任务规划是按照DAG的方式来实现的。什么是DAG？</p>
+<p><code>DAG：在图论中，如果一个有向图无法从任意顶点出发经过若干条边回到该点，则这个图是一个有向无环图（DAG图）。
+因为有向图中一个点经过两种路线到达另一个点未必形成环，因此有向无环图未必能转化成树，但任何有向树均为有向无环图。</code><br><img src="http://ww2.sinaimg.cn/large/b34f7e8bgw1ez1o25dy3jj20k00ekgmd.jpg" alt=""></p>
+<p>如何实现DAG？</p>
+<p>在Ambari server算法中，所有的service作为一个结点(即METADB、GLOBALCONFIG)，节点间的依赖关系为eage(边)，如PERFDB依赖METADB，所以有一条METADB指向PERFDB的边。</p>
+<p>如何划分stage？</p>
+<p>遍历所有节点，将入度(指向该节点的边的个数)为0的节点作为一个stage，并将这些节点从原来哈希表中删除。<br>循环直至，所有节点都划分完毕。</p>
+<p>从数据库中的数据验证结果。。。。<br><img src="http://ww2.sinaimg.cn/large/b34f7e8bgw1ez1oc1mcawj213i0qox0p.jpg" alt=""></p>
+<p>为什么会给安装好的组件下发STOP命令呢？</p>
+<p>这是Ambari Controller的策略。在ambari server中，每个component都有一个状态机，当重试时，component状态为INSTALLED时，controller会向对应状态机执行STOP命令对应的HOST_SERVICE_COMPONENT_EVENT。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/python/">python</a><a href="/tags/爬虫/">爬虫</a>
-  </div>
-
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/09/06/Python网络爬虫[三]/" data-title="Python网络爬虫[三] | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2015/12/16/由一个STOP命令挖出Ambari如何下发任务/" data-title="Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -140,19 +137,11 @@ URLError
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/06/Python网络爬虫[四]/" title="Python网络爬虫[四]">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Python网络爬虫[四]</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/06/Python网络爬虫[二]/"  title="Python网络爬虫[二]">
+<a href="/2015/08/11/folly-PicoSpinLock/"  title="folly-PicoSpinLock">
  <strong>下一篇：</strong><br/> 
- <span>Python网络爬虫[二]
+ <span>folly-PicoSpinLock
 </span>
 </a>
 </div>
@@ -161,7 +150,7 @@ URLError
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/09/06/Python网络爬虫[三]/" data-title="Python网络爬虫[三]" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2015/12/16/由一个STOP命令挖出Ambari如何下发任务/" data-title="" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -184,7 +173,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP异常处理"><span class="toc-number">1.</span> <span class="toc-text">HTTP异常处理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URLError"><span class="toc-number"></span> <span class="toc-text">URLError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPError"><span class="toc-number"></span> <span class="toc-text">HTTPError</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Wrapping"><span class="toc-number"></span> <span class="toc-text">Wrapping</span></a>
+ 
  
   </div>
 

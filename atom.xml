@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 关注Spark、R]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2015-09-11T08:09:37.663Z</updated>
+  <updated>2015-12-16T11:55:06.582Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -13,6 +13,35 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[]]></title>
+    <link href="http://www.abbeychenxi.net/2015/12/16/%E7%94%B1%E4%B8%80%E4%B8%AASTOP%E5%91%BD%E4%BB%A4%E6%8C%96%E5%87%BAAmbari%E5%A6%82%E4%BD%95%E4%B8%8B%E5%8F%91%E4%BB%BB%E5%8A%A1/"/>
+    <id>http://www.abbeychenxi.net/2015/12/16/由一个STOP命令挖出Ambari如何下发任务/</id>
+    <published>2015-12-16T11:54:58.000Z</published>
+    <updated>2015-12-16T11:54:58.000Z</updated>
+    <content type="html"><![CDATA[<p>天龙系统部署MINIRDS失败，重试时，Ambari会对所有已经安装成功的组件下发一个STOP命令。对这个STOP，处女座的@风煜表示不能忍，so。。。开始啃Ambari源码之路。。。</p>
+<p><img src="http://ww4.sinaimg.cn/large/b34f7e8bgw1ez1miuxo0vj217g0t87b1.jpg" alt=""></p>
+<p><img src="http://ww3.sinaimg.cn/large/b34f7e8bgw1ez1mjpt1bbj21600jewgu.jpg" alt=""></p>
+<p>抓包发现重试时，前端向server发送了一个PUT请求<br><img src="http://ww4.sinaimg.cn/large/b34f7e8bgw1ez1mlve9r1j21j20i8afu.jpg" alt=""></p>
+<p>ok，这个PUT请求到server端之后，server到底做了什么呢？？</p>
+<p>如下图所示，一个API如何产生部署阶段-&gt;stage<br><img src="http://ww1.sinaimg.cn/large/b34f7e8bgw1ez1nl6urk5j20tq0psaf6.jpg" alt=""></p>
+<p>在Ambari中什么是stage呢，以部署MINIRDS为例，需要部署GLOBALCONFIG，METADB，BAKDB，PERFDB…..等等等等。</p>
+<p>这些任务如PERFDB,BAKDB必须依赖METADB，所以部署PERFDB时必须保证METADB部署完成，所以GLOBALCOONFIG、METADB为第一阶段，PERFDB，BAKDB为第二阶段。</p>
+<p>总体来讲，stage的任务规划是按照DAG的方式来实现的。什么是DAG？</p>
+<p><code>DAG：在图论中，如果一个有向图无法从任意顶点出发经过若干条边回到该点，则这个图是一个有向无环图（DAG图）。
+因为有向图中一个点经过两种路线到达另一个点未必形成环，因此有向无环图未必能转化成树，但任何有向树均为有向无环图。</code><br><img src="http://ww2.sinaimg.cn/large/b34f7e8bgw1ez1o25dy3jj20k00ekgmd.jpg" alt=""></p>
+<p>如何实现DAG？</p>
+<p>在Ambari server算法中，所有的service作为一个结点(即METADB、GLOBALCONFIG)，节点间的依赖关系为eage(边)，如PERFDB依赖METADB，所以有一条METADB指向PERFDB的边。</p>
+<p>如何划分stage？</p>
+<p>遍历所有节点，将入度(指向该节点的边的个数)为0的节点作为一个stage，并将这些节点从原来哈希表中删除。<br>循环直至，所有节点都划分完毕。</p>
+<p>从数据库中的数据验证结果。。。。<br><img src="http://ww2.sinaimg.cn/large/b34f7e8bgw1ez1oc1mcawj213i0qox0p.jpg" alt=""></p>
+<p>为什么会给安装好的组件下发STOP命令呢？</p>
+<p>这是Ambari Controller的策略。在ambari server中，每个component都有一个状态机，当重试时，component状态为INSTALLED时，controller会向对应状态机执行STOP命令对应的HOST_SERVICE_COMPONENT_EVENT。</p>
+]]></content>
+    
+    
+  </entry>
   
   <entry>
     <title><![CDATA[folly-PicoSpinLock]]></title>
@@ -1077,36 +1106,6 @@
 <p>读一个文件时，希望无论异常发送与否的情况下都关闭文件。使用finally块来实现。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import <span class="built_in">time</span></div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">	f = <span class="built_in">file</span>(<span class="string">'poem.txt'</span>)</div><div class="line">	<span class="keyword">while</span> True:</div><div class="line">		<span class="built_in">line</span> = f.readline()</div><div class="line">		<span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">line</span>) == <span class="number">0</span>:</div><div class="line">			break</div><div class="line">		<span class="built_in">time</span>.sleep(<span class="number">2</span>)</div><div class="line">		print <span class="built_in">line</span></div><div class="line"><span class="keyword">finally</span>:</div><div class="line">	f.<span class="built_in">close</span>()</div></pre></td></tr></table></figure>
 
-]]></content>
-    
-    
-      <category term="python" scheme="http://www.abbeychenxi.net/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python 数据结构]]></title>
-    <link href="http://www.abbeychenxi.net/2014/09/29/Python-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    <id>http://www.abbeychenxi.net/2014/09/29/Python-数据结构/</id>
-    <published>2014-09-29T04:02:43.000Z</published>
-    <updated>2014-10-25T18:31:13.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="对象与参考">对象与参考</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</div><div class="line">mylist = shoplist</div><div class="line"></div><div class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</div><div class="line"></div><div class="line">mylist = shoplist[:]</div><div class="line"></div><div class="line"><span class="keyword">del</span> mylist[<span class="number">0</span>]</div></pre></td></tr></table></figure>
-
-<p>如果要复制一个列表或者类似的序列或者其他复杂的对象，必须使用切片操作符来取得拷贝。如果只是想要使用另外一个变量名，两个变量名称都参考同一个对象，那么如果不小心，会引来各种麻烦。</p>
-<h2 id="更多字符串的内容">更多字符串的内容</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">name = <span class="string">'Swaroop'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.startwith(<span class="string">'Swa'</span>):</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="string">'a'</span> <span class="keyword">in</span> name:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> name.find(<span class="string">'war'</span>) != -<span class="number">1</span>:</div><div class="line">	<span class="keyword">pass</span></div><div class="line"></div><div class="line">delimiter = <span class="string">'_*_'</span></div><div class="line">mylist = [<span class="string">'russia'</span>, <span class="string">'india'</span>]</div><div class="line">delimter.join(mylist)</div></pre></td></tr></table></figure>
-
-<p>str类也有以一个作为分隔符的字符串join序列的项目的整洁的方法，它返回一个生成的大字符串。</p>
-<h2 id="软件开发过程">软件开发过程</h2>
-<ol>
-<li>分析</li>
-<li>设计</li>
-<li>实施</li>
-<li>测试与调试</li>
-<li>实施或开发</li>
-<li>优化</li>
-</ol>
 ]]></content>
     
     
