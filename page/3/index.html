@@ -73,6 +73,22 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
+    <a href="/2014/10/07/node异步开发难题/" title="node异步开发难题" itemprop="url">
+  
+    <h1 itemprop="name">node异步开发难题</h1>
+    
+     
+           <p itemprop="description" >作用域导致bug
+javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。
+1</p>
+        
+    
+    <time datetime="2014-10-07T14:36:10.000Z" itemprop="datePublished">2014-10-07</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
     <a href="/2014/09/29/Python在函数中接收元组和列表/" title="Python在函数中接收元组和列表" itemprop="url">
   
     <h1 itemprop="name">Python在函数中接收元组和列表</h1>
@@ -226,22 +242,6 @@ python支持的正则表达式元字符和语法:
   </a>
 </section>
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/09/07/Python网络爬虫[五]/" title="Python网络爬虫[五]" itemprop="url">
-  
-    <h1 itemprop="name">Python网络爬虫[五]</h1>
-    
-     
-           <p itemprop="description" >Proxy设置
-在程序中明确Proxy不受环境变量的影响
-123456789import urllib2enable_proxy = Trueproxy_handler = urllib2.ProxyHandler({&quot;http&quot;: &#39;http://some-proxy.com:</p>
-        
-    
-    <time datetime="2014-09-06T16:00:11.000Z" itemprop="datePublished">2014-09-07</time>
-  </a>
-</section>
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -266,6 +266,8 @@ python支持的正则表达式元字符和语法:
 			<li><a href="/categories/LeetCode/" title="LeetCode">LeetCode<sup>1</sup></a></li>
 		
 			<li><a href="/categories/NJUStudying/" title="NJUStudying">NJUStudying<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Traveling/" title="Traveling">Traveling<sup>1</sup></a></li>
 		
 			<li><a href="/categories/cosjy/" title="cosjy">cosjy<sup>2</sup></a></li>
 		
@@ -317,7 +319,7 @@ python支持的正则表达式元字符和语法:
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">14</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">14</span></li></ul>
   </div>
 
 
@@ -383,7 +385,7 @@ python支持的正则表达式元字符和语法:
 		<a href="mailto:abbeychenx@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
 		
 	</div>
-		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2015 
+		<p class="copyright">Powered by <a>chenxi</a> and Theme by <a>Cradle Studio</a> © 2016 
 		
 		<a href="http://www.abbeychenxi.net/about" target="_blank" title="Abbey">Abbey</a>
 		
