@@ -4,7 +4,7 @@
   <subtitle><![CDATA[年少轻狂 | 关注Spark、R]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.abbeychenxi.net/"/>
-  <updated>2016-06-27T02:27:15.993Z</updated>
+  <updated>2016-06-27T02:29:43.319Z</updated>
   <id>http://www.abbeychenxi.net/</id>
   
   <author>
@@ -554,11 +554,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[IOS之协议和委托]]></title>
+    <title><![CDATA[iOS之协议和委托]]></title>
     <link href="http://www.abbeychenxi.net/2014/12/05/IOS%E4%B9%8B%E5%8D%8F%E8%AE%AE%E5%92%8C%E5%A7%94%E6%89%98/"/>
     <id>http://www.abbeychenxi.net/2014/12/05/IOS之协议和委托/</id>
     <published>2014-12-04T16:06:53.000Z</published>
-    <updated>2014-12-04T16:30:13.000Z</updated>
+    <updated>2016-06-27T02:29:28.000Z</updated>
     <content type="html"><![CDATA[<h1 id="protocol">protocol</h1>
 <blockquote>
 <p>一个协议不实现任何它定义的方法。它的作用是：当一个对象遵从这个协议时，这个对象必须实现协议的所有方法。</p>
@@ -580,7 +580,7 @@
 ]]></content>
     
     
-      <category term="IOS" scheme="http://www.abbeychenxi.net/categories/IOS/"/>
+      <category term="iOS" scheme="http://www.abbeychenxi.net/categories/iOS/"/>
     
   </entry>
   
