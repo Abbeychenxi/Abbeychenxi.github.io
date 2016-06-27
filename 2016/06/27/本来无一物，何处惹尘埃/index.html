@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>node异步开发难题 | Abbey in Cradle Studio</title>
+    <title>本来无一物，何处惹尘埃 | Abbey in Cradle Studio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Abbey">
     
-    <meta name="description" content="作用域导致bug
-javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。
-12345678910">
+    <meta name="description" content="收拾收拾心情吧，原本积极工作的心态，变得支离破碎了。好像原本清晰的生活，变得模糊起来。我原本也不是什么矫情的人，可是就是没法振作起来。
+之前有一直叫嚷着读Phd，后来这个想法就被我埋到不知道什么角落里去了，有时候啊，决定真的就是那么一瞬间的事情，拍一个脑门的功夫。
+想必我还是要苦苦追寻所谓人生的意义">
     
     
     
@@ -76,14 +76,14 @@ javascript闭包可以“冻结”变量的值，调用的时候将变量值封�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/07/node异步开发难题/" title="node异步开发难题" itemprop="url">node异步开发难题</a>
+      <a href="/2016/06/27/本来无一物，何处惹尘埃/" title="本来无一物，何处惹尘埃" itemprop="url">本来无一物，何处惹尘埃</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://www.abbeychenxi.net/about" title="Abbey" target="_blank" itemprop="author">Abbey</a>
 		
   <p class="article-time">
-    <time datetime="2014-10-07T14:36:10.000Z" itemprop="datePublished"> 发表于 2014-10-07</time>
+    <time datetime="2016-06-27T01:51:04.000Z" itemprop="datePublished"> 发表于 2016-06-27</time>
     
   </p>
 </header>
@@ -93,34 +93,26 @@ javascript闭包可以“冻结”变量的值，调用的时候将变量值封�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域导致bug"><span class="toc-number">1.</span> <span class="toc-text">作用域导致bug</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nimble实现串行化控制"><span class="toc-number">2.</span> <span class="toc-text">Nimble实现串行化控制</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h2 id="作用域导致bug">作用域导致bug</h2>
-<p>javascript闭包可以“冻结”变量的值，调用的时候将变量值封装到匿名函数里。这样可以马上执行这个匿名函数，把当前的color的值传给它。而color变成了匿名函数的参数，成为匿名函数的本地变量，所以外部的color变化时，不会影响到本地的color值。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunction</span><span class="params">(callback)</span> </span>{</div><div class="line">	setTimeout(<span class="keyword">callback</span>, <span class="number">200</span>);</div><div class="line">}</div><div class="line"><span class="keyword">var</span> color = <span class="string">'blue'</span>;</div><div class="line"></div><div class="line">(<span class="function"><span class="keyword">function</span><span class="params">(color)</span> </span>{</div><div class="line">	asyncFunction(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">		console.log(<span class="string">'xxxx'</span>);</div><div class="line">	}) </div><div class="line">})(color);</div><div class="line"></div><div class="line">color = <span class="string">'green'</span>;</div></pre></td></tr></table></figure>
-
-<h2 id="Nimble实现串行化控制">Nimble实现串行化控制</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> flow = <span class="built_in">require</span>(<span class="string">'nimble'</span>);</div><div class="line"></div><div class="line">flow.series([</div><div class="line">	<span class="function"><span class="keyword">function</span><span class="params">(callback)</span> </span>{</div><div class="line">		setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">			<span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">			callback();</div><div class="line">		}, <span class="number">1000</span>)</div><div class="line">	},</div><div class="line">	<span class="function"><span class="keyword">function</span><span class="params">(callback)</span> </span>{</div><div class="line">		setTimeout(<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">			<span class="built_in">console</span>.log(<span class="string">''</span>);</div><div class="line">			callback();</div><div class="line">		}, <span class="number">500</span>)</div><div class="line">	}	</div><div class="line">]);</div></pre></td></tr></table></figure>
-
+		<p>收拾收拾心情吧，原本积极工作的心态，变得支离破碎了。好像原本清晰的生活，变得模糊起来。我原本也不是什么矫情的人，可是就是没法振作起来。</p>
+<p>之前有一直叫嚷着读Phd，后来这个想法就被我埋到不知道什么角落里去了，有时候啊，决定真的就是那么一瞬间的事情，拍一个脑门的功夫。</p>
+<p>想必我还是要苦苦追寻所谓人生的意义的。然而，看着自己觉得很重要的人，变成生命中的过客，然后你伸手去拉，却留不住的无力感，深深地折磨着我。</p>
+<p>对着小院子，从日落看到日出，从滂沱大雨到小雨淅淅沥沥。我啊，还是保持一颗平常心吧。哦不，要点题，是一颗“空寂灵明”之心，虽然我也不懂这是一颗什么心。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/node-js/">node.js</a>
-  </div>
-
 </div>
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://www.abbeychenxi.net/2014/10/07/node异步开发难题/" data-title="node异步开发难题 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
+  <div data-url="http://www.abbeychenxi.net/2016/06/27/本来无一物，何处惹尘埃/" data-title="本来无一物，何处惹尘埃 | Abbey in Cradle Studio" data-tsina="Abbey_ama" class="share clearfix">
   </div>
 
 </div>
@@ -129,19 +121,11 @@ javascript闭包可以“冻结”变量的值，调用的时候将变量值封�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/10/23/manzhan-com的爬虫抓站小结/" title="manzhan.com的爬虫抓站小结">
-  <strong>上一篇：</strong><br/>
-  <span>
-  manzhan.com的爬虫抓站小结</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/29/Python在函数中接收元组和列表/"  title="Python在函数中接收元组和列表">
+<a href="/2016/04/08/台北-Day-1/"  title="台北 Day-1">
  <strong>下一篇：</strong><br/> 
- <span>Python在函数中接收元组和列表
+ <span>台北 Day-1
 </span>
 </a>
 </div>
@@ -150,7 +134,7 @@ javascript闭包可以“冻结”变量的值，调用的时候将变量值封�
 
 	
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2014/10/07/node异步开发难题/" data-title="node异步开发难题" data-url=""></div>
+    <div class="ds-thread" data-thread-key="2016/06/27/本来无一物，何处惹尘埃/" data-title="本来无一物，何处惹尘埃" data-url=""></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -173,7 +157,7 @@ var duoshuoQuery = {short_name:"abbeychenxi"};
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域导致bug"><span class="toc-number">1.</span> <span class="toc-text">作用域导致bug</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nimble实现串行化控制"><span class="toc-number">2.</span> <span class="toc-text">Nimble实现串行化控制</span></a></li></ol>
+ 
  
   </div>
 
